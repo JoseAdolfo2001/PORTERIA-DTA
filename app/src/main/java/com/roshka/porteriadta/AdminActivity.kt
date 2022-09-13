@@ -2,6 +2,8 @@ package com.roshka.porteriadta
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import com.example.alertdialogsample.CustomDialog
 import com.roshka.porteriadta.ui.admin.AdminFragment
 
 class AdminActivity : AppCompatActivity() {
@@ -13,6 +15,10 @@ class AdminActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, AdminFragment.newInstance())
                 .commitNow()
+        }
+        fun showAlert(view: View) {
+//        MyDialog().show(supportFragmentManager, "mydialog")
+            CustomDialog().show(supportFragmentManager, "customdialog")
         }
     }
 }
