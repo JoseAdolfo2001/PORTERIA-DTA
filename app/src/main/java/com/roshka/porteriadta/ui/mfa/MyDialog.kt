@@ -10,7 +10,7 @@ import com.roshka.porteriadta.R
 import java.lang.IllegalStateException
 
 class MyDialog: DialogFragment(){
-//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+//    override fun onCreateDialog(savedInstanceState: Bundlegit ?): Dialog {
 //        return activity?.let {
 //            val alertBuilder = AlertDialog.Builder(it)
 //            var checkedIndex = ArrayList<Int>()
