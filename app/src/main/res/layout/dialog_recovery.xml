@@ -23,7 +23,33 @@
         app:layout_constraintVertical_bias="0.044"
         tools:ignore="MissingConstraints" />
 
+    <Button
+        android:id="@+id/btn_recovery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="89dp"
+        android:textColor="@color/white"
+        android:hint="Cancelar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_recovery_email"
+        app:layout_constraintVertical_bias="0.007" />
 
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="89dp"
+        android:hint="Aceptar"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.837"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_recovery_email"
+        app:layout_constraintVertical_bias="0.007" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
