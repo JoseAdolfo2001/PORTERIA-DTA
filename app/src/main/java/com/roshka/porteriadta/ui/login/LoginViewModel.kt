@@ -1,18 +1,10 @@
 package com.roshka.porteriadta.ui.login
 
 import android.app.Application
-import android.content.Intent
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import java.lang.Exception
-import kotlin.coroutines.coroutineContext
-import com.roshka.porteriadta.AdminActivity as AdminActivity1
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 

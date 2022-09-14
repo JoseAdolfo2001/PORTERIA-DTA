@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import com.roshka.porteriadta.data.RecoveryResponse
 
 class RecoveryViewModel : ViewModel() {
@@ -21,7 +20,7 @@ class RecoveryViewModel : ViewModel() {
                 )
                 _isSuccessfulRecovery.value = response
             } else {
-                val response = RecoveryResponse(false, task.exception!!.message.toString())
+                val response = RecoveryResponse(false, "Este correo no está registrado")
                 _isSuccessfulRecovery.value = response
             }
         }
