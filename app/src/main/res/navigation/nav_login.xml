@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_login"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.roshka.porteriadta.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_recoveryDialog"
+            app:destination="@id/recoveryDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/recoveryDialog"
+        android:name="com.roshka.porteriadta.ui.recovery.RecoveryDialog"
+        android:label="dialog_recovery"
+        tools:layout="@layout/dialog_recovery" >
+        <action
+            android:id="@+id/action_recoveryDialog_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </dialog>
+
+
+</navigation>
