@@ -21,7 +21,7 @@ class RecoveryViewModel : ViewModel() {
                 )
                 _isSuccessfulRecovery.value = response
             } else {
-                val response = RecoveryResponse(true, task.exception!!.message.toString())
+                val response = RecoveryResponse(false, task.exception!!.message.toString())
                 _isSuccessfulRecovery.value = response
             }
         }
