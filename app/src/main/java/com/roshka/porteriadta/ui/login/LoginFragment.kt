@@ -11,12 +11,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.roshka.porteriadta.AdminActivity
 import com.roshka.porteriadta.PorteroActivity
 import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
+
     private lateinit var binding: FragmentLoginBinding
 
     companion object {
@@ -50,22 +53,30 @@ class LoginFragment : Fragment() {
             viewModel.loginUsers(email, password)
 
         }
-        viewModel.flag.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(activity, "Entre kp", Toast.LENGTH_SHORT).show()
-            if (it) {
-                var intent = Intent(activity, AdminActivity::class.java)
-                requireActivity().startActivity(intent)
-            } else {
-                var intent = Intent(activity, PorteroActivity::class.java)
-                requireActivity().startActivity(intent)
-            }
-        })
-        viewModel.code.observe(viewLifecycleOwner, Observer {
-            if (it == 1) {
+
+        viewModel.code.observe(viewLifecycleOwner, Observer{
+            if(it == 1){
                 showAlertEmpyText()
-            } else if (it == 4) {
+            }
+            else if(it == 4){
                 showAlertInvalidLogin()
             }
+        })
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.flag.observe(viewLifecycleOwner, Observer{
+            if(it == true || viewModel.user != null){
+
+                var intent = Intent(activity , AdminActivity::class.java)
+                requireActivity().startActivity(intent)
+            }else if(it == false || viewModel.user!=null) {
+                var intent = Intent(activity,PorteroActivity::class.java)
+                requireActivity().startActivity(intent)}
+
         })
     }
 
