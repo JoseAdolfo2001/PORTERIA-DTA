@@ -8,11 +8,9 @@ import com.roshka.porteriadta.R
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin)
+        setContentView(R.layout.fragment_login)
     }
-
     fun showAlert(view: View) {
-//        MyDialog().show(supportFragmentManager, "mydialog")
         CustomDialog().show(supportFragmentManager, "customdialog")
     }
 }
