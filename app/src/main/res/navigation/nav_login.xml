@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_loginFragment_to_recoveryDialog"
             app:destination="@id/recoveryDialog" />
+        <action
+            android:id="@+id/action_loginFragment_to_updatePass"
+            app:destination="@id/updatePass" />
     </fragment>
     <dialog
         android:id="@+id/recoveryDialog"
@@ -23,6 +26,11 @@
             android:id="@+id/action_recoveryDialog_to_loginFragment"
             app:destination="@id/loginFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/updatePass"
+        android:name="com.roshka.porteriadta.ui.updatePass.UpdatePass"
+        android:label="fragment_update_pass"
+        tools:layout="@layout/fragment_update_pass" />
 
 
 </navigation>

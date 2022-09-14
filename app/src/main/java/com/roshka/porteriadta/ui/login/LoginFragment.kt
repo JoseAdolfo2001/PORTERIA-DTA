@@ -27,6 +27,10 @@ class LoginFragment : Fragment() {
 
         binding.tvRecoverPassword.setOnClickListener { view ->
             view.findNavController().navigate(R.id.action_loginFragment_to_recoveryDialog)
+
+                    }
+        binding.button2.setOnClickListener { view ->
+            view.findNavController().navigate(R.id.action_loginFragment_to_updatePass)
         }
 
         return binding.root
