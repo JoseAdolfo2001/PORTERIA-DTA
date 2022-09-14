@@ -37,7 +37,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.google.firebase:firebase-firestore:24.3.0'
+    implementation 'androidx.navigation:navigation-fragment:2.5.2'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.3.0'
     def retrofit_version = "2.9.0"
 
     implementation 'androidx.core:core-ktx:1.7.0'
