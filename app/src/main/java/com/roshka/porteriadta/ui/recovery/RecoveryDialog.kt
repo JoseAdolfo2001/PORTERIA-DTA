@@ -30,13 +30,13 @@ class RecoveryDialog : BottomSheetDialogFragment() {
         binding = DialogRecoveryBinding.inflate(inflater, container, false)
 
         binding.btnRecovery.setOnClickListener {
-            Toast.makeText(activity, "Recovery Success", Toast.LENGTH_SHORT).show()
-            it.findNavController().navigate(R.id.action_recoveryDialog_to_loginFragment)
-        }
+//            this.dismiss()
+            val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+            if (it.toString().trim { it -> it <= ' ' }.matches(emailPattern.toRegex())) {
 
-        binding.btnCancel.setOnClickListener {
-            Toast.makeText(activity, "Canceled Recovery", Toast.LENGTH_SHORT).show()
-            it.findNavController().navigate(R.id.action_recoveryDialog_to_loginFragment)
+            } else {
+                binding.etRecoveryEmail.error = "Formato de email no válido"
+            }
         }
 
         return binding.root

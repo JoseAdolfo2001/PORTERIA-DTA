@@ -18,11 +18,7 @@
         android:id="@+id/recoveryDialog"
         android:name="com.roshka.porteriadta.ui.recovery.RecoveryDialog"
         android:label="dialog_recovery"
-        tools:layout="@layout/dialog_recovery" >
-        <action
-            android:id="@+id/action_recoveryDialog_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </dialog>
+        tools:layout="@layout/dialog_recovery" />
 
 
 </navigation>
