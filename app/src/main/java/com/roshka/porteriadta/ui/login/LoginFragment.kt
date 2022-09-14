@@ -26,6 +26,8 @@ class LoginFragment : Fragment() {
     }
 
     private lateinit var viewModel: LoginViewModel
+     var users = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,7 @@ class LoginFragment : Fragment() {
 
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        println(viewModel.user)
         super.onActivityCreated(savedInstanceState)
         var user = FirebaseAuth.getInstance().currentUser
 
@@ -47,7 +50,19 @@ class LoginFragment : Fragment() {
             viewModel.loginUsers(email, password)
 
         }
-        
+
+//        viewModel.flag.observe(viewLifecycleOwner, Observer{
+//            Toast.makeText(activity,"Entre kp",Toast.LENGTH_SHORT).show()
+//            if(it){
+//
+//                var intent = Intent(activity , AdminActivity::class.java)
+//                requireActivity().startActivity(intent)
+//            }else {
+//                var intent = Intent(activity,PorteroActivity::class.java)
+//                requireActivity().startActivity(intent)}
+//
+//        })
+
         viewModel.code.observe(viewLifecycleOwner, Observer{
             if(it == 1){
                 showAlertEmpyText()
@@ -63,15 +78,24 @@ class LoginFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         viewModel.flag.observe(viewLifecycleOwner, Observer{
-            if(it == true || viewModel.user != null){
+            println(it)
+            println(viewModel.user)
+            Toast.makeText(activity,"Entre kp",Toast.LENGTH_SHORT).show()
+            val prueba = viewModel.user != null
+            if(it == true || prueba){
 
                 var intent = Intent(activity , AdminActivity::class.java)
                 requireActivity().startActivity(intent)
-            }else if(it == false || viewModel.user!=null) {
+            }else if (it == false || viewModel.user != null){
                 var intent = Intent(activity,PorteroActivity::class.java)
                 requireActivity().startActivity(intent)}
+            var intent = Intent(activity , AdminActivity::class.java)
 
         })
+
+
+
+
     }
 
     private fun showAlertEmpyText() {
