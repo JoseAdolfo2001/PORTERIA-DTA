@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.roshka.porteriadta.AdminActivity
 import com.roshka.porteriadta.PorteroActivity
 import com.roshka.porteriadta.R
@@ -29,13 +30,18 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         this.binding = FragmentLoginBinding.inflate(inflater, container, false)
+
+        binding.tvRecoverPassword.setOnClickListener { view ->
+            clean()
+            view.findNavController().navigate(R.id.action_loginFragment_to_recoveryDialog)
+        }
+
         return binding.root
     }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
 
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         binding.btnLogin.setOnClickListener {
@@ -44,25 +50,25 @@ class LoginFragment : Fragment() {
             viewModel.loginUsers(email, password)
 
         }
-        viewModel.flag.observe(viewLifecycleOwner, Observer{
-            Toast.makeText(activity,"Entre kp",Toast.LENGTH_SHORT).show()
-            if(it){
-                var intent = Intent(activity , AdminActivity::class.java)
+        viewModel.flag.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(activity, "Entre kp", Toast.LENGTH_SHORT).show()
+            if (it) {
+                var intent = Intent(activity, AdminActivity::class.java)
                 requireActivity().startActivity(intent)
-            }else {var intent = Intent(activity,PorteroActivity::class.java)
-                requireActivity().startActivity(intent)}
-        })
-        viewModel.code.observe(viewLifecycleOwner, Observer{
-            if(it == 1){
-                showAlertEmpyText()
+            } else {
+                var intent = Intent(activity, PorteroActivity::class.java)
+                requireActivity().startActivity(intent)
             }
-            else if(it == 4){
+        })
+        viewModel.code.observe(viewLifecycleOwner, Observer {
+            if (it == 1) {
+                showAlertEmpyText()
+            } else if (it == 4) {
                 showAlertInvalidLogin()
             }
         })
-
-
     }
+
     private fun showAlertEmpyText() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Error")
@@ -70,7 +76,8 @@ class LoginFragment : Fragment() {
         builder.setPositiveButton("Aceptar", null)
         val dialog = builder.create()
         dialog.show()
-}
+    }
+
     private fun showAlertInvalidLogin() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Error")
@@ -78,5 +85,10 @@ class LoginFragment : Fragment() {
         builder.setPositiveButton("Aceptar", null)
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun clean() {
+        this.binding.etEmail.setText("")
+        this.binding.etPassword.setText("")
     }
 }
