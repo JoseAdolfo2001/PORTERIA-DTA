@@ -2,18 +2,16 @@ package com.roshka.porteriadta
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.roshka.porteriadta.databinding.ActivityAdminBinding
+import com.roshka.porteriadta.databinding.ActivityLoginBinding
 import com.roshka.porteriadta.ui.admin.AdminFragment
 
 class AdminActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityAdminBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin)
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, AdminFragment.newInstance())
-                .commitNow()
-        }
+        binding = ActivityAdminBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 }

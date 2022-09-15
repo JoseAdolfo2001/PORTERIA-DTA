@@ -22,23 +22,22 @@ class LoginActivity : AppCompatActivity() {
                 .replace(R.id.container, LoginFragment.newInstance())
                 .commitNow()
         }
-        }
+    }
 
     override fun onStart() {
         super.onStart()
-        if(viewModel.user != null){
-           fb.collection("Users").document(viewModel.user!!.email.toString()).get()
-               .addOnSuccessListener {
-                   var tipoAcceso = it.get("Nivel").toString()
-                   if(tipoAcceso == "admin"){
-                       var intent = Intent(this , AdminActivity::class.java)
-                       startActivity(intent)
-                   }
-                   else{
-                       var intent = Intent(this , PorteroActivity::class.java)
-                       startActivity(intent)
-                   }
-               }
-               }
+        if (viewModel.user != null) {
+            fb.collection("Users").document(viewModel.user!!.email.toString()).get()
+                .addOnSuccessListener {
+                    val type= it.get("Nivel").toString()
+                    if (type == "admin") {
+                        val intent = Intent(this, AdminActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        val intent = Intent(this, PorteroActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
         }
     }
+}

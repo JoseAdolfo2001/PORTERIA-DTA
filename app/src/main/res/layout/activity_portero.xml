@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawer_layout"
+    android:id="@+id/container"
     tools:context=".PorteroActivity"
     tools:openDrawer="start">
 
 
     <include
-        layout="@layout/app_bar_main"
+        layout="@layout/app_bar_portero"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

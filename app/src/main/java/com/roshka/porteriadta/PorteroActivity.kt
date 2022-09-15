@@ -10,23 +10,27 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import com.roshka.porteriadta.databinding.ActivityPorteroBinding
 import com.roshka.porteriadta.ui.portero.PorteroFragment
 
 class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
+    private lateinit var binding: ActivityPorteroBinding
     private lateinit var drawer: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_portero)
+        binding = ActivityPorteroBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
 
-        drawer = findViewById(R.id.drawer_layout)
+        drawer = findViewById(R.id.container)
 
         toggle = ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close)
+
+        title = "PORTERIA"
 
         drawer.addDrawerListener(toggle)
 
@@ -35,6 +39,7 @@ class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
+
     }
 
 
