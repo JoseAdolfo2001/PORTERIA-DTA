@@ -1,81 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    android:id="@+id/portero"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PorteroActivity" >
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:backgroundTint="#edf6f9">
-
-        <ImageView
-            android:id="@+id/fondo1"
-            android:layout_width="168dp"
-            android:layout_height="186dp"
-            app:srcCompat="@drawable/top_1_2"
-            tools:layout_editor_absoluteX="265dp"
-            tools:layout_editor_absoluteY="-8dp"
-            tools:ignore="MissingConstraints" />
-
-        <ImageView
-            android:id="@+id/fondo2"
-            android:layout_width="303dp"
-            android:layout_height="302dp"
-            app:srcCompat="@drawable/bottom_1"
-            tools:layout_editor_absoluteX="-42dp"
-            tools:layout_editor_absoluteY="431dp" />
-
-        <ImageView
-            android:id="@+id/fondo3"
-            android:layout_width="160dp"
-            android:layout_height="194dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.148"
-            app:srcCompat="@drawable/imagen_club_aleman" />
-
-        <ImageView
-            android:id="@+id/iv_logo"
-            android:layout_width="244dp"
-            android:layout_height="147dp"
-            app:srcCompat="@drawable/top_login"
-            tools:layout_editor_absoluteX="-35dp"
-            tools:layout_editor_absoluteY="-46dp"
-            tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            tools:layout_editor_absoluteX="179dp"
-            tools:layout_editor_absoluteY="464dp" />
-
-
-        <Button
-            android:id="@+id/btn_admin_portero"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:hint="Ingrese número de cédula"
-            android:backgroundTint="#f4845f"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fondo3"
-            app:layout_constraintVertical_bias="0.058" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</FrameLayout>
+    tools:context=".ui.portero.PorteroFragment"/>

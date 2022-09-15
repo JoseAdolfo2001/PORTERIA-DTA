@@ -7,17 +7,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
-
     val fb = FirebaseFirestore.getInstance()
-    var tipoAcceso = ""
     val auth = FirebaseAuth.getInstance()
-    val dato = MutableLiveData<Int>()
     val flag = MutableLiveData<Boolean>()
     val code = MutableLiveData<Int>()
     val user = auth.currentUser
 
     fun loginUsers(email: String, password: String) {
-
         if (email.isEmpty() || password.isEmpty()) {
             code.value = 1
         } else {
@@ -26,8 +22,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                     if (it.isSuccessful) {
                         fb.collection("Users").document(email).get()
                             .addOnSuccessListener { result ->
-                                tipoAcceso = result.get("Nivel").toString()
-                                if (tipoAcceso == "admin") {
+                                val type = result.get("Nivel").toString()
+                                if (type == "admin") {
                                     code.value = 2
                                     flag.value = true
 

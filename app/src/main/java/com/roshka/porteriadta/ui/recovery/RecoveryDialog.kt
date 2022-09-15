@@ -54,17 +54,17 @@ class RecoveryDialog : BottomSheetDialogFragment() {
     private fun checkAllFields(): Boolean {
         val email = binding.etRecoveryEmail.text.toString()
         if (email.isEmpty()) {
-            binding.etRecoveryEmail.error = "Este campo es requerido";
-            return false;
+            binding.etRecoveryEmail.error = "Este campo es requerido"
+            return false
         }
 
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         if (!(email.trim { it <= ' ' }.matches(emailPattern.toRegex()))) {
-            binding.etRecoveryEmail.error = "Tiene que ser un correo válido";
-            return false;
+            binding.etRecoveryEmail.error = "Tiene que ser un correo válido"
+            return false
         }
         // after all validation return true.
-        return true;
+        return true
     }
 
     private fun clean () {
