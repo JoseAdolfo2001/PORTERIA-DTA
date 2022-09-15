@@ -4,9 +4,7 @@
     <group>
         <item android:id="@+id/nav_item_one"
             android:title="Cambiar contraseña">
-            <menu>
 
-            </menu>
         </item>
 
         <item android:id="@+id/nav_item_two"
