@@ -11,7 +11,6 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     val fb = FirebaseFirestore.getInstance()
     var tipoAcceso = ""
     val auth = FirebaseAuth.getInstance()
-    val dato = MutableLiveData<Int>()
     val flag = MutableLiveData<Boolean>()
     val code = MutableLiveData<Int>()
     val user = auth.currentUser
