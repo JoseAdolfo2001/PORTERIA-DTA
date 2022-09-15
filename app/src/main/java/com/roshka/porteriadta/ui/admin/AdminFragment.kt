@@ -1,14 +1,15 @@
 package com.roshka.porteriadta.ui.admin
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.roshka.porteriadta.R
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.roshka.porteriadta.databinding.FragmentAdminBinding
 
 class AdminFragment : Fragment() {
+    private lateinit var binding: FragmentAdminBinding
 
     companion object {
         fun newInstance() = AdminFragment()
@@ -20,7 +21,9 @@ class AdminFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_admin, container, false)
+        this.binding = FragmentAdminBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     @Deprecated("Deprecated in Java")

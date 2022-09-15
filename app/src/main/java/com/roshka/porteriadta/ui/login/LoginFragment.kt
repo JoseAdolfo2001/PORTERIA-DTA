@@ -29,10 +29,10 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         this.binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         binding.tvRecoverPassword.setOnClickListener {
+            clean()
             findNavController().navigate(R.id.action_loginFragment_to_recoveryDialog)
         }
 
@@ -51,18 +51,18 @@ class LoginFragment : Fragment() {
 
         }
 
-        viewModel.code.observe(viewLifecycleOwner, Observer {
+        viewModel.code.observe(viewLifecycleOwner) {
             if (it == 1) {
                 showAlertEmpyText()
             } else if (it == 4) {
                 showAlertInvalidLogin()
             }
-        })
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel.flag.observe(viewLifecycleOwner, Observer {
+        viewModel.flag.observe(viewLifecycleOwner) {
             if (it == true) {
                 val intent = Intent(activity, AdminActivity::class.java)
                 requireActivity().startActivity(intent)
@@ -70,7 +70,7 @@ class LoginFragment : Fragment() {
                 val intent = Intent(activity, PorteroActivity::class.java)
                 requireActivity().startActivity(intent)
             }
-        })
+        }
     }
 
     private fun showAlertEmpyText() {
