@@ -9,8 +9,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.navigation.NavigationView
+import com.roshka.porteriadta.databinding.ActivityLoginBinding
 import com.roshka.porteriadta.databinding.ActivityPorteroBinding
+import com.roshka.porteriadta.ui.login.LoginViewModel
 import com.roshka.porteriadta.ui.portero.PorteroFragment
 
 class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {

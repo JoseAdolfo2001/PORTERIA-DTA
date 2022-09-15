@@ -2,9 +2,11 @@ package com.roshka.porteriadta
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import com.roshka.porteriadta.databinding.ActivityAdminBinding
 import com.roshka.porteriadta.databinding.ActivityLoginBinding
 import com.roshka.porteriadta.ui.admin.AdminFragment
+import com.roshka.porteriadta.ui.admin.AdminViewModel
 
 class AdminActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAdminBinding

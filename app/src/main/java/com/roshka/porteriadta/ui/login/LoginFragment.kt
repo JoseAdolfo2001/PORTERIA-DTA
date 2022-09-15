@@ -1,17 +1,15 @@
 package com.roshka.porteriadta.ui.login
 
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.roshka.porteriadta.AdminActivity
 import com.roshka.porteriadta.PorteroActivity
 import com.roshka.porteriadta.R
@@ -33,13 +31,18 @@ class LoginFragment : Fragment() {
     ): View {
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         this.binding = FragmentLoginBinding.inflate(inflater, container, false)
+
+        binding.tvRecoverPassword.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_recoveryDialog)
+        }
+
         return binding.root
     }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        var user = FirebaseAuth.getInstance().currentUser
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString()
@@ -47,35 +50,26 @@ class LoginFragment : Fragment() {
             viewModel.loginUsers(email, password)
 
         }
-        
-        viewModel.code.observe(viewLifecycleOwner, Observer{
-            if(it == 1){
+
+        viewModel.code.observe(viewLifecycleOwner, Observer {
+            if (it == 1) {
                 showAlertEmpyText()
-            }
-            else if(it == 4){
+            } else if (it == 4) {
                 showAlertInvalidLogin()
             }
         })
-
-
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel.flag.observe(viewLifecycleOwner, Observer{
-            println(it)
-            println(viewModel.user)
-            Toast.makeText(activity,"Entre kp",Toast.LENGTH_SHORT).show()
-            val prueba = viewModel.user != null
-            if(it == true || prueba){
-
-                var intent = Intent(activity , AdminActivity::class.java)
+        viewModel.flag.observe(viewLifecycleOwner, Observer {
+            if (it == true) {
+                val intent = Intent(activity, AdminActivity::class.java)
                 requireActivity().startActivity(intent)
-            }else if(it == false || viewModel.user!=null) {
-                var intent = Intent(activity,PorteroActivity::class.java)
-                requireActivity().startActivity(intent)}
-            var intent = Intent(activity , AdminActivity::class.java)
-
+            } else if (it == false || viewModel.user != null) {
+                val intent = Intent(activity, PorteroActivity::class.java)
+                requireActivity().startActivity(intent)
+            }
         })
     }
 
@@ -86,7 +80,8 @@ class LoginFragment : Fragment() {
         builder.setPositiveButton("Aceptar", null)
         val dialog = builder.create()
         dialog.show()
-}
+    }
+
     private fun showAlertInvalidLogin() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Error")
