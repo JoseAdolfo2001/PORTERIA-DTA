@@ -1,5 +1,6 @@
 package com.roshka.porteriadta
 
+import android.app.Activity
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,9 +10,14 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.roshka.porteriadta.databinding.ActivityPorteroBinding
 import com.roshka.porteriadta.ui.portero.PorteroFragment
+import com.roshka.porteriadta.ui.updatePass.UpdatePass
 
 class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityPorteroBinding
@@ -46,7 +52,7 @@ class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when(item.itemId){
-            R.id.nav_item_one -> Toast.makeText(this, "Item 1", Toast.LENGTH_SHORT).show()
+            R.id.nav_item_one -> replaceFragment(UpdatePass())
             R.id.nav_item_two -> Toast.makeText(this, "Item 2", Toast.LENGTH_SHORT).show()
         }
 
@@ -70,6 +76,12 @@ class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         }
 
         return super.onOptionsItemSelected(item)
+    }
+    private fun replaceFragment(fragment:Fragment){
+        var fragmentManager = supportFragmentManager
+        var fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.container,UpdatePass())
+        fragmentTransaction.commit()
     }
 
 }

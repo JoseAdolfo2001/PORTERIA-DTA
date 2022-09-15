@@ -16,7 +16,6 @@ class UpdatePassViewModel : ViewModel() {
                 user?.reauthenticate((credential))
                     ?.addOnCompleteListener {
                         if (it.isSuccessful) {
-                            code.value = 1
                             user?.updatePassword(newPass)
                                 ?.addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
@@ -26,11 +25,10 @@ class UpdatePassViewModel : ViewModel() {
                                 }
                         }else{code.value=3}
                     }
-            }else{
-                println("No tene firebase kp")
+            }
 
             }
     }
-}
+
 
 
