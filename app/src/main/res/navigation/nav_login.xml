@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_loginFragment_to_recoveryDialog"
             app:destination="@id/recoveryDialog" />
-        <action
-            android:id="@+id/action_loginFragment_to_updatePass"
-            app:destination="@id/updatePass" />
     </fragment>
     <dialog
         android:id="@+id/recoveryDialog"

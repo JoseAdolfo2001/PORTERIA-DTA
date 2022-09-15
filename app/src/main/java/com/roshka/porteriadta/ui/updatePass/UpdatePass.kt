@@ -2,6 +2,7 @@ package com.roshka.porteriadta.ui.updatePass
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.roshka.porteriadta.LoginActivity
 import com.roshka.porteriadta.databinding.FragmentUpdatePassBinding
 
 class UpdatePass : Fragment() {
@@ -51,6 +53,8 @@ class UpdatePass : Fragment() {
                     currentPassWrong()
                 }else if ( it == 2){
                     updateDone()
+                    var intent = Intent(activity,LoginActivity::class.java)
+                    requireActivity().startActivity(intent)
                 }
             })
         }

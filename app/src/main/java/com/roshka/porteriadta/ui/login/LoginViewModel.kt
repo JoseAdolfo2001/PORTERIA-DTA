@@ -27,10 +27,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         if (email.isEmpty() || password.isEmpty()) {
             code.value = 1
         } else {
-
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
-
                     if (it.isSuccessful) {
 
                         fb.collection("Users").document(email).get()
@@ -49,10 +47,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                         code.value = 4
                     }
                 }
-
-
         }
-
     }
 }
 

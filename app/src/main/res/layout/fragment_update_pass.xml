@@ -13,7 +13,6 @@
         android:layout_marginTop="176dp"
         android:autofillHints=""
         android:inputType="textPassword"
-
         android:minHeight="48dp"
         android:textColor="@color/black"
         android:textSize="14sp"
@@ -66,9 +65,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.556"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintVertical_bias="0.739" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
