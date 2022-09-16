@@ -11,7 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent">
 
 
         <Button
@@ -37,32 +38,35 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
+
         <EditText
             android:id="@+id/pass_et"
             android:layout_width="277dp"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:drawableLeft="@drawable/ic_baseline_lock_24"
             android:ems="10"
             android:hint="  Clave actual"
-            android:textColorHint="#adb5bd"
             android:inputType="textPassword"
+            android:textColor="	#000000"
+            android:textColorHint="#000000"
             app:layout_constraintBottom_toTopOf="@+id/pass_new"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.485"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.774" />
+            app:layout_constraintVertical_bias="0.755" />
 
         <EditText
             android:id="@+id/pass_new"
             android:layout_width="280dp"
-            android:layout_height="45dp"
-            android:layout_marginBottom="76dp"
-            android:textColorHint="#adb5bd"
+            android:layout_height="48dp"
+            android:layout_marginBottom="60dp"
             android:drawableLeft="@drawable/ic_baseline_lock_24"
             android:ems="10"
-            android:hint="  Nueva clave"
+            android:hint=" Nueva clave"
             android:inputType="textPassword"
+            android:textColor="	#000000"
+            android:textColorHint="#000000"
             app:layout_constraintBottom_toTopOf="@+id/pass_newC"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -71,17 +75,32 @@
         <EditText
             android:id="@+id/pass_newC"
             android:layout_width="279dp"
-            android:layout_height="41dp"
-            android:layout_marginBottom="72dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="96dp"
             android:drawableLeft="@drawable/ic_baseline_lock_24"
             android:ems="10"
-            android:hint="  Confirmar Nueva Clave"
-            android:textColorHint="#adb5bd"
+            android:hint=" Confirmar Nueva Clave"
             android:inputType="textPassword"
+            android:textColor="	#000000"
+            android:textColorHint="#000000"
             app:layout_constraintBottom_toTopOf="@+id/update_btn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.515"
+            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/cargar"
+            style="?android:attr/progressBarStyle"
+            android:visibility="gone"
+            android:indeterminate="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/update_btn"
+            app:layout_constraintEnd_toEndOf="@+id/update_btn"
+            app:layout_constraintStart_toStartOf="@+id/update_btn"
+            app:layout_constraintTop_toTopOf="@+id/update_btn" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

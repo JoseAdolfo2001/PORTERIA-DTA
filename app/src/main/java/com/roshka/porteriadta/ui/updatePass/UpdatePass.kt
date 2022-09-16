@@ -39,23 +39,24 @@ class UpdatePass : Fragment() {
             val newPassC = binding.passNewC.text.toString()
             if (checkAllFields(password,newPass,newPassC)) {
                 it.visibility = View.GONE
-                binding.carga.visibility = View.VISIBLE
+                binding.cargar.visibility = View.VISIBLE
                 viewModel.changePass(password, newPass, newPassC)
             }
-            viewModel.code.observe(viewLifecycleOwner, Observer {
-                if (it == 3) {
+        }
+            viewModel.code.observe(viewLifecycleOwner) {
+                if (it == 2) {
                     binding.updateBtn.visibility = View.VISIBLE
-                    binding.carga.visibility = View.GONE
-                    currentPassWrong()
-                }else if (it == 2){
-                    binding.updateBtn.visibility = View.VISIBLE
-                    binding.carga.visibility = View.GONE
+                    binding.cargar.visibility = View.GONE
                     updateDone()
-                    val intent = Intent(activity,LoginActivity::class.java)
+                    val intent = Intent(activity, LoginActivity::class.java)
                     requireActivity().startActivity(intent)
                 }
-            })
-        }
+                if (it == 3) {
+                    binding.updateBtn.visibility = View.VISIBLE
+                    binding.cargar.visibility = View.GONE
+                    currentPassWrong()
+                }
+            }
     }
     private fun checkAllFields(password : String,newPass:String,newPassC:String): Boolean {
         if (password.isEmpty() && newPass.isEmpty() && newPassC.isEmpty()) {
@@ -66,20 +67,27 @@ class UpdatePass : Fragment() {
         }
         if (newPass != newPassC ) {
              binding.passNew.error ="Contraseñas diferentes "
-             binding.passNewC.error="Contraseñas diferentes "
+            binding.passNew.setText("")
+            binding.passNewC.setText("")
              return false
         }
         if(password==newPass) {
-            binding.passNew.error = "Contraseña actual igual a la nueva"
+            binding.passNew.error = "Contraseña nueva igual a la actual"
+            binding.passNew.setText("")
             return false
         }
         if(newPass.length<6){
             binding.passNew.error = "Contraseña tiene que ser mayor a 6 caracteres"
             binding.passNewC.error = "Contraseña tiene que ser mayor a 6 caracteres"
+            binding.passNew.setText("")
+            binding.passNewC.setText("")
+
             return false
         }
+
            return true
         }
+
     private fun currentPassWrong() {
         binding.passEt.error = "Contraseña actual incorrecta"
     }
