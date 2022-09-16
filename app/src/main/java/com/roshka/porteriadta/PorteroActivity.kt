@@ -15,6 +15,7 @@ import com.roshka.porteriadta.databinding.ActivityLoginBinding
 import com.roshka.porteriadta.databinding.ActivityPorteroBinding
 import com.roshka.porteriadta.ui.login.LoginViewModel
 import com.roshka.porteriadta.ui.portero.PorteroFragment
+import com.roshka.porteriadta.ui.portero.recyclerView.SociosInfo
 
 class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityPorteroBinding
@@ -33,7 +34,7 @@ class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
         toggle = ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close)
 
-        title = "PORTERIA"
+        title = "PORTERIA - DTA"
 
         drawer.addDrawerListener(toggle)
 
@@ -42,6 +43,7 @@ class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
+
 
     }
 
