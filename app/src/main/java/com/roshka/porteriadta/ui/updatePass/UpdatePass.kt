@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.roshka.porteriadta.LoginActivity
 import com.roshka.porteriadta.databinding.FragmentUpdatePassBinding
@@ -69,30 +70,21 @@ class UpdatePass : Fragment() {
              return false
         }
         if(password==newPass) {
-            binding.passEt.error = "Contraseña actual igual a la nueva"
             binding.passNew.error = "Contraseña actual igual a la nueva"
             return false
         }
         if(newPass.length<6){
-            binding.passEt.error = "Contraseña tiene que ser mayor 6 caracteres"
+            binding.passNew.error = "Contraseña tiene que ser mayor a 6 caracteres"
+            binding.passNewC.error = "Contraseña tiene que ser mayor a 6 caracteres"
             return false
         }
            return true
         }
     private fun currentPassWrong() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Error")
-        builder.setMessage("Contraseña actual incorrecta")
-        builder.setPositiveButton("Aceptar", null)
-        val dialog = builder.create()
-        dialog.show()
+        binding.passEt.error = "Contraseña actual incorrecta"
     }
     private fun updateDone() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setMessage("Se actualizo la Contraseña")
-        builder.setPositiveButton("Aceptar", null)
-        val dialog = builder.create()
-        dialog.show()
+        Toast.makeText(activity,"Se Actualizo",Toast.LENGTH_SHORT).show()
     }
 
 }
