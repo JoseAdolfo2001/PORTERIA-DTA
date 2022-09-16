@@ -1,5 +1,6 @@
 package com.roshka.porteriadta.ui.recovery
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,8 @@ class RecoveryDialog : BottomSheetDialogFragment() {
         // TODO: Use the ViewModel
         binding.btnRecovery.setOnClickListener {
             if (checkAllFields()) {
+                it.visibility = View.GONE
+                binding.loading.visibility = View.VISIBLE
                 viewModel.resetPassword(binding.etRecoveryEmail.text.toString())
             } else {
                 clean()
@@ -45,6 +48,8 @@ class RecoveryDialog : BottomSheetDialogFragment() {
                 Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
                 this.dismiss()
             } else {
+                binding.btnRecovery.visibility = View.VISIBLE
+                binding.loading.visibility = View.GONE
                 Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
                 clean()
             }
@@ -67,7 +72,7 @@ class RecoveryDialog : BottomSheetDialogFragment() {
         return true
     }
 
-    private fun clean () {
+    private fun clean() {
         binding.etRecoveryEmail.setText("")
     }
 }

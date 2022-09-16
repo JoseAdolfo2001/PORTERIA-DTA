@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.roshka.porteriadta.AdminActivity
@@ -45,47 +44,36 @@ class LoginFragment : Fragment() {
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
         binding.btnLogin.setOnClickListener {
-            val email = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
-            viewModel.loginUsers(email, password)
-
-        }
-
-        viewModel.code.observe(viewLifecycleOwner) {
-            if (it == 1) {
-                showAlertEmpyText()
-            } else if (it == 4) {
-                showAlertInvalidLogin()
+            if (checkAllFields()) {
+                val email = binding.etEmail.text.toString()
+                val password = binding.etPassword.text.toString()
+                viewModel.loginUsers(email, password)
             }
         }
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel.flag.observe(viewLifecycleOwner) {
-            if (it == true) {
+        viewModel.isSuccessfulLogin.observe(viewLifecycleOwner) {
+            if (it == viewModel.ADMIN) {
                 val intent = Intent(activity, AdminActivity::class.java)
                 requireActivity().startActivity(intent)
-            } else if (it == false || viewModel.user != null) {
+            } else {
                 val intent = Intent(activity, PorteroActivity::class.java)
                 requireActivity().startActivity(intent)
             }
         }
+
+        viewModel.errorLogin.observe(viewLifecycleOwner) {
+            showAlert(it)
+        }
     }
 
-    private fun showAlertEmpyText() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Error")
-        builder.setMessage("Introduzca email y contraseña")
-        builder.setPositiveButton("Aceptar", null)
-        val dialog = builder.create()
-        dialog.show()
-    }
 
-    private fun showAlertInvalidLogin() {
+    private fun showAlert(message: String) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Error")
-        builder.setMessage("Correo o contraseña, no valido")
+        builder.setMessage(message)
         builder.setPositiveButton("Aceptar", null)
         val dialog = builder.create()
         dialog.show()
@@ -94,5 +82,27 @@ class LoginFragment : Fragment() {
     private fun clean() {
         this.binding.etEmail.setText("")
         this.binding.etPassword.setText("")
+    }
+
+    private fun checkAllFields(): Boolean {
+        val email = binding.etEmail.text.toString()
+        if (email.isEmpty()) {
+            binding.etEmail.error = "Este campo es requerido"
+            return false
+        }
+
+        val password = binding.etPassword.text.toString()
+        if (password.isEmpty()) {
+            binding.etPassword.error = "Este campo es requerido"
+            return false
+        }
+
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        if (!(email.trim { it <= ' ' }.matches(emailPattern.toRegex()))) {
+            binding.etEmail.error = "Tiene que ser un correo válido"
+            return false
+        }
+        // after all validation return true.
+        return true
     }
 }

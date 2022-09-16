@@ -8,9 +8,9 @@
     tools:context=".LoginActivity">
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:id="@+id/iv_background1"
+        android:layout_width="483dp"
+        android:layout_height="117dp"
         android:layout_marginStart="190dp"
         android:layout_marginTop="-20dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
@@ -21,14 +21,14 @@
         app:srcCompat="@drawable/top_background1" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:id="@+id/im_background2"
+        android:layout_width="414dp"
+        android:layout_height="171dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/iv_background1"
         app:srcCompat="@drawable/imagen_club_aleman" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -38,97 +38,85 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.15" />
 
-    <TextView
-        android:id="@+id/tv_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="Email"
-        android:textColor="#1e1e1e"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-    <EditText
-        android:id="@+id/et_email"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/backgroud_eddit_text"
-        android:ems="10"
-        android:hint="Introduce tu email"
-        android:inputType="textEmailAddress"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:textColor="#ffffff"
-        android:textColorHint="#ffffff"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+        app:layout_constraintTop_toBottomOf="@id/im_background2"
+        app:layout_constraintVertical_bias="0.0">
 
-    <TextView
-        android:id="@+id/tv_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="Contraseña"
-        android:textColor="#1e1e1e"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
-    <EditText
-        android:id="@+id/et_password"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/backgroud_eddit_text"
-        android:ems="10"
-        android:hint="Introduce tu contraseña"
-        android:inputType="textPassword"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:textColor="#ffffff"
-        android:textColorHint="#ffffff"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_password" />
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/edittext_background"
+            android:drawableStart="@drawable/ic_baseline_email_24"
+            android:drawablePadding="16dp"
+            android:ems="10"
+            android:hint="Email"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="#756C6C"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_recover_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Olvidaste tu contraseña?"
-        android:textColor="#1e1e1e"
-        android:textSize="16sp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_password" />
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/edittext_background"
+            android:drawableLeft="@drawable/ic_baseline_lock_24"
+            android:drawablePadding="16dp"
+            android:ems="10"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="#756C6C"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.535"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/backgroud_btn_login"
-        android:text="Iniciar sesion"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_recover_password" />
+        <TextView
+            android:id="@+id/tv_recover_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="¿Olvidaste tu contraseña?"
+            android:textColor="#f95738"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_password" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="80dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/background_btn_login"
+            android:text="Iniciar sesión"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_recover_password" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

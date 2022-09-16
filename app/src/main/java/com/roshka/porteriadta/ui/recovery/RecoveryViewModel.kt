@@ -20,7 +20,7 @@ class RecoveryViewModel : ViewModel() {
                 )
                 _isSuccessfulRecovery.value = response
             } else {
-                val response = RecoveryResponse(false, "Este correo no está registrado")
+                val response = RecoveryResponse(false, task.exception!!.message.toString())
                 _isSuccessfulRecovery.value = response
             }
         }
