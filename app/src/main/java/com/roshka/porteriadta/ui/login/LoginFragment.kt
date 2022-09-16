@@ -45,6 +45,8 @@ class LoginFragment : Fragment() {
 
         binding.btnLogin.setOnClickListener {
             if (checkAllFields()) {
+                it.visibility = View.GONE
+                binding.loading.visibility = View.VISIBLE
                 val email = binding.etEmail.text.toString()
                 val password = binding.etPassword.text.toString()
                 viewModel.loginUsers(email, password)
@@ -65,6 +67,8 @@ class LoginFragment : Fragment() {
         }
 
         viewModel.errorLogin.observe(viewLifecycleOwner) {
+            binding.btnLogin.visibility = View.VISIBLE
+            binding.loading.visibility = View.GONE
             clean()
             showAlert(it)
         }
