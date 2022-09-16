@@ -9,17 +9,15 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.navigation.NavigationView
-import com.roshka.porteriadta.databinding.ActivityLoginBinding
 import com.roshka.porteriadta.databinding.ActivityPorteroBinding
-import com.roshka.porteriadta.ui.login.LoginViewModel
 import com.roshka.porteriadta.ui.portero.PorteroFragment
-import com.roshka.porteriadta.ui.portero.recyclerView.SociosInfo
+import com.roshka.porteriadta.ui.portero.PorteroViewModel
 
 class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityPorteroBinding
     private lateinit var drawer: DrawerLayout
+    lateinit var viewModel:PorteroViewModel
     private lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +41,10 @@ class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
+        var fragmentManager = supportFragmentManager
+        var fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.porteroFragment,PorteroFragment())
+        fragmentTransaction.commit()
 
 
     }
