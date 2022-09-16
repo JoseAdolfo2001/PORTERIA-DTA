@@ -2,73 +2,119 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_updatepass"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.updatePass.UpdatePass">
+    android:background="@color/white"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:id="@+id/iv_background1"
+        android:layout_width="483dp"
+        android:layout_height="117dp"
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="-20dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/top_background1" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
 
     <EditText
         android:id="@+id/pass_et"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="176dp"
-        android:autofillHints=""
+        android:layout_marginHorizontal="30dp"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:hint="Contraseña"
         android:inputType="textPassword"
         android:minHeight="48dp"
+        android:padding="8dp"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textColorHint="#756C6C"
+        app:layout_constraintBottom_toTopOf="@+id/pass_new"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        app:layout_constraintVertical_bias="0.688" />
 
     <EditText
         android:id="@+id/pass_new"
-        android:layout_width="385dp"
-        android:layout_height="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="44dp"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:hint="Contraseña"
         android:inputType="textPassword"
         android:minHeight="48dp"
+        android:padding="8dp"
         android:textColor="@color/black"
-
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.385"
-        tools:ignore="SpeakableTextPresentCheck" />
+        android:textColorHint="#756C6C"
+        app:layout_constraintBottom_toTopOf="@+id/pass_new_c"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/pass_newC"
-        android:layout_width="391dp"
-        android:layout_height="59dp"
+        android:id="@+id/pass_new_c"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="76dp"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:hint="Contraseña"
         android:inputType="textPassword"
         android:minHeight="48dp"
+        android:padding="8dp"
         android:textColor="@color/black"
-
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColorHint="#756C6C"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.519"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/update_btn"
-        style="@android:style/Widget.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_style"
-        android:hint="Acualizar c"
-        android:padding="12dp"
-        android:textColorHint="@color/white"
-        android:textStyle="bold"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="411dp"
+
+        android:layout_height="253dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.556"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.739" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ProgressBar
+            android:id="@+id/carga"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/update_btn"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="@+id/update_btn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/update_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="80dp"
+            android:text="Iniciar sesión"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.502" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

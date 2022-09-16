@@ -37,12 +37,18 @@ class UpdatePass : Fragment() {
             val newPass = binding.passNew.text.toString()
             val newPassC = binding.passNewC.text.toString()
             if (checkAllFields(password,newPass,newPassC)) {
+                it.visibility = View.GONE
+                binding.carga.visibility = View.VISIBLE
                 viewModel.changePass(password, newPass, newPassC)
             }
             viewModel.code.observe(viewLifecycleOwner, Observer {
                 if (it == 3) {
+                    binding.updateBtn.visibility = View.VISIBLE
+                    binding.carga.visibility = View.GONE
                     currentPassWrong()
-                }else if ( it == 2){
+                }else if (it == 2){
+                    binding.updateBtn.visibility = View.VISIBLE
+                    binding.carga.visibility = View.GONE
                     updateDone()
                     val intent = Intent(activity,LoginActivity::class.java)
                     requireActivity().startActivity(intent)
@@ -50,7 +56,6 @@ class UpdatePass : Fragment() {
             })
         }
     }
-
     private fun checkAllFields(password : String,newPass:String,newPassC:String): Boolean {
         if (password.isEmpty() && newPass.isEmpty() && newPassC.isEmpty()) {
             binding.passEt.error ="Campo Requerido"
@@ -59,13 +64,17 @@ class UpdatePass : Fragment() {
             return false
         }
         if (newPass != newPassC ) {
-             binding.passNew.error = "Contraseñas diferentes "
-             binding.updateBtn.error="Contraseñas diferentes "
+             binding.passNew.error ="Contraseñas diferentes "
+             binding.passNewC.error="Contraseñas diferentes "
              return false
         }
         if(password==newPass) {
             binding.passEt.error = "Contraseña actual igual a la nueva"
             binding.passNew.error = "Contraseña actual igual a la nueva"
+            return false
+        }
+        if(newPass.length<6){
+            binding.passEt.error = "Contraseña tiene que ser mayor 6 caracteres"
             return false
         }
            return true

@@ -25,7 +25,7 @@ class UpdatePassViewModel : ViewModel() {
                                 }
                         }else{code.value=3}
                     }
-            }
+            }else{println("No funca kp")}
 
             }
     }
