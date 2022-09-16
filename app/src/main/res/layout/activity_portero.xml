@@ -9,12 +9,6 @@
     tools:openDrawer="start">
 
 
-    <include
-        layout="@layout/app_bar_portero"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
@@ -22,5 +16,32 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_heater_main"
         app:menu="@menu/activity_main_drawer" />
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+
+        <include
+            layout="@layout/fragment_portero"
+            android:layout_width="420dp"
+            android:layout_height="784dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.07" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <include
+        layout="@layout/app_bar_portero"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
