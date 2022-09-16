@@ -65,10 +65,10 @@ class LoginFragment : Fragment() {
         }
 
         viewModel.errorLogin.observe(viewLifecycleOwner) {
+            clean()
             showAlert(it)
         }
     }
-
 
     private fun showAlert(message: String) {
         val builder = AlertDialog.Builder(requireContext())
