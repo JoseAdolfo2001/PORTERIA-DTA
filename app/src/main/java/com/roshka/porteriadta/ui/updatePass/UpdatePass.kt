@@ -1,7 +1,6 @@
 package com.roshka.porteriadta.ui.updatePass
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -9,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.roshka.porteriadta.LoginActivity
 import com.roshka.porteriadta.databinding.FragmentUpdatePassBinding
@@ -18,7 +19,7 @@ class UpdatePass : Fragment() {
     companion object {
         fun newInstance() = UpdatePass()
     }
-    lateinit var binding: FragmentUpdatePassBinding
+    private lateinit var binding: FragmentUpdatePassBinding
     lateinit var viewModel: UpdatePassViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,70 +37,55 @@ class UpdatePass : Fragment() {
             val password = binding.passEt.text.toString()
             val newPass = binding.passNew.text.toString()
             val newPassC = binding.passNewC.text.toString()
-            if (password.isNotEmpty() && newPass.isNotEmpty() && newPassC.isNotEmpty()) {
-                if (newPass == newPassC && newPass != password) {
-                    viewModel.changePass(password, newPass, newPassC)
-                }else{
-                    contraDif()
-                }
-            }else {
-                isEmpty()
+            if (checkAllFields(password,newPass,newPassC)) {
+                it.visibility = View.GONE
+                binding.carga.visibility = View.VISIBLE
+                viewModel.changePass(password, newPass, newPassC)
             }
             viewModel.code.observe(viewLifecycleOwner, Observer {
-
-                if (it == 1) {
-                    testfunca()
-                } else if (it == 3) {
+                if (it == 3) {
+                    binding.updateBtn.visibility = View.VISIBLE
+                    binding.carga.visibility = View.GONE
                     currentPassWrong()
-                }else if ( it == 2){
+                }else if (it == 2){
+                    binding.updateBtn.visibility = View.VISIBLE
+                    binding.carga.visibility = View.GONE
                     updateDone()
-                    var intent = Intent(activity,LoginActivity::class.java)
+                    val intent = Intent(activity,LoginActivity::class.java)
                     requireActivity().startActivity(intent)
                 }
             })
         }
     }
-
-    private fun contraDif() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Error")
-        builder.setMessage("Las Contraseñas son diferentes ")
-        builder.setPositiveButton("Aceptar", null)
-        val dialog = builder.create()
-        dialog.show()
-    }
-
-    private fun testfunca() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Funciona")
-        builder.setMessage("funca kp")
-        builder.setPositiveButton("Aceptar", null)
-        val dialog = builder.create()
-        dialog.show()
-    }
-
-    private fun isEmpty() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Error")
-        builder.setMessage("Campo Vacio")
-        builder.setPositiveButton("Aceptar", null)
-        val dialog = builder.create()
-        dialog.show()
-    }
+    private fun checkAllFields(password : String,newPass:String,newPassC:String): Boolean {
+        if (password.isEmpty() && newPass.isEmpty() && newPassC.isEmpty()) {
+            binding.passEt.error ="Campo Requerido"
+            binding.passNew.error="Campo Requerido"
+            binding.passNewC.error="Campo Requerido"
+            return false
+        }
+        if (newPass != newPassC ) {
+             binding.passNew.error ="Contraseñas diferentes "
+             binding.passNewC.error="Contraseñas diferentes "
+             return false
+        }
+        if(password==newPass) {
+            binding.passNew.error = "Contraseña actual igual a la nueva"
+            return false
+        }
+        if(newPass.length<6){
+            binding.passNew.error = "Contraseña tiene que ser mayor a 6 caracteres"
+            binding.passNewC.error = "Contraseña tiene que ser mayor a 6 caracteres"
+            return false
+        }
+           return true
+        }
     private fun currentPassWrong() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Error")
-        builder.setMessage("Contraseña actual incorrecta")
-        builder.setPositiveButton("Aceptar", null)
-        val dialog = builder.create()
-        dialog.show()
+        binding.passEt.error = "Contraseña actual incorrecta"
     }
     private fun updateDone() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setMessage("Se actualizo la Contraseña")
-        builder.setPositiveButton("Aceptar", null)
-        val dialog = builder.create()
-        dialog.show()
+        Toast.makeText(activity,"Se Actualizo",Toast.LENGTH_SHORT).show()
     }
 
 }
+

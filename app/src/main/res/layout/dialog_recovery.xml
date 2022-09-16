@@ -34,8 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_recovery_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:padding="30dp"
-        android:layout_marginBottom="20dp">
+        android:padding="10dp">
 
         <Button
             android:id="@+id/btn_recovery"
@@ -43,26 +42,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_style"
-            android:hint="Aceptar"
+            android:hint="Restablecer contraseña"
             android:textColorHint="@color/white"
             android:textStyle="bold"
+            android:padding="12dp"
+            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/btn_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_style"
-            android:hint="Cancelar"
-            android:textColorHint="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_recovery"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
