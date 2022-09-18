@@ -2,5 +2,8 @@
     <string name="app_name">Porteria DTA</string>
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
+    <string name="cambiar_contrase_a"><font color="@color/black">Cambiar contraseña</font></string>
+    <string name="cerrar_sesion"><font color="@color/black">Cerrar sesion</font></string>
+
 
 </resources>
