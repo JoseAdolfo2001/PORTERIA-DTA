@@ -1,5 +1,6 @@
 package com.roshka.porteriadta
 
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,9 +12,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.roshka.porteriadta.databinding.ActivityPorteroBinding
 import com.roshka.porteriadta.ui.portero.PorteroFragment
 import com.roshka.porteriadta.ui.portero.PorteroViewModel
+import com.roshka.porteriadta.ui.updatePass.UpdatePass
 
 class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityPorteroBinding
@@ -54,8 +57,8 @@ class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when(item.itemId){
-            R.id.nav_item_one -> Toast.makeText(this, "Item 1", Toast.LENGTH_SHORT).show()
-            R.id.nav_item_two -> Toast.makeText(this, "Item 2", Toast.LENGTH_SHORT).show()
+            R.id.nav_item_one -> replaceFragmentToUpdatePass()
+            R.id.nav_item_two -> signOut()
         }
 
         drawer.closeDrawer(GravityCompat.START)
@@ -78,6 +81,18 @@ class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         }
 
         return super.onOptionsItemSelected(item)
+    }
+    private fun replaceFragmentToUpdatePass() {
+        var fragmentManager = supportFragmentManager
+        var fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.container,UpdatePass())
+        fragmentTransaction.commit()
+    }
+    private fun signOut() {
+        var auth = FirebaseAuth.getInstance()
+        auth.signOut()
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 
 }
