@@ -17,11 +17,6 @@ import com.roshka.porteriadta.ui.portero.recyclerView.SociosListAdapter
 class PorteroFragment : Fragment() {
     lateinit var adapter:SociosListAdapter
     private lateinit var binding: FragmentPorteroBinding
-
-    companion object {
-        fun newInstance() = PorteroFragment()
-    }
-
     private lateinit var viewModel: PorteroViewModel
 
     override fun onCreateView(
@@ -36,18 +31,12 @@ class PorteroFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[PorteroViewModel::class.java]
-        val dato = arguments?.getBoolean("flag")
-        println(dato)
-        if(dato == null){
-            viewModel.getListMembers()
-        }
-        else if(dato){
-          println("hola")
-        }
-
-
-            viewModel.arrayMembers.observe(viewLifecycleOwner, Observer {
-                adapter = SociosListAdapter(it)
+        viewModel.getListMembers()
+        viewModel.arrayMembers.observe(viewLifecycleOwner, Observer {
+                println(it)
+                adapter = SociosListAdapter(it,binding.rvMembers,binding.cardView,
+                    binding.tvNombre,binding.tvApellido ,binding.tvCedula , binding.tvSociosNumeros
+                    ,binding.ivFoto,binding.btnCamara,binding.btnEnviar)
                 binding.rvMembers.layoutManager = LinearLayoutManager(activity)
                 binding.rvMembers.adapter = adapter
                 val decoration = DividerItemDecoration(activity, LinearLayoutManager(activity).orientation)

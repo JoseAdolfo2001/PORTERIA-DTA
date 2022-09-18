@@ -21,12 +21,12 @@ class PorteroViewModel : ViewModel() {
         fb.collection(FirebaseCollections.LIST).get().addOnSuccessListener {
             for(document in it){
                 val data = document.data
-                val example = SociosInfo(document.id, data.get("nombre")!!,data.get("apellido")!!
+                val example = SociosInfo(data.get("cedula")!!, data.get("nombre")!!,data.get("apellido")!!
                 ,data.get("socios_numeros")!!)
                 aux.add(example)
             }
             _arrayMembers.value = aux
-            println(_arrayMembers.value)
+
             }
 
         }
