@@ -1,6 +1,5 @@
-package com.roshka.porteriadta.ui.recovery
+package com.roshka.porteriadta.ui.login.recovery
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

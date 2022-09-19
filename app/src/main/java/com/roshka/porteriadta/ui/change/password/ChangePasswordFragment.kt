@@ -1,38 +1,45 @@
-package com.roshka.porteriadta.ui.updatePass
+package com.roshka.porteriadta.ui.change.password
 
-import android.app.AlertDialog
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.roshka.porteriadta.LoginActivity
-import com.roshka.porteriadta.databinding.FragmentUpdatePassBinding
+import com.roshka.porteriadta.databinding.FragmentChangePasswordBinding
 
-class UpdatePass : Fragment() {
+class ChangePasswordFragment : Fragment() {
+    private var _binding: FragmentChangePasswordBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+
 
     companion object {
-        fun newInstance() = UpdatePass()
+        fun newInstance() = ChangePasswordFragment()
     }
-    private lateinit var binding: FragmentUpdatePassBinding
-    lateinit var viewModel: UpdatePassViewModel
+
+    private lateinit var viewModel: ChangePasswordViewModel
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentUpdatePassBinding.inflate(inflater, container, false)
-        return binding.root
+        _binding = FragmentChangePasswordBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+
+        return root
     }
+
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)[UpdatePassViewModel::class.java]
+        viewModel = ViewModelProvider(this)[ChangePasswordViewModel::class.java]
         binding.updateBtn.setOnClickListener {
             val password = binding.passEt.text.toString()
             val newPass = binding.passNew.text.toString()
@@ -43,20 +50,20 @@ class UpdatePass : Fragment() {
                 viewModel.changePass(password, newPass, newPassC)
             }
         }
-            viewModel.code.observe(viewLifecycleOwner) {
-                if (it == 2) {
-                    binding.updateBtn.visibility = View.VISIBLE
-                    binding.cargar.visibility = View.GONE
-                    updateDone()
-                    val intent = Intent(activity, LoginActivity::class.java)
-                    requireActivity().startActivity(intent)
-                }
-                if (it == 3) {
-                    binding.updateBtn.visibility = View.VISIBLE
-                    binding.cargar.visibility = View.GONE
-                    currentPassWrong()
-                }
+        viewModel.code.observe(viewLifecycleOwner) {
+            if (it == 2) {
+                binding.updateBtn.visibility = View.VISIBLE
+                binding.cargar.visibility = View.GONE
+                updateDone()
+                val intent = Intent(activity, LoginActivity::class.java)
+                requireActivity().startActivity(intent)
             }
+            if (it == 3) {
+                binding.updateBtn.visibility = View.VISIBLE
+                binding.cargar.visibility = View.GONE
+                currentPassWrong()
+            }
+        }
     }
     private fun checkAllFields(password : String,newPass:String,newPassC:String): Boolean {
         if (password.isEmpty() && newPass.isEmpty() && newPassC.isEmpty()) {
@@ -66,10 +73,10 @@ class UpdatePass : Fragment() {
             return false
         }
         if (newPass != newPassC ) {
-             binding.passNew.error ="Contraseñas diferentes "
+            binding.passNew.error ="Contraseñas diferentes "
             binding.passNew.setText("")
             binding.passNewC.setText("")
-             return false
+            return false
         }
         if(password==newPass) {
             binding.passNew.error = "Contraseña nueva igual a la actual"
@@ -85,15 +92,14 @@ class UpdatePass : Fragment() {
             return false
         }
 
-           return true
-        }
+        return true
+    }
 
     private fun currentPassWrong() {
         binding.passEt.error = "Contraseña actual incorrecta"
     }
     private fun updateDone() {
-        Toast.makeText(activity,"Se Actualizo",Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity,"Se Actualizo", Toast.LENGTH_SHORT).show()
     }
 
 }
-

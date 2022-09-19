@@ -95,15 +95,20 @@ class LoginFragment : Fragment() {
             return false
         }
 
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        if (!(email.trim { it <= ' ' }.matches(emailPattern.toRegex()))) {
+            binding.etEmail.error = "Tiene que ser un correo válido"
+            return false
+        }
+
         val password = binding.etPassword.text.toString()
         if (password.isEmpty()) {
             binding.etPassword.error = "Este campo es requerido"
             return false
         }
 
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-        if (!(email.trim { it <= ' ' }.matches(emailPattern.toRegex()))) {
-            binding.etEmail.error = "Tiene que ser un correo válido"
+        if (password.length < 6) {
+            binding.etPassword.error = "Mínimo 6 caracteres"
             return false
         }
         // after all validation return true.

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_admin"
+    app:startDestination="@id/nav_history">
+
+    <fragment
+        android:id="@+id/nav_history"
+        android:name="com.roshka.porteriadta.ui.admin.history.HistoryRecordFragment"
+        android:label="@string/menu_history"
+        tools:layout="@layout/fragment_history_record" />
+
+    <fragment
+        android:id="@+id/nav_add_portero"
+        android:name="com.roshka.porteriadta.ui.admin.addportero.AddPorteroFragment"
+        android:label="@string/menu_add_portero"
+        tools:layout="@layout/fragment_add_portero" />
+
+    <fragment
+        android:id="@+id/nav_disabled_portero"
+        android:name="com.roshka.porteriadta.ui.admin.disabledportero.DisabledPorteroFragment"
+        android:label="@string/menu_disabled_portero"
+        tools:layout="@layout/fragment_disabled_portero" />
+
+    <fragment
+        android:id="@+id/nav_change_password"
+        android:name="com.roshka.porteriadta.ui.change.password.ChangePasswordFragment"
+        android:label="@string/menu_lock_reset"
+        tools:layout="@layout/fragment_change_password" />
+</navigation>
