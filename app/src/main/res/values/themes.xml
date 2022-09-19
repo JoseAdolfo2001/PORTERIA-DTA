@@ -13,13 +13,15 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-
     </style>
 
-    <style name="Theme.ExampleMenu.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.PorteriaDTA.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
-    <style name="Theme.ExampleMenu.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.PorteriaDTA.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.PorteriaDTA.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
