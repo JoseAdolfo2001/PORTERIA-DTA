@@ -2,46 +2,44 @@ package com.roshka.porteriadta.ui.login
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
+    val ADMIN = 1
+    val PORTERO = 0
 
     val fb = FirebaseFirestore.getInstance()
-    var tipoAcceso = ""
     val auth = FirebaseAuth.getInstance()
-    val flag = MutableLiveData<Boolean>()
-    val code = MutableLiveData<Int>()
-    val user = auth.currentUser
+
+    private val _isSuccessfulLogin = MutableLiveData<Int>()
+    val isSuccessfulLogin: LiveData<Int>
+        get() = _isSuccessfulLogin
+
+    private val _errorLogin = MutableLiveData<String>()
+    val errorLogin: LiveData<String>
+        get() = _errorLogin
 
     fun loginUsers(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    fb.collection("Users").document(email).get()
+                        .addOnSuccessListener { result ->
+                            val type = result.get("Nivel").toString()
+                            if (type == "admin") {
+                                _isSuccessfulLogin.value = ADMIN
 
-        if (email.isEmpty() || password.isEmpty()) {
-            code.value = 1
-        } else {
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        fb.collection("Users").document(email).get()
-                            .addOnSuccessListener { result ->
-                                tipoAcceso = result.get("Nivel").toString()
-                                if (tipoAcceso == "admin") {
-                                    code.value = 2
-                                    flag.value = true
-
-                                } else {
-                                    flag.value = false
-                                    code.value = 3
-                                }
+                            } else {
+                                _isSuccessfulLogin.value = PORTERO
                             }
-                    } else {
-                        code.value = 4
-                    }
+                        }
+                } else {
+                    _errorLogin.value = task.exception!!.message.toString()
                 }
-
-
-        }
+            }
 
     }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@color/splashBackground"
+    android:background="@color/white"
     tools:context=".SplashActivity">
 
     <ImageView
@@ -13,13 +13,13 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_centerHorizontal="true"
-        android:contentDescription="TODO"
         android:src="@drawable/imagen_club_aleman"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4"/>
+        app:layout_constraintVertical_bias="0.365" />
 
     <TextView
         android:id="@+id/welcome"
@@ -27,13 +27,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/logo_id"
         android:layout_centerHorizontal="true"
+        android:fontFamily="serif"
         android:text="Bienvenido"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/loading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo_id" />
+        app:layout_constraintTop_toBottomOf="@+id/logo_id"
+        app:layout_constraintVertical_bias="0.322" />
 
     <ProgressBar
         android:id="@+id/loading"
@@ -44,7 +46,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo_id" />
+        app:layout_constraintTop_toBottomOf="@+id/logo_id"
+        app:layout_constraintVertical_bias="0.617" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

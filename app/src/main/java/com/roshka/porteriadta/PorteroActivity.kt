@@ -1,88 +1,88 @@
 package com.roshka.porteriadta
 
 import android.content.Intent
-import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.roshka.porteriadta.databinding.ActivityPorteroBinding
-import com.roshka.porteriadta.ui.updatePass.UpdatePass
 
-class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class PorteroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPorteroBinding
-    private lateinit var drawer: DrawerLayout
-    private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var auth: FirebaseAuth
+    private lateinit var fb: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPorteroBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar_main)
-        setSupportActionBar(toolbar)
+        auth = FirebaseAuth.getInstance()
+        fb = FirebaseFirestore.getInstance()
 
-        drawer = findViewById(R.id.container)
-
-        toggle = ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close)
-
-        title = "PORTERIA"
-
-        drawer.addDrawerListener(toggle)
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
-
-        val navigationView: NavigationView = findViewById(R.id.nav_view)
-        navigationView.setNavigationItemSelectedListener(this)
-
-    }
+        setSupportActionBar(binding.appBarMain.toolbar)
 
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navView: NavigationView = binding.navView
+        val navController = findNavController(R.id.nav_host_fragment_content_portero)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.nav_register_income,
+                R.id.nav_change_password,
+                R.id.nav_logout
+            ), drawerLayout
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
 
-        when(item.itemId){
-            R.id.nav_item_one -> replaceFragmentToUpdatePass()
-            R.id.nav_item_two -> signOut()
+        val headerView = binding.navView.getHeaderView(0)
+
+        val user = auth.currentUser
+
+        if (user != null) {
+            fb.collection("Users").document(user.email.toString()).get()
+                .addOnSuccessListener {
+                    val name = it.get("Nombre").toString()
+                    val nameUser = headerView.findViewById<TextView>(R.id.name_user)
+                    nameUser.text = name
+                }
         }
 
-        drawer.closeDrawer(GravityCompat.START)
-        return true
+//        val nameUser = headerView.findViewById<TextView>(R.id.name_user)
+//        nameUser.text = user?.displayName ?: ""
+
+        val emailUser = headerView.findViewById<TextView>(R.id.email_user)
+        emailUser.text = user?.email ?: ""
+
+        val logout = binding.navView.menu.getItem(2)
+        logout.setOnMenuItemClickListener { onContextItemSelected(it) }
     }
 
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-        toggle.syncState()
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_content_portero)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        toggle.onConfigurationChanged(newConfig)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggle.onOptionsItemSelected(item)){
-            return true
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
-    private fun replaceFragmentToUpdatePass() {
-        var fragmentManager = supportFragmentManager
-        var fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.container,UpdatePass())
-        fragmentTransaction.commit()
-    }
-    private fun signOut() {
-        var auth = FirebaseAuth.getInstance()
+    override fun onContextItemSelected(item: MenuItem): Boolean {
         auth.signOut()
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+        return true
     }
-
 }
+
+
+
