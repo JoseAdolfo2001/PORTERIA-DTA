@@ -3,18 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_portero"
-    app:startDestination="@id/nav_home">
-
+    app:startDestination="@id/nav_register_income">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.roshka.porteriadta.ui.register.income.IncomeFragment"
-        android:label="Registrar Ingreso"
+        android:id="@+id/nav_register_income"
+        android:name="com.roshka.porteriadta.ui.portero.RegisterIncomeFragment"
+        android:label="@string/menu_register"
         tools:layout="@layout/fragment_income" />
 
     <fragment
         android:id="@+id/nav_change_password"
         android:name="com.roshka.porteriadta.ui.change.password.ChangePasswordFragment"
-        android:label="Cambiar Contraseña"
+        android:label="@string/menu_lock_reset"
         tools:layout="@layout/fragment_change_password" />
 </navigation>

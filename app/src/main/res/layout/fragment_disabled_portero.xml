@@ -3,17 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.portero.RegisterIncomeFragment"
+    tools:context=".ui.admin.disabledportero.DisabledPorteroFragment"
     android:background="@color/white">
 
     <TextView
-        android:id="@+id/textIncome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Income"
+        android:text="Disabled Portero"
         android:textSize="20sp"
+        android:textColor="@color/black"
         android:textAlignment="center"
-        android:gravity="center"
-        android:textColor="@color/black"/>
+        android:gravity="center"/>
 
 </FrameLayout>

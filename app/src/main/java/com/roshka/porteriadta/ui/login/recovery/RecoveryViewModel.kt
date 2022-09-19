@@ -1,4 +1,4 @@
-package com.roshka.porteriadta.ui.recovery
+package com.roshka.porteriadta.ui.login.recovery
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

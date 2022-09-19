@@ -5,8 +5,11 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_title">Android Studio</string>
-    <string name="menu_home">Inicio</string>
+    <string name="menu_register">Registrar Ingreso</string>
     <string name="menu_lock_reset">Cambiar Contraseña</string>
     <string name="menu_logout">Cerrar Sesión</string>
+    <string name="menu_add_portero">Agregar Portero</string>
+    <string name="menu_history">Historial de Ingresos</string>
+    <string name="menu_disabled_portero">Inhabilitar Cuenta</string>
 
 </resources>

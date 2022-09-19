@@ -3,17 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.portero.RegisterIncomeFragment"
+    tools:context=".ui.admin.history.HistoryRecordFragment"
     android:background="@color/white">
 
     <TextView
-        android:id="@+id/textIncome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Income"
-        android:textSize="20sp"
+        android:text="Histroy Record"
         android:textAlignment="center"
-        android:gravity="center"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:gravity="center"/>
 
 </FrameLayout>

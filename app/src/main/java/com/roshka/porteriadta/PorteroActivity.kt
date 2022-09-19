@@ -2,14 +2,9 @@ package com.roshka.porteriadta
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -20,7 +15,6 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.roshka.porteriadta.databinding.ActivityPorteroBinding
-import kotlin.math.log
 
 class PorteroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPorteroBinding
@@ -46,7 +40,9 @@ class PorteroActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_change_password, R.id.nav_logout
+                R.id.nav_register_income,
+                R.id.nav_change_password,
+                R.id.nav_logout
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

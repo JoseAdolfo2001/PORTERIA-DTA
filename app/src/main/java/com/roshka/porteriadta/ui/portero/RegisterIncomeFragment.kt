@@ -1,4 +1,4 @@
-package com.roshka.porteriadta.ui.register.income
+package com.roshka.porteriadta.ui.portero
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -6,11 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentIncomeBinding
 
-class IncomeFragment : Fragment() {
+class RegisterIncomeFragment : Fragment() {
     private var _binding: FragmentIncomeBinding? = null
 
     // This property is only valid between onCreateView and
@@ -18,10 +16,10 @@ class IncomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     companion object {
-        fun newInstance() = IncomeFragment()
+        fun newInstance() = RegisterIncomeFragment()
     }
 
-    private lateinit var viewModel: IncomeViewModel
+    private lateinit var viewModel: RegisterIncomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +35,7 @@ class IncomeFragment : Fragment() {
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(IncomeViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(RegisterIncomeViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
