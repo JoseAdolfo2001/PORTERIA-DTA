@@ -1,7 +1,10 @@
 package com.roshka.porteriadta.ui.portero
-
-import android.os.Build
-import androidx.annotation.RequiresApi
+import android.content.ContentResolver
+import android.content.ContentValues
+import android.content.Intent
+import android.net.Uri
+import android.provider.MediaStore
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +13,7 @@ import com.roshka.porteriadta.data.SociosInfo
 import com.roshka.porteriadta.network.FirebaseCollections
 
 class PorteroViewModel : ViewModel() {
+    val REQUEST_CAMERA = 1000
     val fb = FirebaseFirestore.getInstance()
     private val _arrayMembers = MutableLiveData<List<SociosInfo>>()
     val arrayMembers:LiveData<List<SociosInfo>>
@@ -26,8 +30,7 @@ class PorteroViewModel : ViewModel() {
                 aux.add(example)
             }
             _arrayMembers.value = aux
-
-            }
+        }
 
         }
     }

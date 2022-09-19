@@ -1,14 +1,18 @@
 package com.roshka.porteriadta
 
+import android.Manifest
+import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.PermissionChecker
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
@@ -28,21 +32,14 @@ class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         super.onCreate(savedInstanceState)
         binding = ActivityPorteroBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
-
         drawer = findViewById(R.id.container)
-
         toggle = ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close)
-
         title = "PORTERIA - DTA"
-
         drawer.addDrawerListener(toggle)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
         var fragmentManager = supportFragmentManager
@@ -52,8 +49,6 @@ class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
 
     }
-
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when(item.itemId){
@@ -94,5 +89,7 @@ class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
+
+
 
 }

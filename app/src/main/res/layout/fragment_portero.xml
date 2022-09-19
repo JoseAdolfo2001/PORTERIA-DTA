@@ -4,24 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/portero"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.portero.PorteroFragment">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_dato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="80dp"
         android:text="Introduce los datos"
         android:textColor="@color/black"
         android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView_1"
+        android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
@@ -33,13 +34,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_dato" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="367dp"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
+        android:layout_marginTop="32dp"
         android:alpha="0.8"
         android:visibility="gone"
         app:cardBackgroundColor="@color/color_menu"
@@ -49,12 +51,20 @@
         app:layout_constraintBottom_toTopOf="@+id/iv_foto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView_1">
+        app:layout_constraintTop_toBottomOf="@+id/tv_dato">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/iv_close_card_view"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_close_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_nombre"
@@ -117,16 +127,17 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:visibility="visible"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:background="@color/white"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView_1" />
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
     <ImageView
         android:id="@+id/iv_foto"
         android:layout_width="wrap_content"
@@ -145,43 +156,51 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.4" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7017784" />
-    <Button
-        android:id="@+id/btn_camara"
-        android:layout_width="0dp"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="100dp"
-        android:background="@drawable/style_btn_foto"
-        android:text="Quitar Foto"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_foto" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
     <Button
         android:id="@+id/btn_enviar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginEnd="128dp"
         android:background="@drawable/style_btn_foto"
         android:text="Enviar"
+        android:textSize="24sp"
+        android:alpha="0.8"
+        android:textStyle="bold"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_camara"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_camara" />
+        app:layout_constraintTop_toTopOf="@+id/btn_camara" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_camara"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/white"
 
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
