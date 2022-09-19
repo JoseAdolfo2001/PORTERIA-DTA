@@ -3,6 +3,7 @@ package com.roshka.porteriadta
 import android.Manifest
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Build
@@ -89,7 +90,5 @@ class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
-
-
 
 }
