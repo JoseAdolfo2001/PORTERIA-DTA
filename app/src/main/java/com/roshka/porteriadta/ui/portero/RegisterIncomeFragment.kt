@@ -2,6 +2,7 @@ package com.roshka.porteriadta.ui.portero
 
 import android.Manifest
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.Intent
 
@@ -13,6 +14,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
@@ -21,8 +23,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.storage.FirebaseStorage
+import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentRegisterIncomeBinding
 import com.roshka.porteriadta.ui.portero.recyclerView.SociosListAdapter
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RegisterIncomeFragment : Fragment() {
     lateinit var adapter:SociosListAdapter
@@ -44,6 +50,10 @@ class RegisterIncomeFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[RegisterIncomeViewModel::class.java]
         viewModel.getListMembers()
+        binding.btnEnviar.setOnClickListener {
+            viewModel.uploadImages(binding.ivFoto,requireActivity(),foto!!)
+            viewModel.registrer()
+        }
         binding.btnCamara.setOnClickListener {
             abreCamara()
         }
@@ -110,6 +120,24 @@ class RegisterIncomeFragment : Fragment() {
         }
         else abreCamara()
     }
+//    fun upLoadImage(){
+//        val progressDialog = ProgressDialog(activity)
+//        progressDialog.setMessage("Uploading file")
+//        progressDialog.setCancelable(false)
+//        progressDialog.show()
+//        val formated = SimpleDateFormat("yyyy/MM/dd/HH-mm-ss", Locale.getDefault())
+//        val now = Date()
+//        val fileName = formated.format(now)
+//        val storageReference = FirebaseStorage.getInstance().getReference("images/${fileName}")
+//        storageReference.putFile(foto!!).addOnSuccessListener {
+//            binding.ivFoto.setImageURI(null)
+//            Toast.makeText(activity,"Se cargo correctamente",Toast.LENGTH_SHORT).show()
+//            if(progressDialog.isShowing) progressDialog.dismiss()
+//        }.addOnFailureListener{
+//            if(progressDialog.isShowing) progressDialog.dismiss()
+//            Toast.makeText(activity,"No se cargo correctamente",Toast.LENGTH_SHORT).show()
+//        }
+ //   }
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -126,7 +154,8 @@ class RegisterIncomeFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == Activity.RESULT_OK && requestCode == viewModel.REQUEST_CAMERA){
-            binding.ivFoto.setImageURI(foto)
+         binding.ivFoto.setImageURI(foto)
         }
     }
+
 }

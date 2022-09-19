@@ -36,7 +36,7 @@ class SociosListViewHolder(view: View):RecyclerView.ViewHolder(view) {
         else itemView.setVisibility(View.GONE)
         tv_name.setText("${item.name}")
         this.tv_apellido.setText("${item.apellido}")
-        this.tv_cedula.setText("Cedula: ${item.cedula}")
+        this.tv_cedula.setText("Cedula: ${item.id}")
         tv_socio_numero.setText("Numero Socio: ${item.numero_socio}")
         itemView.setOnClickListener(object :View.OnClickListener{
             override fun onClick(v: View?) {
@@ -48,7 +48,7 @@ class SociosListViewHolder(view: View):RecyclerView.ViewHolder(view) {
                 btn_enviar.visibility = View.VISIBLE
                 tv_nombre.text = item.name.toString()
                 tv_apellido.text = item.apellido.toString()
-                tv_cedula.text = "Cedula: " + item.cedula.toString()
+                tv_cedula.text = "Cedula: " + item.id.toString()
                 tv_socios_numeros.text = "Numero de Socio: " + item.numero_socio.toString()
             }
         })

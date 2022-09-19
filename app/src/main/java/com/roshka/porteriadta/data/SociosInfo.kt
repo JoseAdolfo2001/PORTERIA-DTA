@@ -10,6 +10,7 @@ data class SociosInfo(
     val name: Any,
     val apellido: Any,
     val numero_socio: Any,
-    val tipo:Any
+    val tipo:Any,
+    val boolean: Boolean = false
 )
 
