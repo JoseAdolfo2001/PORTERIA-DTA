@@ -10,4 +10,5 @@
     <color name="color_menu">#e13a06</color>
     <color name="splashBackground">#FFFFFF</color>
     <color name="colorPrimary">#E13A06</color>
+    <color name="colorPrimaryDark">#882303</color>
 </resources>

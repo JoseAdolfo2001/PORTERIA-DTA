@@ -47,8 +47,8 @@ class LoginFragment : Fragment() {
             if (checkAllFields()) {
                 it.visibility = View.GONE
                 binding.loading.visibility = View.VISIBLE
-                val email = binding.etEmail.text.toString()
-                val password = binding.etPassword.text.toString()
+                val email = binding.etEmail.text.toString().trim()
+                val password = binding.etPassword.text.toString().trim()
                 viewModel.loginUsers(email, password)
             }
         }
@@ -89,7 +89,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun checkAllFields(): Boolean {
-        val email = binding.etEmail.text.toString()
+        val email = binding.etEmail.text.toString().trim()
         if (email.isEmpty()) {
             binding.etEmail.error = "Este campo es requerido"
             return false
@@ -101,7 +101,7 @@ class LoginFragment : Fragment() {
             return false
         }
 
-        val password = binding.etPassword.text.toString()
+        val password = binding.etPassword.text.toString().trim()
         if (password.isEmpty()) {
             binding.etPassword.error = "Este campo es requerido"
             return false

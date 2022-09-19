@@ -36,7 +36,7 @@ class RecoveryDialog : BottomSheetDialogFragment() {
             if (checkAllFields()) {
                 it.visibility = View.GONE
                 binding.loading.visibility = View.VISIBLE
-                viewModel.resetPassword(binding.etRecoveryEmail.text.toString())
+                viewModel.resetPassword(binding.etRecoveryEmail.text.toString().trim())
             } else {
                 clean()
             }

@@ -34,7 +34,7 @@ class SociosListViewHolder(view: View):RecyclerView.ViewHolder(view) {
     ) {
         if(item.boolean == false) {itemView.setVisibility(View.VISIBLE)};
         else itemView.setVisibility(View.GONE)
-        tv_name.setText("${item.name}")
+        tv_name.setText("${item.nombre}")
         this.tv_apellido.setText("${item.apellido}")
         this.tv_cedula.setText("Cedula: ${item.cedula}")
         tv_socio_numero.setText("Numero Socio: ${item.numero_socio}")
@@ -46,7 +46,7 @@ class SociosListViewHolder(view: View):RecyclerView.ViewHolder(view) {
                 tv_datos.setText("Datos del socio")
                 searchView.visibility = View.GONE
                 btn_enviar.visibility = View.VISIBLE
-                tv_nombre.text = item.name.toString()
+                tv_nombre.text = item.nombre.toString()
                 tv_apellido.text = item.apellido.toString()
                 tv_cedula.text = "Cedula: " + item.cedula.toString()
                 tv_socios_numeros.text = "Numero de Socio: " + item.numero_socio.toString()

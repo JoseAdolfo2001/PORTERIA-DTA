@@ -17,8 +17,9 @@ class RegisterIncomeViewModel : ViewModel() {
         fb.collection(FirebaseCollections.LIST).get().addOnSuccessListener {
             for(document in it){
                 val data = document.data
-                val example = SociosInfo(document.id, data.get("nombre")!!,data.get("apellido")!!
-                , data.get("socios_numeros")!!,data.get("tipo")!!)
+                println(data)
+                val example = SociosInfo(document.id, data["nombre"]!!, data["apellido"]!!
+                , data["socios_numeros"]!!, data["tipo"]!!)
                 aux.add(example)
             }
             _arrayMembers.value = aux
