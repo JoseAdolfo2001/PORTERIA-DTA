@@ -1,19 +1,12 @@
 package com.roshka.porteriadta
 
-import android.Manifest
-import android.content.ContentValues
 import android.content.Intent
-import android.content.pm.ActivityInfo
-import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.PermissionChecker
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
@@ -47,6 +40,7 @@ class PorteroActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         var fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.porteroFragment,PorteroFragment())
         fragmentTransaction.commit()
+
 
 
     }

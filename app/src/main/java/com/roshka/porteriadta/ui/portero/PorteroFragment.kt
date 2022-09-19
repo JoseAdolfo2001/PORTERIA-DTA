@@ -4,7 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
-import android.content.pm.ActivityInfo
+
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -21,8 +21,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.roshka.porteriadta.R
-import com.roshka.porteriadta.databinding.FragmentPorteroBinding
 import com.roshka.porteriadta.ui.portero.recyclerView.SociosListAdapter
 
 class PorteroFragment : Fragment() {
@@ -41,8 +39,8 @@ class PorteroFragment : Fragment() {
 
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onActivityCreated(savedInstanceState)
+
         viewModel = ViewModelProvider(this)[PorteroViewModel::class.java]
         viewModel.getListMembers()
         binding.btnCamara.setOnClickListener {
@@ -51,10 +49,10 @@ class PorteroFragment : Fragment() {
         binding.ivCloseCardView.setOnClickListener {
             resetDate()
         }
-        binding.btnEnviar.setOnClickListener {
-            resetDate()
-            binding.ivFoto.setImageResource(R.drawable.icono_imagen)
+        binding.btnCamara.setOnClickListener {
+            abreCamara()
         }
+
         viewModel.arrayMembers.observe(viewLifecycleOwner, Observer {
             println(it)
             adapter = SociosListAdapter(it,
