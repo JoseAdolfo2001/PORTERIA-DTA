@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentChangePasswordBinding
-import com.roshka.porteriadta.databinding.FragmentIncomeBinding
 
 class ChangePasswordFragment : Fragment() {
     private var _binding: FragmentChangePasswordBinding? = null
@@ -38,7 +36,7 @@ class ChangePasswordFragment : Fragment() {
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ChangePasswordViewModel::class.java)
+        viewModel = ViewModelProvider(this)[ChangePasswordViewModel::class.java]
         // TODO: Use the ViewModel
     }
 
