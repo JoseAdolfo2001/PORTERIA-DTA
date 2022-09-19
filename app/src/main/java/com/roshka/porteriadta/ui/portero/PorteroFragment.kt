@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentPorteroBinding
 import com.roshka.porteriadta.ui.portero.recyclerView.SociosListAdapter
 
@@ -50,6 +51,7 @@ class PorteroFragment : Fragment() {
         }
         binding.btnEnviar.setOnClickListener {
             resetDate()
+            binding.ivFoto.setImageResource(R.drawable.icono_imagen)
         }
         viewModel.arrayMembers.observe(viewLifecycleOwner, Observer {
             println(it)
