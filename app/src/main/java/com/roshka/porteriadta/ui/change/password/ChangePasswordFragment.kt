@@ -1,11 +1,14 @@
 package com.roshka.porteriadta.ui.change.password
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.roshka.porteriadta.LoginActivity
 import com.roshka.porteriadta.databinding.FragmentChangePasswordBinding
 
 class ChangePasswordFragment : Fragment() {
@@ -37,11 +40,66 @@ class ChangePasswordFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[ChangePasswordViewModel::class.java]
-        // TODO: Use the ViewModel
+        binding.updateBtn.setOnClickListener {
+            val password = binding.passEt.text.toString()
+            val newPass = binding.passNew.text.toString()
+            val newPassC = binding.passNewC.text.toString()
+            if (checkAllFields(password,newPass,newPassC)) {
+                it.visibility = View.GONE
+                binding.cargar.visibility = View.VISIBLE
+                viewModel.changePass(password, newPass, newPassC)
+            }
+        }
+        viewModel.code.observe(viewLifecycleOwner) {
+            if (it == 2) {
+                binding.updateBtn.visibility = View.VISIBLE
+                binding.cargar.visibility = View.GONE
+                updateDone()
+                val intent = Intent(activity, LoginActivity::class.java)
+                requireActivity().startActivity(intent)
+            }
+            if (it == 3) {
+                binding.updateBtn.visibility = View.VISIBLE
+                binding.cargar.visibility = View.GONE
+                currentPassWrong()
+            }
+        }
+    }
+    private fun checkAllFields(password : String,newPass:String,newPassC:String): Boolean {
+        if (password.isEmpty() && newPass.isEmpty() && newPassC.isEmpty()) {
+            binding.passEt.error ="Campo Requerido"
+            binding.passNew.error="Campo Requerido"
+            binding.passNewC.error="Campo Requerido"
+            return false
+        }
+        if (newPass != newPassC ) {
+            binding.passNew.error ="Contraseñas diferentes "
+            binding.passNew.setText("")
+            binding.passNewC.setText("")
+            return false
+        }
+        if(password==newPass) {
+            binding.passNew.error = "Contraseña nueva igual a la actual"
+            binding.passNew.setText("")
+            return false
+        }
+        if(newPass.length<6){
+            binding.passNew.error = "Contraseña tiene que ser mayor a 6 caracteres"
+            binding.passNewC.error = "Contraseña tiene que ser mayor a 6 caracteres"
+            binding.passNew.setText("")
+            binding.passNewC.setText("")
+
+            return false
+        }
+
+        return true
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun currentPassWrong() {
+        binding.passEt.error = "Contraseña actual incorrecta"
     }
+    private fun updateDone() {
+        Toast.makeText(activity,"Se Actualizo", Toast.LENGTH_SHORT).show()
+    }
+
 }
