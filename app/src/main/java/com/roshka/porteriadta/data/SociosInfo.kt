@@ -6,18 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 data class SociosInfo(
-    val cedula: Any,
+    val id: String,
     val name: Any,
     val apellido: Any,
     val numero_socio: Any,
-    var boolean:Boolean = false
+    val tipo:Any
 )
 
-data class ViewProvider(
-    val rvMembers:RecyclerView,
-    val cardView:CardView,
-    val tv_nombre:TextView,
-    val tv_apellido:TextView,
-    val tv_cedula:TextView,
-    val tv_socios_numeros:TextView
-        )

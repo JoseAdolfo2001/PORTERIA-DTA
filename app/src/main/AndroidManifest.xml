@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.roshka.porteriadta">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
@@ -18,16 +18,19 @@
         android:theme="@style/Theme.PorteriaDTA"
         tools:targetApi="31">
         <activity
-            android:name=".AdminActivity"
-            android:noHistory="true"
+            android:name=".OpenCamara"
             android:exported="false" />
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".PorteroActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:noHistory="true"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".SplashActivity"
             android:exported="true"
