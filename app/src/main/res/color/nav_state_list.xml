@@ -3,7 +3,7 @@
     <!-- Item checked -->
     <item android:color="#313189" android:state_checked="true" />
     <!-- Item pressed -->
-    <item android:color="#318931" android:state_pressed="true" />
+    <item android:color="#313189" android:state_pressed="true" />
     <!-- Item default -->
-    <item android:color="#893131" />
+    <item android:color="#CCC" />
 </selector>

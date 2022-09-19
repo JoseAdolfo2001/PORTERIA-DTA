@@ -43,6 +43,7 @@ class AdminActivity : AppCompatActivity() {
                 R.id.nav_history,
                 R.id.nav_add_portero,
                 R.id.nav_disabled_portero,
+                R.id.nav_add_member,
                 R.id.nav_change_password,
                 R.id.nav_logout
             ), drawerLayout
@@ -69,7 +70,7 @@ class AdminActivity : AppCompatActivity() {
         val emailUser = headerView.findViewById<TextView>(R.id.email_user)
         emailUser.text = user?.email ?: ""
 
-        val logout = binding.navView.menu.getItem(4)
+        val logout = binding.navView.menu.getItem(5)
         logout.setOnMenuItemClickListener { onContextItemSelected(it) }
     }
 

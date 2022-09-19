@@ -28,4 +28,10 @@
         android:name="com.roshka.porteriadta.ui.change.password.ChangePasswordFragment"
         android:label="@string/menu_lock_reset"
         tools:layout="@layout/fragment_change_password" />
+
+    <fragment
+        android:id="@+id/nav_add_member"
+        android:name="com.roshka.porteriadta.ui.admin.addmember.AddMemberFragment"
+        android:label="@string/menu_add_member"
+        tools:layout="@layout/fragment_add_member" />
 </navigation>
