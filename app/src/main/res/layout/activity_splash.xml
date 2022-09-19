@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@drawable/vale_alemania"
+    android:background="@color/white"
     tools:context=".SplashActivity">
 
     <ImageView
@@ -16,10 +16,10 @@
         android:src="@drawable/imagen_club_aleman"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.133" />
+        app:layout_constraintVertical_bias="0.365" />
 
     <TextView
         android:id="@+id/welcome"
@@ -33,10 +33,9 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/loading"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.774"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo_id"
-        app:layout_constraintVertical_bias="0.587" />
+        app:layout_constraintVertical_bias="0.322" />
 
     <ProgressBar
         android:id="@+id/loading"
@@ -46,7 +45,6 @@
         android:indeterminate="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo_id"
         app:layout_constraintVertical_bias="0.617" />
