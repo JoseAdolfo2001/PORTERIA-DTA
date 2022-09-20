@@ -23,7 +23,7 @@ class AddMemberFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddMemberBinding.inflate(inflater, container, false)
-        val tipo = arrayOf("Socio","Gimnasio","Invitado","Guarderia")
+        val tipo = arrayOf("Socio","Gimnasio","Invitado","Guarderia","Fiesta","Staff")
         val spinner = binding.spinner
         spinner?.adapter = activity?.applicationContext?.let { ArrayAdapter(it, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, tipo) } as SpinnerAdapter
         return binding.root
