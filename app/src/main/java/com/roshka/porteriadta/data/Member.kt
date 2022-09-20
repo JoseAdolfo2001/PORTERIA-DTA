@@ -9,7 +9,8 @@ data class Member(
         FirebaseMemberDocument.ID_MEMBER to "",
         FirebaseMemberDocument.NAME to "",
         FirebaseMemberDocument.SURNAME to "",
-        FirebaseMemberDocument.IS_DEFAULTER to false,
+        FirebaseMemberDocument.IS_DEFAULTER to true,
+        FirebaseMemberDocument.CREATED_BY to "",
     )
 )
 
