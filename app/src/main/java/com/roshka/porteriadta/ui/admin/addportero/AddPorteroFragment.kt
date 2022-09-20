@@ -1,6 +1,5 @@
 package com.roshka.porteriadta.ui.admin.addportero
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.roshka.porteriadta.AdminActivity
-import com.roshka.porteriadta.PorteroActivity
-import com.roshka.porteriadta.data.Portero
 import com.roshka.porteriadta.data.User
 import com.roshka.porteriadta.databinding.FragmentAddPorteroBinding
 import com.roshka.porteriadta.network.FirebaseUsersDocument
@@ -51,11 +47,10 @@ class AddPorteroFragment : Fragment() {
                 val email = binding.portEmail.text.toString().trim()
                 val password = binding.portPassword.text.toString().trim()
                 val ci = binding.portCi.text.toString().trim()
-                val portero = Portero()
-                portero.data[FirebaseUsersDocument.NAME] = "$name $surname"
-                portero.data[FirebaseUsersDocument.CI] = ci
                 val user = User(email, password)
-                viewModel.addPortero(user, portero)
+                user.data[FirebaseUsersDocument.NAME] = "$name $surname"
+                user.data[FirebaseUsersDocument.CI] = ci
+                viewModel.addPortero(user)
             }
         }
 

@@ -7,9 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.roshka.porteriadta.data.Portero
-import com.roshka.porteriadta.data.Response
 import com.roshka.porteriadta.data.User
+import com.roshka.porteriadta.data.Response
 import com.roshka.porteriadta.network.FirebaseCollections
 
 class AddPorteroViewModel : ViewModel() {
@@ -20,7 +19,7 @@ class AddPorteroViewModel : ViewModel() {
     val isSuccessful: LiveData<Response>
         get() = _isSuccessful
 
-    fun addPortero(user: User, portero: Portero) {
+    fun addPortero(user: User) {
         auth.createUserWithEmailAndPassword(user.email, user.password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -28,7 +27,7 @@ class AddPorteroViewModel : ViewModel() {
                     Log.d(TAG, "createUserWithEmail:success")
                     auth.signOut()
                     db.collection(FirebaseCollections.USERS).document(user.email)
-                        .set(portero.data)
+                        .set(user.data)
                         .addOnSuccessListener {
                             _isSuccessful.value = Response(true, "Usuario agregado correctamente")
                             Log.d(TAG, "DocumentSnapshot successfully written! $it")

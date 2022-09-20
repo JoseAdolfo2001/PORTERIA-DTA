@@ -7,6 +7,7 @@ class FirebaseMemberDocument {
         const val IS_DEFAULTER = "puede_entrar"
         const val ID_MEMBER = "socios_numeros"
         const val TYPE = "tipo"
+        const val CREATED_BY = "created_by"
     }
 }
 
