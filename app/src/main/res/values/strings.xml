@@ -10,6 +10,7 @@
     <string name="menu_logout">Cerrar Sesión</string>
     <string name="menu_add_portero">Agregar Portero</string>
     <string name="menu_history">Historial de Ingresos</string>
-    <string name="menu_disabled_portero">Inhabilitar Cuenta</string>
+    <string name="menu_disabled_portero">Inhabilitar Portero</string>
+    <string name="menu_add_member">Agregar Miembro</string>
 
 </resources>

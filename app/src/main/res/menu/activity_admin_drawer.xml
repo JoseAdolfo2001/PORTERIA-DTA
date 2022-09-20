@@ -19,6 +19,11 @@
         android:title="@string/menu_disabled_portero" />
 
     <item
+        android:id="@+id/nav_add_member"
+        android:icon="@drawable/ic_baseline_person_add_24"
+        android:title="@string/menu_add_member" />
+
+    <item
         android:id="@+id/nav_change_password"
         android:icon="@drawable/ic_baseline_lock_reset_24"
         android:title="@string/menu_lock_reset" />
