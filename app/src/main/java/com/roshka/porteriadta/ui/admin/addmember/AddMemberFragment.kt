@@ -34,12 +34,12 @@ class AddMemberFragment : Fragment() {
         viewModel = ViewModelProvider(this)[AddMemberViewModel::class.java]
         // TODO: Use the ViewModel
         binding.btnLogin.setOnClickListener {
-            val nombre = binding.etName.toString()
-            val apellido = binding.etLastname.toString()
-            val cedula = binding.etCi.toString()
-            val nSocio = binding.etNumSocio.toString()
+            val nombre = binding.etName.text.toString()
+            val apellido = binding.etLastname.text.toString()
+            val cedula = binding.etCi.text.toString()
+            val nSocio = binding.etNumSocio.text.toString()
             val tipo: String = binding.spinner.selectedItem.toString()
-            if (checkFields(nombre, apellido, cedula, nSocio, tipo)) {
+            if (checkFields(nombre, apellido, cedula)) {
                 viewModel.setMember(apellido, nombre, cedula, nSocio, tipo)
                 jobDone()
                 clean()
@@ -47,7 +47,7 @@ class AddMemberFragment : Fragment() {
         }
     }
 
-    fun checkFields(nombre:String,apellido : String , cedula : String, nsocio:String ,tipo : String): Boolean {
+    fun checkFields(nombre:String,apellido : String , cedula : String): Boolean {
         if (nombre.isEmpty()) {
             binding.etName.error = "Campo Requerido"
             return false
@@ -58,10 +58,6 @@ class AddMemberFragment : Fragment() {
         }
         if (cedula.isEmpty()) {
             binding.etCi.error = "Campo Requerido"
-            return false
-        }
-        if (nsocio.isEmpty()) {
-            binding.etNumSocio.error = "Campo Requerido"
             return false
         }
         return true
