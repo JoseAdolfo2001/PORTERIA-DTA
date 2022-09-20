@@ -52,7 +52,9 @@ class RegisterIncomeFragment : Fragment() {
         viewModel.getListMembers()
         binding.btnEnviar.setOnClickListener {
             viewModel.uploadImages(binding.ivFoto,requireActivity(),foto!!)
-            viewModel.registrer()
+            binding.btnPrueba.setOnClickListener {
+                viewModel.registrer()
+            }
         }
         binding.btnCamara.setOnClickListener {
             abreCamara()
