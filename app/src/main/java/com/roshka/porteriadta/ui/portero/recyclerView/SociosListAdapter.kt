@@ -30,7 +30,7 @@ class SociosListAdapter(
         val layoutInflater = LayoutInflater.from(parent.context)
         return SociosListViewHolder(
             layoutInflater.inflate(
-                R.layout.socios_list_view,
+                R.layout.item_members,
                 parent,
                 false
             )
