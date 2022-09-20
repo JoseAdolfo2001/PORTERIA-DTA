@@ -10,6 +10,7 @@ data class Member(
         FirebaseMemberDocument.NAME to "",
         FirebaseMemberDocument.SURNAME to "",
         FirebaseMemberDocument.IS_DEFAULTER to false,
+        FirebaseMemberDocument.TYPE to ""
     )
 )
 

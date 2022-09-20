@@ -2,6 +2,7 @@ package com.roshka.porteriadta.ui.portero
 
 import android.Manifest
 import android.app.Activity
+import android.content.ClipData
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -22,7 +23,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.databinding.FragmentRegisterIncomeBinding
 import com.roshka.porteriadta.ui.portero.recyclerView.SociosListAdapter
 import java.util.*
@@ -32,6 +36,7 @@ class RegisterIncomeFragment : Fragment() {
     private lateinit var binding: FragmentRegisterIncomeBinding
     private lateinit var viewModel: RegisterIncomeViewModel
     var foto: Uri? = null
+    var array = mutableListOf<Member>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,6 +67,7 @@ class RegisterIncomeFragment : Fragment() {
 
         viewModel.arrayMembers.observe(viewLifecycleOwner, Observer {
             println(it)
+            array = it.toMutableList()
             adapter = SociosListAdapter(
                 it,
                 binding.rvMembers,
@@ -80,6 +86,8 @@ class RegisterIncomeFragment : Fragment() {
             val decoration =
                 DividerItemDecoration(activity, LinearLayoutManager(activity).orientation)
             binding.rvMembers.addItemDecoration(decoration)
+            var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
+            itemTouchHelper.attachToRecyclerView(binding.rvMembers)
 
         })
 
@@ -148,4 +156,5 @@ class RegisterIncomeFragment : Fragment() {
             binding.ivFoto.setImageURI(foto)
         }
     }
+
 }

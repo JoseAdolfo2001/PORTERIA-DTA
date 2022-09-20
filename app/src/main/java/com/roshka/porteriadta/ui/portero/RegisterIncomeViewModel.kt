@@ -17,6 +17,7 @@ import com.roshka.porteriadta.network.FirebaseCollections
 import com.roshka.porteriadta.network.FirebaseMemberDocument
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class RegisterIncomeViewModel : ViewModel() {
@@ -24,12 +25,12 @@ class RegisterIncomeViewModel : ViewModel() {
     val currentUser = FirebaseAuth.getInstance().currentUser
     val storageReference = FirebaseStorage.getInstance()
     val fb = FirebaseFirestore.getInstance()
-    private val _arrayMembers = MutableLiveData<List<Member>>()
-    val arrayMembers: LiveData<List<Member>>
+    private val _arrayMembers = MutableLiveData<ArrayList<Member>>()
+    val arrayMembers: LiveData<ArrayList<Member>>
         get() = _arrayMembers
 
     fun getListMembers() {
-        val aux: MutableList<Member> = mutableListOf()
+        val aux: ArrayList<Member> = ArrayList()
         fb.collection(FirebaseCollections.MEMBERS).get().addOnSuccessListener {
             for (document in it) {
                 val data = document.data
