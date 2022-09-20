@@ -2,19 +2,19 @@ package com.roshka.porteriadta.ui.portero
 
 import android.Manifest
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.Intent
-
 import android.content.pm.PackageManager
+import android.hardware.Camera
+import android.hardware.Camera.CameraInfo
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
+import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
@@ -23,11 +23,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.storage.FirebaseStorage
-import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentRegisterIncomeBinding
 import com.roshka.porteriadta.ui.portero.recyclerView.SociosListAdapter
-import java.text.SimpleDateFormat
 import java.util.*
 
 class RegisterIncomeFragment : Fragment() {
@@ -38,7 +35,7 @@ class RegisterIncomeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = com.roshka.porteriadta.databinding.FragmentRegisterIncomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -141,10 +138,10 @@ class RegisterIncomeFragment : Fragment() {
 //        }
  //   }
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    requestCode: Int,
+    permissions: Array<out String>,
+    grantResults: IntArray,
+) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when(requestCode) {
             viewModel.REQUEST_CAMERA -> {
@@ -158,6 +155,30 @@ class RegisterIncomeFragment : Fragment() {
         if(resultCode == Activity.RESULT_OK && requestCode == viewModel.REQUEST_CAMERA){
          binding.ivFoto.setImageURI(foto)
         }
+    }
+    fun setCameraDisplayOrientation(
+        activity: Activity,
+        cameraId: Int, camera: Camera,
+    ) {
+        val info = CameraInfo()
+        Camera.getCameraInfo(cameraId, info)
+        val rotation = activity.windowManager.defaultDisplay
+            .rotation
+        var degrees = 0
+        when (rotation) {
+            Surface.ROTATION_0 -> degrees = 0
+            Surface.ROTATION_90 -> degrees = 90
+            Surface.ROTATION_180 -> degrees = 180
+            Surface.ROTATION_270 -> degrees = 270
+        }
+        var result: Int
+        if (info.facing == CameraInfo.CAMERA_FACING_FRONT) {
+            result = (info.orientation + degrees) % 360
+            result = (360 - result) % 360 // compensate the mirror
+        } else {  // back-facing
+            result = (info.orientation - degrees + 360) % 360
+        }
+        camera.setDisplayOrientation(result)
     }
 
 }
