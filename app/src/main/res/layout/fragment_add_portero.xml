@@ -1,18 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:id="@+id/admin_activity"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    tools:context=".ui.admin.addportero.AddPorteroFragment"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".AdminActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/top_background1" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Add Portero"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:textAlignment="center"
-        android:gravity="center"/>
+        android:id="@+id/port_name"
+        android:layout_width="342dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="48dp"
+        android:fontFamily="sans-serif"
+        android:gravity=""
+        android:hint=" Nombre"
+        android:background="@drawable/edittext_background"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:textColorHint="#756C6C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.449"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/port_apellido"
+        android:layout_width="342dp"
+        android:layout_height="42dp"
+        android:gravity=""
+        android:hint=" Apellido"
+        android:background="@drawable/edittext_background"
+        android:textColorHint="#756C6C"
+        android:fontFamily="sans-serif"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        app:layout_constraintBottom_toTopOf="@+id/port_cedula"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.42"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:layout_constraintVertical_bias="0.797" />
+
+    <TextView
+        android:id="@+id/port_cedula"
+        android:layout_width="343dp"
+        android:layout_height="47dp"
+        android:gravity=""
+        android:hint=" Cedula"
+        android:fontFamily="sans-serif"
+        android:background="@drawable/edittext_background"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:textColorHint="#756C6C"
+        app:layout_constraintBottom_toTopOf="@+id/port_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.426"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:layout_constraintVertical_bias="0.878" />
+
+    <EditText
+        android:id="@+id/port_email"
+        android:layout_width="348dp"
+        android:layout_height="42dp"
+        android:background="@drawable/edittext_background"
+        android:drawableLeft="@drawable/ic_baseline_mail_outline_24"
+        android:ems="10"
+        android:gravity=""
+        android:fontFamily="sans-serif"
+        android:hint=" Correo"
+        android:inputType="textEmailAddress"
+        android:textColorHint="#756C6C"
+        app:layout_constraintBottom_toTopOf="@+id/port_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:layout_constraintVertical_bias="0.906" />
+
+    <EditText
+        android:id="@+id/port_password"
+        android:layout_width="349dp"
+        android:layout_height="42dp"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:gravity=""
+        android:hint=" Contraseña"
+        android:background="@drawable/edittext_background"
+        android:inputType="textPassword"
+        android:textColorHint="#756C6C"
+        android:drawableLeft="@drawable/ic_baseline_lock_24"
+        app:layout_constraintBottom_toTopOf="@+id/btn_registrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.451"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:layout_constraintVertical_bias="0.895" />
+
+    <Button
+        android:id="@+id/btn_registrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#E13A06"
+        android:text="Registrar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:layout_constraintVertical_bias="0.867" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
