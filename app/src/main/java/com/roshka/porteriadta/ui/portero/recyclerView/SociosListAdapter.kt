@@ -13,7 +13,7 @@ import com.roshka.porteriadta.R
 import com.roshka.porteriadta.data.Member
 
 class SociosListAdapter(
-    val sociosList: List<Member>,
+    val sociosList: ArrayList<Member>,
     val rvMembers: RecyclerView,
     val cardView: CardView,
     val tv_nombre: TextView,
@@ -30,7 +30,7 @@ class SociosListAdapter(
         val layoutInflater = LayoutInflater.from(parent.context)
         return SociosListViewHolder(
             layoutInflater.inflate(
-                R.layout.socios_list_view,
+                R.layout.item_members,
                 parent,
                 false
             )
@@ -44,6 +44,11 @@ class SociosListAdapter(
             tv_cedula, tv_socios_numeros, iv_foto, btn_camara, btn_enviar, searchView
         )
 
+
+    }
+    fun deleteItem(pos:Int){
+        sociosList.removeAt(pos)
+        notifyItemRemoved(pos)
     }
 
     override fun getItemCount(): Int {
