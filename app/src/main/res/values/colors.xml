@@ -12,4 +12,5 @@
     <color name="colorPrimary">#E13A06</color>
     <color name="green">#1BD834</color>
     <color name="red">#E40D2D</color>
+    <color name="colorPrimaryDark">#882303</color>
 </resources>
