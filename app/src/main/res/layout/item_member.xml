@@ -8,15 +8,16 @@
     android:background="#ffffff">
 
     <ImageView
+        android:id="@+id/type_member"
         android:layout_width="35dp"
         android:layout_height="30dp"
-        android:layout_alignParentEnd="true"
         android:layout_below="@id/tv_name"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="11dp"
         android:layout_marginEnd="7dp"
         android:layout_marginRight="-150dp"
-        android:layout_marginTop="11dp"
         android:layout_toLeftOf="@id/tv_socio"
-        android:src="@drawable/guarderia"/>
+        tools:src="@drawable/guarderia" />
 
     <TextView
         android:id="@+id/tv_ci"

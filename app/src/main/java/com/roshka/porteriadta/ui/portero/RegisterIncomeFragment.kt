@@ -5,14 +5,11 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.hardware.Camera
-import android.hardware.Camera.CameraInfo
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
-import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -21,11 +18,12 @@ import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentRegisterIncomeBinding
 import com.roshka.porteriadta.ui.portero.recyclerView.SociosListAdapter
-import java.util.*
 
 class RegisterIncomeFragment : Fragment() {
     lateinit var adapter: SociosListAdapter
@@ -38,6 +36,11 @@ class RegisterIncomeFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentRegisterIncomeBinding.inflate(inflater, container, false)
+
+        binding.btnPrueba.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_register_income_to_searchMemberFragment)
+        }
+
         return binding.root
     }
 
