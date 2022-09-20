@@ -62,8 +62,6 @@ class RegisterIncomeViewModel : ViewModel() {
                     .addOnFailureListener {
                     }
             }
-
-
             ivFoto.setImageURI(null)
             Toast.makeText(activity, "Se cargo correctamente", Toast.LENGTH_SHORT).show()
             if (progressDialog.isShowing) progressDialog.dismiss()
