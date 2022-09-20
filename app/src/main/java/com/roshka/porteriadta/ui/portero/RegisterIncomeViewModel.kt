@@ -14,7 +14,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.network.FirebaseCollections
-import com.roshka.porteriadta.network.FirebaseMemberDocument
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,16 +29,20 @@ class RegisterIncomeViewModel : ViewModel() {
 
     fun getListMembers() {
         val aux: MutableList<Member> = mutableListOf()
-        fb.collection(FirebaseCollections.MEMBERS).get().addOnSuccessListener {
-            for (document in it) {
-                val data = document.data
-                val member = Member(document.id)
-                member.data = data
-                aux.add(member)
-                println(member.data)
+        fb.collection(FirebaseCollections.MEMBERS).get()
+            .addOnSuccessListener {
+                for (document in it) {
+                    val data = document.data
+                    val member = Member(document.id)
+                    member.data = data
+                    aux.add(member)
+                    println(member.data)
+                }
+                _arrayMembers.value = aux
             }
-            _arrayMembers.value = aux
-        }
+            .addOnFailureListener {
+
+            }
     }
 
     fun uploadImages(ivFoto: ImageView, activity: Activity, foto: Uri) {
@@ -50,7 +53,8 @@ class RegisterIncomeViewModel : ViewModel() {
         val formated = SimpleDateFormat("yyyy_MM_dd_HH-mm-ss", Locale.getDefault())
         val now = Date()
         val fileName = formated.format(now)
-        var referenceImage = storageReference.getReference("images/${fileName}${currentUser!!.email}")
+        var referenceImage =
+            storageReference.getReference("images/${fileName}${currentUser!!.email}")
         referenceImage.putFile(foto!!).addOnSuccessListener {
             val uriTask = it.storage.downloadUrl
             while (!uriTask.isSuccessful());
