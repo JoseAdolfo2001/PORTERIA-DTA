@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.databinding.FragmentAddMemberBinding
 import com.roshka.porteriadta.databinding.FragmentLoginBinding
+import com.roshka.porteriadta.network.FirebaseMemberDocument
 import java.util.*
 
 class AddMemberFragment : Fragment() {
@@ -40,7 +42,12 @@ class AddMemberFragment : Fragment() {
             val nSocio = binding.etNumSocio.text.toString()
             val tipo: String = binding.spinner.selectedItem.toString()
             if (checkFields(nombre, apellido, cedula)) {
-                viewModel.setMember(apellido, nombre, cedula, nSocio, tipo)
+                val member = Member(cedula)
+                member.data[FirebaseMemberDocument.NAME] = nombre
+                member.data[FirebaseMemberDocument.SURNAME] = apellido
+                member.data[FirebaseMemberDocument.ID_MEMBER] = nSocio
+                member.data[FirebaseMemberDocument.TYPE] = tipo
+                viewModel.setMember(member)
                 jobDone()
                 clean()
             }

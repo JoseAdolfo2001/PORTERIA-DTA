@@ -50,7 +50,7 @@ class RegisterIncomeViewModel : ViewModel() {
         val formated = SimpleDateFormat("yyyy_MM_dd_HH-mm-ss", Locale.getDefault())
         val now = Date()
         val fileName = formated.format(now)
-        var referenceImage = storageReference.getReference("images/${fileName}")
+        var referenceImage = storageReference.getReference("images/${fileName}${currentUser!!.email}")
         referenceImage.putFile(foto!!).addOnSuccessListener {
             val uriTask = it.storage.downloadUrl
             while (!uriTask.isSuccessful());

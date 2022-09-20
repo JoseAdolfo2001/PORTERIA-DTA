@@ -1,14 +1,14 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.PorteriaDTA" parent="Theme.AppCompat.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimary</item>
-        <item name="colorOnPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/colorPrimaryDark</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/colorPrimary</item>
-        <item name="colorSecondaryVariant">@color/colorPrimary</item>
-        <item name="colorOnSecondary">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/colorPrimaryDark</item>
+        <item name="colorSecondaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnSecondary">@color/colorPrimaryDark</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
