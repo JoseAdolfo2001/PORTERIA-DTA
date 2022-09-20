@@ -33,13 +33,12 @@ class AddMemberFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[AddMemberViewModel::class.java]
         // TODO: Use the ViewModel
-        binding.aceptar.setOnClickListener {
-            val nombre = binding.nombre.text.toString()
-            val apellido = binding.lname.text.toString()
-            val cedula = binding.cedula.text.toString()
-            val nSocio = binding.nsocio.text.toString()
+        binding.btnLogin.setOnClickListener {
+            val nombre = binding.etName.toString()
+            val apellido = binding.etLastname.toString()
+            val cedula = binding.etCi.toString()
+            val nSocio = binding.etNumSocio.toString()
             val tipo: String = binding.spinner.selectedItem.toString()
-            println(tipo)
             if (checkFields(nombre, apellido, cedula, nSocio, tipo)) {
                 viewModel.setMember(apellido, nombre, cedula, nSocio, tipo)
                 jobDone()
@@ -49,33 +48,31 @@ class AddMemberFragment : Fragment() {
     }
 
     fun checkFields(nombre:String,apellido : String , cedula : String, nsocio:String ,tipo : String): Boolean {
-        if (nombre.isEmpty() ){
-            binding.nombre.error="Campo Requerido"
-            return false}
-        if(apellido.isEmpty()){
-            binding.lname.error="Campo Requerido"
-                    return false }
-        if(cedula.isEmpty()) {
-            binding.cedula.error="Campo Requerido"
+        if (nombre.isEmpty()) {
+            binding.etName.error = "Campo Requerido"
             return false
         }
-        if(nsocio.isEmpty()) {
-            binding.nsocio.error = "Campo Requerido"
+        if (apellido.isEmpty()) {
+            binding.etLastname.error = "Campo Requerido"
             return false
         }
-        if(tipo == "") {
-            binding.nsocio.error="Campo Requerido"
+        if (cedula.isEmpty()) {
+            binding.etCi.error = "Campo Requerido"
             return false
         }
-
+        if (nsocio.isEmpty()) {
+            binding.etNumSocio.error = "Campo Requerido"
+            return false
+        }
         return true
-        }
+    }
 
     fun clean(){
-        binding.nombre.setText("")
-        binding.lname.setText("")
-        binding.cedula.setText("")
-        binding.nsocio.setText("")
+        binding.etName.setText("")
+        binding.etLastname.setText("")
+        binding.etCi.setText("")
+        binding.etNumSocio.setText("")
+        binding.spinner.getItemAtPosition(0)
     }
     fun jobDone(){
         Toast.makeText(activity,"Se agrego", Toast.LENGTH_SHORT).show()
