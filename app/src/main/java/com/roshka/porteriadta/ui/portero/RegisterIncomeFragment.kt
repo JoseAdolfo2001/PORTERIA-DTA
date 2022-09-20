@@ -28,7 +28,7 @@ import com.roshka.porteriadta.ui.portero.recyclerView.SociosListAdapter
 import java.util.*
 
 class RegisterIncomeFragment : Fragment() {
-    lateinit var adapter:SociosListAdapter
+    lateinit var adapter: SociosListAdapter
     private lateinit var binding: FragmentRegisterIncomeBinding
     private lateinit var viewModel: RegisterIncomeViewModel
     var foto: Uri? = null
@@ -37,7 +37,7 @@ class RegisterIncomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = com.roshka.porteriadta.databinding.FragmentRegisterIncomeBinding.inflate(inflater, container, false)
+        binding = FragmentRegisterIncomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -48,10 +48,7 @@ class RegisterIncomeFragment : Fragment() {
         viewModel = ViewModelProvider(this)[RegisterIncomeViewModel::class.java]
         viewModel.getListMembers()
         binding.btnEnviar.setOnClickListener {
-            viewModel.uploadImages(binding.ivFoto,requireActivity(),foto!!)
-            binding.btnPrueba.setOnClickListener {
-                viewModel.registrer()
-            }
+            viewModel.uploadImages(binding.ivFoto, requireActivity(), foto!!)
         }
         binding.btnCamara.setOnClickListener {
             abreCamara()
@@ -65,7 +62,8 @@ class RegisterIncomeFragment : Fragment() {
 
         viewModel.arrayMembers.observe(viewLifecycleOwner, Observer {
             println(it)
-            adapter = SociosListAdapter(it,
+            adapter = SociosListAdapter(
+                it,
                 binding.rvMembers,
                 binding.cardView,
                 binding.tvNombre,
@@ -75,8 +73,8 @@ class RegisterIncomeFragment : Fragment() {
                 binding.ivFoto,
                 binding.btnCamara,
                 binding.btnEnviar,
-                binding.tvDato,
-                binding.searchView)
+                binding.searchView
+            )
             binding.rvMembers.layoutManager = LinearLayoutManager(activity)
             binding.rvMembers.adapter = adapter
             val decoration =
@@ -86,99 +84,68 @@ class RegisterIncomeFragment : Fragment() {
         })
 
     }
-    fun resetDate(){
+
+    fun resetDate() {
         binding.rvMembers.visibility = View.VISIBLE
-        binding.tvDato.text = "Introduce los datos"
         binding.searchView.visibility = View.VISIBLE
         binding.searchView.visibility = View.VISIBLE
         binding.btnEnviar.visibility = View.GONE
         binding.ivFoto.visibility = View.GONE
         binding.cardView.visibility = View.GONE
     }
-    private fun abreCamara(){
+
+    private fun abreCamara() {
         val value = ContentValues() //  Crea un espacio de memoria vacia
-        value.put(MediaStore.Images.Media.TITLE,"Nueva imagen")
-        foto = requireActivity().contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,value)
+        value.put(MediaStore.Images.Media.TITLE, "Nueva imagen")
+        foto = requireActivity().contentResolver.insert(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            value
+        )
         val camaraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        camaraIntent.putExtra(MediaStore.EXTRA_OUTPUT,foto)
-        startActivityForResult(camaraIntent,viewModel.REQUEST_CAMERA)
+        camaraIntent.putExtra(MediaStore.EXTRA_OUTPUT, foto)
+        startActivityForResult(camaraIntent, viewModel.REQUEST_CAMERA)
 
     }
 
     private fun permisosCamara() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if(checkSelfPermission(requireContext(),Manifest.permission.CAMERA) ==
+            if (checkSelfPermission(requireContext(), Manifest.permission.CAMERA) ==
                 PermissionChecker.PERMISSION_DENIED ||
-                checkSelfPermission(requireContext(),Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PermissionChecker.PERMISSION_DENIED ){
-                val permissionCamera = arrayOf(Manifest.permission.CAMERA ,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                requestPermissions(permissionCamera,viewModel.REQUEST_CAMERA)
-            }
-            else abreCamara()
-        }
-        else abreCamara()
-    }
-//    fun upLoadImage(){
-//        val progressDialog = ProgressDialog(activity)
-//        progressDialog.setMessage("Uploading file")
-//        progressDialog.setCancelable(false)
-//        progressDialog.show()
-//        val formated = SimpleDateFormat("yyyy/MM/dd/HH-mm-ss", Locale.getDefault())
-//        val now = Date()
-//        val fileName = formated.format(now)
-//        val storageReference = FirebaseStorage.getInstance().getReference("images/${fileName}")
-//        storageReference.putFile(foto!!).addOnSuccessListener {
-//            binding.ivFoto.setImageURI(null)
-//            Toast.makeText(activity,"Se cargo correctamente",Toast.LENGTH_SHORT).show()
-//            if(progressDialog.isShowing) progressDialog.dismiss()
-//        }.addOnFailureListener{
-//            if(progressDialog.isShowing) progressDialog.dismiss()
-//            Toast.makeText(activity,"No se cargo correctamente",Toast.LENGTH_SHORT).show()
-//        }
- //   }
-    override fun onRequestPermissionsResult(
-    requestCode: Int,
-    permissions: Array<out String>,
-    grantResults: IntArray,
-) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode) {
-            viewModel.REQUEST_CAMERA -> {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {permisosCamara()}
-                else Toast.makeText(activity , "No se pudo acceder a la camara" , Toast.LENGTH_SHORT)
-            }
-        }
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == Activity.RESULT_OK && requestCode == viewModel.REQUEST_CAMERA){
-         binding.ivFoto.setImageURI(foto)
-        }
-    }
-    fun setCameraDisplayOrientation(
-        activity: Activity,
-        cameraId: Int, camera: Camera,
-    ) {
-        val info = CameraInfo()
-        Camera.getCameraInfo(cameraId, info)
-        val rotation = activity.windowManager.defaultDisplay
-            .rotation
-        var degrees = 0
-        when (rotation) {
-            Surface.ROTATION_0 -> degrees = 0
-            Surface.ROTATION_90 -> degrees = 90
-            Surface.ROTATION_180 -> degrees = 180
-            Surface.ROTATION_270 -> degrees = 270
-        }
-        var result: Int
-        if (info.facing == CameraInfo.CAMERA_FACING_FRONT) {
-            result = (info.orientation + degrees) % 360
-            result = (360 - result) % 360 // compensate the mirror
-        } else {  // back-facing
-            result = (info.orientation - degrees + 360) % 360
-        }
-        camera.setDisplayOrientation(result)
+                checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PermissionChecker.PERMISSION_DENIED
+            ) {
+                val permissionCamera = arrayOf(
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+                requestPermissions(permissionCamera, viewModel.REQUEST_CAMERA)
+            } else abreCamara()
+        } else abreCamara()
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            viewModel.REQUEST_CAMERA -> {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    permisosCamara()
+                } else Toast.makeText(
+                    activity,
+                    "No se pudo acceder a la camara",
+                    Toast.LENGTH_SHORT
+                )
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == viewModel.REQUEST_CAMERA) {
+            binding.ivFoto.setImageURI(foto)
+        }
+    }
 }
