@@ -4,5 +4,6 @@ class FirebaseCollections {
     companion object{
         const val USERS = "Users"
         const val LIST = "List"
+        const val RECORD = "Record"
     }
 }

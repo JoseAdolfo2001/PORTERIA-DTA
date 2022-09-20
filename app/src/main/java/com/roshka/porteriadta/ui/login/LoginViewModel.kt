@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.roshka.porteriadta.network.FirebaseCollections
+import com.roshka.porteriadta.network.FirebaseUsersDocument
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
     val ADMIN = 1
@@ -26,9 +28,9 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    fb.collection("Users").document(email).get()
+                    fb.collection(FirebaseCollections.USERS).document(email).get()
                         .addOnSuccessListener { result ->
-                            val type = result.get("Nivel").toString()
+                            val type = result.get(FirebaseUsersDocument.ROL).toString()
                             if (type == "admin") {
                                 _isSuccessfulLogin.value = ADMIN
 
