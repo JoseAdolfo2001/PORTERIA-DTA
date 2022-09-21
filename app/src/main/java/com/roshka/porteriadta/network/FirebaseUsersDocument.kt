@@ -5,5 +5,6 @@ class FirebaseUsersDocument {
         const val NAME = "Nombre"
         const val CI = "Cedula"
         const val ROL = "Nivel"
+        const val ACTIVE = "Si"
     }
 }

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:backgroundTint="@color/white"
+    android:id="@+id/relativeLayout"
+    android:layout_height="wrap_content"
+    android:background="#ffffff">
+
+
+    <ImageButton
+        android:id="@+id/tv_add"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/tv_ci"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-37dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/white"
+        android:src="@drawable/ic_baseline_add_circle_outline_24"
+        android:visibility="gone"></ImageButton>
+
+    <ImageButton
+        android:id="@+id/tv_remove"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="15dp"
+        android:visibility="visible"
+        android:background="@color/white"
+        android:src="@drawable/ic_baseline_remove_circle_outline_24">
+
+    </ImageButton>
+
+    <TextView
+        android:id="@+id/tv_ci"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tv_name"
+        android:layout_below="@id/tv_name"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/cv_image"
+        android:text="N° de cédula:"
+        android:textColor="#000000"
+        android:textSize="12dp">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tv_ci"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/cv_image"
+        android:text="Email"
+        android:textColor="@color/black"
+        android:textSize="12dp">
+
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/cv_image"
+        android:text="Nombre y apellido:"
+        android:textColor="#000000"
+        android:textSize="12dp">
+
+    </TextView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="60dp">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/person">
+
+        </ImageView>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

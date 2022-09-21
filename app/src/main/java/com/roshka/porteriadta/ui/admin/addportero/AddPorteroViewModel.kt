@@ -30,7 +30,7 @@ class AddPorteroViewModel : ViewModel() {
                         .set(user.data)
                         .addOnSuccessListener {
                             _isSuccessful.value = Response(true, "Usuario agregado correctamente")
-                            Log.d(TAG, "DocumentSnapshot successfully written! $it")
+                            Log.d(TAG, "DocumentSnapshot successfully written!")
                         }
                         .addOnFailureListener {
                             _isSuccessful.value = Response(false, it.message.toString())
