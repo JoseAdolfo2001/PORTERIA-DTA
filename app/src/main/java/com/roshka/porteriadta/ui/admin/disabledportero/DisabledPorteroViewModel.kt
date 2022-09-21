@@ -17,12 +17,15 @@ class DisabledPorteroViewModel : ViewModel() {
     val listAllUsersFilter = ArrayList<User>()
 
     private val _arrayUsers = MutableLiveData<ArrayList<User>>()
-    val arrayUsers: LiveData<ArrayList<User>>
+    val arrayUsers : LiveData<ArrayList<User>>
         get() = _arrayUsers
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String>
         get() = _error
+    private val _disable =MutableLiveData<User>()
+    val disable : LiveData<User>
+        get()=disable
 
     fun eventChangeListener() {
         db.collection(FirebaseCollections.USERS)
@@ -54,7 +57,6 @@ class DisabledPorteroViewModel : ViewModel() {
             })
 
     }
-
     fun onQueryTextChange(newText: String) : Boolean {
         with(listAllUsersFilter) { clear() }
         val searchText = newText.lowercase(Locale.getDefault())
@@ -75,6 +77,7 @@ class DisabledPorteroViewModel : ViewModel() {
         _arrayUsers.value = listAllUsersFilter
         return false
     }
+
 }
 
 

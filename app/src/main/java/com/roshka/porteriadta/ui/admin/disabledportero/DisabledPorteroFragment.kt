@@ -39,15 +39,15 @@ class DisabledPorteroFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         viewModel = ViewModelProvider(this)[DisabledPorteroViewModel::class.java]
 
         viewModel.eventChangeListener()
 
         viewModel.arrayUsers.observe(viewLifecycleOwner) {
-            val adapter = DisabledPorteroAdapter(it)
+
             binding.rwPortero.adapter = adapter
         }
-
         viewModel.error.observe(viewLifecycleOwner) {
             showAlert(it)
         }
@@ -84,5 +84,4 @@ class DisabledPorteroFragment : Fragment() {
         val dialog = builder.create()
         dialog.show()
     }
-
 }
