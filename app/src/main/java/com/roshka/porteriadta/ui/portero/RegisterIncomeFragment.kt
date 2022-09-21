@@ -12,6 +12,8 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
@@ -40,6 +42,17 @@ class RegisterIncomeFragment : Fragment() {
         binding.btnPrueba.setOnClickListener {
             findNavController().navigate(R.id.action_nav_register_income_to_searchMemberFragment)
         }
+
+//        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+//            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(p0: String?): Boolean {
+//                TODO("Not yet implemented")
+//            }
+//
+//            override fun onQueryTextChange(textFilter: String?): Boolean {
+//                TODO("Not yet implemented")
+//            }
+//        })
 
         return binding.root
     }

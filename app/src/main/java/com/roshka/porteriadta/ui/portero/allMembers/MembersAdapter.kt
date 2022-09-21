@@ -1,5 +1,6 @@
 package com.roshka.porteriadta.ui.portero.allMembers
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +16,13 @@ class MembersAdapter(val memberList: List<Member>) :
 
     inner class MembersViewHolder(val itemMemberBinding: ItemMemberBinding) :
         RecyclerView.ViewHolder(itemMemberBinding.root) {
+        @SuppressLint("SetTextI18n")
         fun bindItem(member: Member) {
             itemMemberBinding.tvName.text =
                 "${member.data[FirebaseMemberDocument.NAME]} ${member.data[FirebaseMemberDocument.SURNAME]}"
-            itemMemberBinding.tvCi.text = "Nº Cedula: ${member.ci}"
+            itemMemberBinding.tvCi.text = "Nº Cédula: ${member.ci}"
             val idMember = member.data[FirebaseMemberDocument.ID_MEMBER].toString()
-            if (idMember == null || idMember == "") {
+            if (idMember == "") {
                 itemMemberBinding.tvSocio.visibility = View.GONE
             } else {
                 itemMemberBinding.tvSocio.text = "Nº Socio: $idMember"
@@ -105,5 +107,5 @@ class MembersAdapter(val memberList: List<Member>) :
     override fun getItemCount(): Int {
         return memberList.size
     }
-
+    
 }
