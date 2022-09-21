@@ -13,4 +13,5 @@
     <color name="green">#1BD834</color>
     <color name="red">#E40D2D</color>
     <color name="colorPrimaryDark">#882303</color>
+    <color name="disabled">#CCCD</color>
 </resources>

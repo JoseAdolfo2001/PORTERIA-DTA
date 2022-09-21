@@ -7,6 +7,7 @@ import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.network.FirebaseCollections
+import com.roshka.porteriadta.network.FirebaseMemberDocument
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -59,7 +60,10 @@ class SearchMemberViewModel : ViewModel() {
         val searchText = newText.lowercase(Locale.getDefault())
         if (searchText.isNotEmpty()){
             listAllMembers.forEach {
-                if(it.ci.lowercase(Locale.getDefault()).contains(searchText)) {
+                val ci = it.ci.lowercase(Locale.getDefault())
+                val id_member = it.data[FirebaseMemberDocument.ID_MEMBER].toString().lowercase(Locale.getDefault())
+                val name = "${it.data[FirebaseMemberDocument.NAME]} ${it.data[FirebaseMemberDocument.SURNAME]}".lowercase(Locale.getDefault())
+                if(ci.contains(searchText) || id_member.contains(searchText) || name.contains(searchText)) {
                     listAllMembersFilter.add(it)
                 }
             }
