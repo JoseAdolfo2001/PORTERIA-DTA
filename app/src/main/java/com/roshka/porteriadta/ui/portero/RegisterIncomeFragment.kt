@@ -39,7 +39,7 @@ class RegisterIncomeFragment : Fragment() {
     ): View {
         binding = FragmentRegisterIncomeBinding.inflate(inflater, container, false)
 
-        binding.btnPrueba.setOnClickListener {
+        binding.btnEnviar.setOnClickListener {
             findNavController().navigate(R.id.action_nav_register_income_to_searchMemberFragment)
         }
 
