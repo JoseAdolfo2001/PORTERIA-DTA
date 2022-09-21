@@ -12,20 +12,21 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.SearchView
 import android.widget.Toast
-import android.widget.Toast.*
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.roshka.porteriadta.R
+import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.databinding.FragmentRegisterIncomeBinding
+import com.roshka.porteriadta.ui.admin.addmember.AddMemberFragment
 import com.roshka.porteriadta.ui.portero.recyclerView.SociosListAdapter
 
 class RegisterIncomeFragment : Fragment() {
@@ -33,17 +34,13 @@ class RegisterIncomeFragment : Fragment() {
     private lateinit var binding: FragmentRegisterIncomeBinding
     private lateinit var viewModel: RegisterIncomeViewModel
     var foto: Uri? = null
+    var array = mutableListOf<Member>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentRegisterIncomeBinding.inflate(inflater, container, false)
-
-        binding.button.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_register_income_to_searchMemberFragment)
-        }
-
         return binding.root
     }
 
@@ -56,49 +53,49 @@ class RegisterIncomeFragment : Fragment() {
         binding.btnEnviar.setOnClickListener {
             viewModel.uploadImages(binding.ivFoto, requireActivity(), foto!!)
         }
-        binding.btnCamara.setOnClickListener {
-            abreCamara()
+
+            binding.viewFoto.setOnClickListener {
+                binding.ivArrowQuit.visibility = View.VISIBLE
+                binding.ivQuitImage.visibility = View.VISIBLE
+                binding.viewFoto.visibility = View.VISIBLE
+                binding.rvMembers.visibility = View.GONE
+                binding.ivFoto.visibility = View.VISIBLE
+            }
+        binding.ivQuitImage.setOnClickListener {
+            binding.ivFoto.setImageResource(R.drawable.icono_imagen)
         }
-        binding.ivCloseCardView.setOnClickListener {
-            resetDate()
+        binding.navAddMember.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_register_income_to_addMemberFragment)
         }
-        binding.btnCamara.setOnClickListener {
+
+        binding.ivArrowQuit.setOnClickListener {
+            binding.ivArrowQuit.visibility = View.GONE
+            binding.ivQuitImage.visibility = View.GONE
+            binding.rvMembers.visibility = View.VISIBLE
+            binding.ivFoto.visibility = View.GONE
+        }
+        binding.btnCamera.setOnClickListener {
             abreCamara()
         }
 
         viewModel.arrayMembers.observe(viewLifecycleOwner, Observer {
             println(it)
+            array = it.toMutableList()
             adapter = SociosListAdapter(
                 it,
-                binding.rvMembers,
-                binding.cardView,
-                binding.tvNombre,
-                binding.tvApellido,
-                binding.tvCedula,
-                binding.tvSociosNumeros,
-                binding.ivFoto,
-                binding.btnCamara,
-                binding.btnEnviar,
-                binding.searchView
             )
             binding.rvMembers.layoutManager = LinearLayoutManager(activity)
             binding.rvMembers.adapter = adapter
             val decoration =
                 DividerItemDecoration(activity, LinearLayoutManager(activity).orientation)
             binding.rvMembers.addItemDecoration(decoration)
+            var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
+            itemTouchHelper.attachToRecyclerView(binding.rvMembers)
 
         })
 
     }
 
-    fun resetDate() {
-        binding.rvMembers.visibility = View.VISIBLE
-        binding.searchView.visibility = View.VISIBLE
-        binding.searchView.visibility = View.VISIBLE
-        binding.btnEnviar.visibility = View.GONE
-        binding.ivFoto.visibility = View.GONE
-        binding.cardView.visibility = View.GONE
-    }
 
     private fun abreCamara() {
         val value = ContentValues() //  Crea un espacio de memoria vacia
@@ -139,20 +136,20 @@ class RegisterIncomeFragment : Fragment() {
             viewModel.REQUEST_CAMERA -> {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     permisosCamara()
-                } else makeText(
+                } else Toast.makeText(
                     activity,
                     "No se pudo acceder a la camara",
-                    LENGTH_SHORT
-                ).show()
+                    Toast.LENGTH_SHORT
+                )
             }
         }
     }
 
-    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == viewModel.REQUEST_CAMERA) {
             binding.ivFoto.setImageURI(foto)
         }
     }
+
 }

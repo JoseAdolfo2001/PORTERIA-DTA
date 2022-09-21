@@ -1,8 +1,6 @@
 package com.roshka.porteriadta.ui.admin.addmember
 
-import android.content.ContentValues
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +10,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
+import com.roshka.porteriadta.PorteroActivity
+import com.roshka.porteriadta.R
 import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.databinding.FragmentAddMemberBinding
 import com.roshka.porteriadta.network.FirebaseMemberDocument
@@ -48,7 +49,7 @@ class AddMemberFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[AddMemberViewModel::class.java]
 
-        binding.btnLogin.setOnClickListener {
+        binding.btnEnviar.setOnClickListener {
             val nombre = binding.etName.text.toString().trim()
             val apellido = binding.etLastname.text.toString().trim()
             val cedula = binding.etCi.text.toString().trim()
@@ -61,7 +62,10 @@ class AddMemberFragment : Fragment() {
                 member.data[FirebaseMemberDocument.ID_MEMBER] = nSocio
                 member.data[FirebaseMemberDocument.TYPE] = tipo
                 viewModel.setMember(member)
-
+                Toast.makeText(activity,"Nuevo miembro registrado satisfactoriamente",Toast.LENGTH_SHORT).show()
+                if(activity is PorteroActivity) {
+                    findNavController().navigate(R.id.action_addMemberFragment_to_nav_register_income)
+                }
             }
         }
         viewModel.isSuccessful.observe(viewLifecycleOwner) {

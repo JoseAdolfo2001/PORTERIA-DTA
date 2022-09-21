@@ -36,7 +36,6 @@ class HistoryRecordFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[HistoryRecordViewModel::class.java]
-        // TODO: Use the ViewModel
     }
 
     override fun onDestroyView() {
