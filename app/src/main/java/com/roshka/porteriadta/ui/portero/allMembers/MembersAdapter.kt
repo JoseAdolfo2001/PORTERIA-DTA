@@ -21,9 +21,9 @@ class MembersAdapter(private val memberList: List<Member>) :
             itemMemberBinding.tvName.text =
                 "${member.data[FirebaseMemberDocument.NAME]} ${member.data[FirebaseMemberDocument.SURNAME]}"
             itemMemberBinding.tvCi.text = "Nº Cédula: ${member.ci}"
-            val idMember = member.data[FirebaseMemberDocument.ID_MEMBER].toString()
+            val idMember = member.data[FirebaseMemberDocument.ID_MEMBER]
             println(idMember)
-            if (idMember.isEmpty()) {
+            if (idMember == null) {
                 println("Entre kp")
                 itemMemberBinding.tvSocio.visibility = View.GONE
             } else {
