@@ -12,9 +12,9 @@ import com.roshka.porteriadta.network.FirebaseMemberDocument
 
 class SociosListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    var tv_name: TextView = view.findViewById(R.id.tv_name)
-    var tv_cedula: TextView = view.findViewById(R.id.tv_ci)
-    var tv_socio_numero: TextView = view.findViewById(R.id.tv_socio)
+    var tv_name: TextView = view.findViewById(R.id.tv_nombre_socio)
+    var tv_cedula: TextView = view.findViewById(R.id.tv_cedula_socio)
+    var tv_socio_numero: TextView = view.findViewById(R.id.tv_ci_portero)
     var iv_Tipo: ImageView = view.findViewById(R.id.iv_type)
 
     fun bind(item: Member) {
