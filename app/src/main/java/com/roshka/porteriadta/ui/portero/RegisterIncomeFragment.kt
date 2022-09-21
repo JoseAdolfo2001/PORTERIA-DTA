@@ -43,17 +43,6 @@ class RegisterIncomeFragment : Fragment() {
             findNavController().navigate(R.id.action_nav_register_income_to_searchMemberFragment)
         }
 
-//        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-//            androidx.appcompat.widget.SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(p0: String?): Boolean {
-//                TODO("Not yet implemented")
-//            }
-//
-//            override fun onQueryTextChange(textFilter: String?): Boolean {
-//                TODO("Not yet implemented")
-//            }
-//        })
-
         return binding.root
     }
 

@@ -12,5 +12,6 @@
     <string name="menu_history">Historial de Ingresos</string>
     <string name="menu_disabled_portero">Inhabilitar Portero</string>
     <string name="menu_add_member">Agregar Miembro</string>
+    <string name="search">Buscar</string>
 
 </resources>

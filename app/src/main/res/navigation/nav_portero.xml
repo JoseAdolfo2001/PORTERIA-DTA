@@ -9,7 +9,7 @@
         android:id="@+id/nav_register_income"
         android:name="com.roshka.porteriadta.ui.portero.RegisterIncomeFragment"
         android:label="@string/menu_register"
-        tools:layout="@layout/fragment_register_income" >
+        tools:layout="@layout/fragment_register_income">
         <action
             android:id="@+id/action_nav_register_income_to_searchMemberFragment"
             app:destination="@id/searchMemberFragment" />
@@ -24,6 +24,6 @@
     <fragment
         android:id="@+id/searchMemberFragment"
         android:name="com.roshka.porteriadta.ui.portero.allMembers.SearchMemberFragment"
-        android:label="fragment_search_member"
+        android:label="Buscar"
         tools:layout="@layout/fragment_search_member" />
 </navigation>
