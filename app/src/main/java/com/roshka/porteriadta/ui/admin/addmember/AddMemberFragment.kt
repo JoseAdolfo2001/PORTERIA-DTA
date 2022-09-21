@@ -12,7 +12,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
+import com.roshka.porteriadta.PorteroActivity
+import com.roshka.porteriadta.R
 import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.databinding.FragmentAddMemberBinding
 import com.roshka.porteriadta.network.FirebaseMemberDocument
@@ -61,7 +64,9 @@ class AddMemberFragment : Fragment() {
                 member.data[FirebaseMemberDocument.ID_MEMBER] = nSocio
                 member.data[FirebaseMemberDocument.TYPE] = tipo
                 viewModel.setMember(member)
-
+                if(activity is PorteroActivity) {
+                    findNavController().navigate(R.id.action_addMemberFragment_to_nav_register_income)
+                }
             }
         }
         viewModel.isSuccessful.observe(viewLifecycleOwner) {

@@ -2,34 +2,32 @@ package com.roshka.porteriadta.ui.portero
 
 import android.Manifest
 import android.app.Activity
-import android.content.ClipData
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.hardware.Camera
-import android.hardware.Camera.CameraInfo
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
-import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.roshka.porteriadta.R
 import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.databinding.FragmentRegisterIncomeBinding
+import com.roshka.porteriadta.ui.admin.addmember.AddMemberFragment
 import com.roshka.porteriadta.ui.portero.recyclerView.SociosListAdapter
-import java.util.*
 
 class RegisterIncomeFragment : Fragment() {
     lateinit var adapter: SociosListAdapter
@@ -55,7 +53,28 @@ class RegisterIncomeFragment : Fragment() {
         binding.btnEnviar.setOnClickListener {
             viewModel.uploadImages(binding.ivFoto, requireActivity(), foto!!)
         }
-        binding.btnCamara.setOnClickListener {
+
+            binding.viewFoto.setOnClickListener {
+                binding.ivArrowQuit.visibility = View.VISIBLE
+                binding.ivQuitImage.visibility = View.VISIBLE
+                binding.viewFoto.visibility = View.VISIBLE
+                binding.rvMembers.visibility = View.GONE
+                binding.ivFoto.visibility = View.VISIBLE
+            }
+        binding.ivQuitImage.setOnClickListener {
+            binding.ivFoto.setImageResource(R.drawable.icono_imagen)
+        }
+        binding.navAddMember.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_register_income_to_addMemberFragment)
+        }
+
+        binding.ivArrowQuit.setOnClickListener {
+            binding.ivArrowQuit.visibility = View.GONE
+            binding.ivQuitImage.visibility = View.GONE
+            binding.rvMembers.visibility = View.VISIBLE
+            binding.ivFoto.visibility = View.GONE
+        }
+        binding.btnCamera.setOnClickListener {
             abreCamara()
         }
         binding.ivCloseCardView.setOnClickListener {
@@ -78,8 +97,7 @@ class RegisterIncomeFragment : Fragment() {
                 binding.tvSociosNumeros,
                 binding.ivFoto,
                 binding.btnCamara,
-                binding.btnEnviar,
-                binding.searchView
+                binding.btnEnviar
             )
             binding.rvMembers.layoutManager = LinearLayoutManager(activity)
             binding.rvMembers.adapter = adapter
@@ -95,8 +113,6 @@ class RegisterIncomeFragment : Fragment() {
 
     fun resetDate() {
         binding.rvMembers.visibility = View.VISIBLE
-        binding.searchView.visibility = View.VISIBLE
-        binding.searchView.visibility = View.VISIBLE
         binding.btnEnviar.visibility = View.GONE
         binding.ivFoto.visibility = View.GONE
         binding.cardView.visibility = View.GONE

@@ -1,6 +1,6 @@
 package com.roshka.porteriadta.data
 
-data class Tipo(
+data class Type(
     val INVITADO: String = "Invitado",
     val GUARDERIA: String = "Guarderia",
     val GIMNASIO: String = "Gimnasio",

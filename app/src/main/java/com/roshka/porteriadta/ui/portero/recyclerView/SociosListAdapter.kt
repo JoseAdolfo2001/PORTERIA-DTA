@@ -23,7 +23,6 @@ class SociosListAdapter(
     val iv_foto: ImageView,
     val btn_camara: FloatingActionButton,
     val btn_enviar: Button,
-    val searchView: SearchView
 ) : RecyclerView.Adapter<SociosListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SociosListViewHolder {
@@ -41,7 +40,7 @@ class SociosListAdapter(
         val item = sociosList[position]
         holder.bind(
             item, rvMembers, cardView, tv_nombre, tv_apellido,
-            tv_cedula, tv_socios_numeros, iv_foto, btn_camara, btn_enviar, searchView
+            tv_cedula, tv_socios_numeros, iv_foto, btn_camara, btn_enviar
         )
 
 

@@ -9,11 +9,24 @@
         android:id="@+id/nav_register_income"
         android:name="com.roshka.porteriadta.ui.portero.RegisterIncomeFragment"
         android:label="@string/menu_register"
-        tools:layout="@layout/fragment_register_income" />
+        tools:layout="@layout/fragment_register_income" >
+        <action
+            android:id="@+id/action_nav_register_income_to_addMemberFragment"
+            app:destination="@id/addMemberFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_change_password"
         android:name="com.roshka.porteriadta.ui.change.password.ChangePasswordFragment"
         android:label="@string/menu_lock_reset"
         tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/addMemberFragment"
+        android:name="com.roshka.porteriadta.ui.admin.addmember.AddMemberFragment"
+        android:label="fragment_add_member"
+        tools:layout="@layout/fragment_add_member" >
+        <action
+            android:id="@+id/action_addMemberFragment_to_nav_register_income"
+            app:destination="@id/nav_register_income" />
+    </fragment>
 </navigation>
