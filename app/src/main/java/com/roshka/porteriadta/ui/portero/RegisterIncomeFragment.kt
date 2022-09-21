@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.SearchView
 import android.widget.Toast
+import android.widget.Toast.*
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
@@ -39,7 +40,7 @@ class RegisterIncomeFragment : Fragment() {
     ): View {
         binding = FragmentRegisterIncomeBinding.inflate(inflater, container, false)
 
-        binding.btnPrueba.setOnClickListener {
+        binding.button.setOnClickListener {
             findNavController().navigate(R.id.action_nav_register_income_to_searchMemberFragment)
         }
 
@@ -138,15 +139,16 @@ class RegisterIncomeFragment : Fragment() {
             viewModel.REQUEST_CAMERA -> {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     permisosCamara()
-                } else Toast.makeText(
+                } else makeText(
                     activity,
                     "No se pudo acceder a la camara",
-                    Toast.LENGTH_SHORT
-                )
+                    LENGTH_SHORT
+                ).show()
             }
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == viewModel.REQUEST_CAMERA) {

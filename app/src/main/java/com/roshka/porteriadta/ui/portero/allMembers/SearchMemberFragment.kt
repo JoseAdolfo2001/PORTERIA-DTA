@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +13,7 @@ import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentSearchMemberBinding
 
 
-class SearchMemberFragment : Fragment() {
+class SearchMemberFragment : DialogFragment() {
     private lateinit var binding: FragmentSearchMemberBinding
 
     companion object {
@@ -34,6 +35,7 @@ class SearchMemberFragment : Fragment() {
         return binding.root
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[SearchMemberViewModel::class.java]
@@ -60,6 +62,9 @@ class SearchMemberFragment : Fragment() {
             setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
             actionView = searchView
         }
+        searchView.isIconified = false
+        searchView.isFocusable = true
+        searchView.requestFocusFromTouch()
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -70,7 +75,9 @@ class SearchMemberFragment : Fragment() {
                 return viewModel.onQueryTextChange(newText)
             }
         })
-        searchView.setOnClickListener {view ->  }
+        searchView.setOnClickListener {view ->
+            println("OnClick")
+        }
     }
 
     private fun showAlert(message: String) {
