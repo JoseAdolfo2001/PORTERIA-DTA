@@ -1,17 +1,20 @@
 package com.roshka.porteriadta.ui.portero.allMembers
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.*
+import com.google.firebase.firestore.EventListener
 import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.network.FirebaseCollections
+import com.roshka.porteriadta.network.FirebaseMemberDocument
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SearchMemberViewModel : ViewModel() {
     val db = FirebaseFirestore.getInstance()
-    val aux = ArrayList<Member>()
+    val listAllMembers = ArrayList<Member>()
+    val listAllMembersFilter = ArrayList<Member>()
 
     private val _arrayMembers = MutableLiveData<ArrayList<Member>>()
     val arrayMembers: LiveData<ArrayList<Member>>
@@ -33,28 +36,42 @@ class SearchMemberViewModel : ViewModel() {
                             val data = dc.document.data
                             val member = Member(dc.document.id)
                             member.data = data
-                            val index = aux.indexOf(member)
-                            println(member.data)
-                            Log.d(
-                                TAG,
-                                "MEMBER: \n$index | ${dc.oldIndex} | ${dc.newIndex}"
-                            )
                             when (dc.type) {
                                 DocumentChange.Type.ADDED -> {
-                                    aux.add(dc.newIndex, member)
+                                    listAllMembers.add(dc.newIndex, member)
                                 }
                                 DocumentChange.Type.MODIFIED -> {
-                                    aux[dc.oldIndex] = member
+                                    listAllMembers[dc.oldIndex] = member
                                 }
                                 DocumentChange.Type.REMOVED -> {
-                                    aux.removeAt(dc.oldIndex)
+                                    listAllMembers.removeAt(dc.oldIndex)
                                 }
                             }
                         }
-                        _arrayMembers.value = aux
+                        _arrayMembers.value = listAllMembers
                     }
                 }
             })
 
+    }
+
+    fun onQueryTextChange(newText: String) : Boolean {
+        with(listAllMembersFilter) { clear() }
+        val searchText = newText.lowercase(Locale.getDefault())
+        if (searchText.isNotEmpty()){
+            listAllMembers.forEach {
+                val ci = it.ci.lowercase(Locale.getDefault())
+                val id_member = it.data[FirebaseMemberDocument.ID_MEMBER].toString().lowercase(Locale.getDefault())
+                val name = "${it.data[FirebaseMemberDocument.NAME]} ${it.data[FirebaseMemberDocument.SURNAME]}".lowercase(Locale.getDefault())
+                if(ci.contains(searchText) || id_member.contains(searchText) || name.contains(searchText)) {
+                    listAllMembersFilter.add(it)
+                }
+            }
+        } else {
+            listAllMembersFilter.clear()
+            listAllMembersFilter.addAll(listAllMembers)
+        }
+        _arrayMembers.value = listAllMembersFilter
+        return false
     }
 }

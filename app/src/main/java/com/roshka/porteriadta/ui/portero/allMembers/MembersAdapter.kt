@@ -11,10 +11,10 @@ import com.roshka.porteriadta.data.Type
 import com.roshka.porteriadta.databinding.ItemMemberBinding
 import com.roshka.porteriadta.network.FirebaseMemberDocument
 
-class MembersAdapter(val memberList: List<Member>) :
+class MembersAdapter(private val memberList: List<Member>) :
     RecyclerView.Adapter<MembersAdapter.MembersViewHolder>() {
 
-    inner class MembersViewHolder(val itemMemberBinding: ItemMemberBinding) :
+    inner class MembersViewHolder(private val itemMemberBinding: ItemMemberBinding) :
         RecyclerView.ViewHolder(itemMemberBinding.root) {
         @SuppressLint("SetTextI18n")
         fun bindItem(member: Member) {
@@ -22,11 +22,14 @@ class MembersAdapter(val memberList: List<Member>) :
                 "${member.data[FirebaseMemberDocument.NAME]} ${member.data[FirebaseMemberDocument.SURNAME]}"
             itemMemberBinding.tvCi.text = "Nº Cédula: ${member.ci}"
             val idMember = member.data[FirebaseMemberDocument.ID_MEMBER].toString()
-            if (idMember == "") {
+            println(idMember)
+            if (idMember.isEmpty()) {
+                println("Entre kp")
                 itemMemberBinding.tvSocio.visibility = View.GONE
             } else {
                 itemMemberBinding.tvSocio.text = "Nº Socio: $idMember"
             }
+
             when (member.data[FirebaseMemberDocument.TYPE].toString()) {
                 Type.SOCIO -> itemMemberBinding.typeMember.setImageResource(R.drawable.socio)
                 Type.FIESTA -> itemMemberBinding.typeMember.setImageResource(R.drawable.fiesta)
@@ -37,32 +40,13 @@ class MembersAdapter(val memberList: List<Member>) :
                 Type.RESTATURANTE -> itemMemberBinding.typeMember.setImageResource(R.drawable.restaurante)
                 else -> itemMemberBinding.typeMember.setBackgroundResource(R.drawable.incognito)
             }
+
+            if (member.data[FirebaseMemberDocument.IS_DEFAULTER] == true) {
+                itemView.setBackgroundResource(R.color.disabled)
+            }
         }
     }
 
-    /**
-     * Called when RecyclerView needs a new [ViewHolder] of the given type to represent
-     * an item.
-     *
-     *
-     * This new ViewHolder should be constructed with a new View that can represent the items
-     * of the given type. You can either create a new View manually or inflate it from an XML
-     * layout file.
-     *
-     *
-     * The new ViewHolder will be used to display items of the adapter using
-     * [.onBindViewHolder]. Since it will be re-used to display
-     * different items in the data set, it is a good idea to cache references to sub views of
-     * the View to avoid unnecessary [View.findViewById] calls.
-     *
-     * @param parent The ViewGroup into which the new View will be added after it is bound to
-     * an adapter position.
-     * @param viewType The view type of the new View.
-     *
-     * @return A new ViewHolder that holds a View of the given view type.
-     * @see .getItemViewType
-     * @see .onBindViewHolder
-     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MembersViewHolder {
         return MembersViewHolder(
             ItemMemberBinding.inflate(
@@ -73,39 +57,13 @@ class MembersAdapter(val memberList: List<Member>) :
         )
     }
 
-    /**
-     * Called by RecyclerView to display the data at the specified position. This method should
-     * update the contents of the [ViewHolder.itemView] to reflect the item at the given
-     * position.
-     *
-     *
-     * Note that unlike [android.widget.ListView], RecyclerView will not call this method
-     * again if the position of the item changes in the data set unless the item itself is
-     * invalidated or the new position cannot be determined. For this reason, you should only
-     * use the `position` parameter while acquiring the related data item inside
-     * this method and should not keep a copy of it. If you need the position of an item later
-     * on (e.g. in a click listener), use [ViewHolder.getAdapterPosition] which will
-     * have the updated adapter position.
-     *
-     * Override [.onBindViewHolder] instead if Adapter can
-     * handle efficient partial bind.
-     *
-     * @param holder The ViewHolder which should be updated to represent the contents of the
-     * item at the given position in the data set.
-     * @param position The position of the item within the adapter's data set.
-     */
     override fun onBindViewHolder(holder: MembersViewHolder, position: Int) {
         val member = memberList[position]
         holder.bindItem(member)
     }
 
-    /**
-     * Returns the total number of items in the data set held by the adapter.
-     *
-     * @return The total number of items in this adapter.
-     */
     override fun getItemCount(): Int {
         return memberList.size
     }
-    
+
 }

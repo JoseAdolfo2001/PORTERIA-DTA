@@ -2,47 +2,47 @@ package com.roshka.porteriadta.ui.portero
 
 import android.Manifest
 import android.app.Activity
-import android.content.ClipData
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.hardware.Camera
-import android.hardware.Camera.CameraInfo
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
-import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.roshka.porteriadta.data.Member
+import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentRegisterIncomeBinding
 import com.roshka.porteriadta.ui.portero.recyclerView.SociosListAdapter
-import java.util.*
 
 class RegisterIncomeFragment : Fragment() {
     lateinit var adapter: SociosListAdapter
     private lateinit var binding: FragmentRegisterIncomeBinding
     private lateinit var viewModel: RegisterIncomeViewModel
     var foto: Uri? = null
-    var array = mutableListOf<Member>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentRegisterIncomeBinding.inflate(inflater, container, false)
+
+        binding.btnPrueba.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_register_income_to_searchMemberFragment)
+        }
+
         return binding.root
     }
 
@@ -67,7 +67,6 @@ class RegisterIncomeFragment : Fragment() {
 
         viewModel.arrayMembers.observe(viewLifecycleOwner, Observer {
             println(it)
-            array = it.toMutableList()
             adapter = SociosListAdapter(
                 it,
                 binding.rvMembers,
@@ -86,8 +85,6 @@ class RegisterIncomeFragment : Fragment() {
             val decoration =
                 DividerItemDecoration(activity, LinearLayoutManager(activity).orientation)
             binding.rvMembers.addItemDecoration(decoration)
-            var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
-            itemTouchHelper.attachToRecyclerView(binding.rvMembers)
 
         })
 
@@ -156,5 +153,4 @@ class RegisterIncomeFragment : Fragment() {
             binding.ivFoto.setImageURI(foto)
         }
     }
-
 }
