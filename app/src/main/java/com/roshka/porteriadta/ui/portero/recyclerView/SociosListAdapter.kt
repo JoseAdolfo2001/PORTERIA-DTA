@@ -14,15 +14,6 @@ import com.roshka.porteriadta.data.Member
 
 class SociosListAdapter(
     val sociosList: ArrayList<Member>,
-    val rvMembers: RecyclerView,
-    val cardView: CardView,
-    val tv_nombre: TextView,
-    val tv_apellido: TextView,
-    val tv_cedula: TextView,
-    val tv_socios_numeros: TextView,
-    val iv_foto: ImageView,
-    val btn_camara: FloatingActionButton,
-    val btn_enviar: Button,
 ) : RecyclerView.Adapter<SociosListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SociosListViewHolder {
@@ -38,14 +29,12 @@ class SociosListAdapter(
 
     override fun onBindViewHolder(holder: SociosListViewHolder, position: Int) {
         val item = sociosList[position]
-        holder.bind(
-            item, rvMembers, cardView, tv_nombre, tv_apellido,
-            tv_cedula, tv_socios_numeros, iv_foto, btn_camara, btn_enviar
-        )
+        holder.bind(item)
 
 
     }
-    fun deleteItem(pos:Int){
+
+    fun deleteItem(pos: Int) {
         sociosList.removeAt(pos)
         notifyItemRemoved(pos)
     }

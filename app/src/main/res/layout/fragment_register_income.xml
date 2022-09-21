@@ -9,90 +9,6 @@
     tools:context=".ui.portero.RegisterIncomeFragment">
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
-        android:layout_width="367dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:alpha="0.8"
-        android:visibility="gone"
-        app:cardBackgroundColor="@color/color_menu"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="6dp"
-        app:contentPadding="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/iv_foto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
-
-            <ImageView
-                android:id="@+id/iv_close_card_view"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_close_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_nombre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="8dp"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_apellido"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_nombre"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_nombre" />
-
-            <TextView
-                android:id="@+id/tv_cedula"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_apellido"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_apellido" />
-
-            <TextView
-                android:id="@+id/tv_socios_numeros"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_cedula"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_cedula" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMembers"
         android:layout_width="0dp"
@@ -171,37 +87,6 @@
 
     <Button
         android:id="@+id/btn_enviar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginEnd="128dp"
-        android:alpha="0.8"
-        android:background="@drawable/style_btn_foto"
-        android:text="Enviar"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_camara"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_camara" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_camara"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
-        android:visibility="gone"
-        android:backgroundTint="@color/white"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
-
-    <Button
-        android:id="@+id/btn_login"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="80dp"

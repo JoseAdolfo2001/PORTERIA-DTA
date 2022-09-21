@@ -77,27 +77,12 @@ class RegisterIncomeFragment : Fragment() {
         binding.btnCamera.setOnClickListener {
             abreCamara()
         }
-        binding.ivCloseCardView.setOnClickListener {
-            resetDate()
-        }
-        binding.btnCamara.setOnClickListener {
-            abreCamara()
-        }
 
         viewModel.arrayMembers.observe(viewLifecycleOwner, Observer {
             println(it)
             array = it.toMutableList()
             adapter = SociosListAdapter(
                 it,
-                binding.rvMembers,
-                binding.cardView,
-                binding.tvNombre,
-                binding.tvApellido,
-                binding.tvCedula,
-                binding.tvSociosNumeros,
-                binding.ivFoto,
-                binding.btnCamara,
-                binding.btnEnviar
             )
             binding.rvMembers.layoutManager = LinearLayoutManager(activity)
             binding.rvMembers.adapter = adapter
@@ -111,12 +96,6 @@ class RegisterIncomeFragment : Fragment() {
 
     }
 
-    fun resetDate() {
-        binding.rvMembers.visibility = View.VISIBLE
-        binding.btnEnviar.visibility = View.GONE
-        binding.ivFoto.visibility = View.GONE
-        binding.cardView.visibility = View.GONE
-    }
 
     private fun abreCamara() {
         val value = ContentValues() //  Crea un espacio de memoria vacia
