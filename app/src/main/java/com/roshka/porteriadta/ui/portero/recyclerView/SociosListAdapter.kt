@@ -36,21 +36,17 @@ class SociosListAdapter(
             )
         )
     }
-
     override fun onBindViewHolder(holder: SociosListViewHolder, position: Int) {
         val item = sociosList[position]
         holder.bind(
             item, rvMembers, cardView, tv_nombre, tv_apellido,
             tv_cedula, tv_socios_numeros, iv_foto, btn_camara, btn_enviar, searchView
         )
-
-
     }
     fun deleteItem(pos:Int){
         sociosList.removeAt(pos)
         notifyItemRemoved(pos)
     }
-
     override fun getItemCount(): Int {
         return sociosList.size
     }
