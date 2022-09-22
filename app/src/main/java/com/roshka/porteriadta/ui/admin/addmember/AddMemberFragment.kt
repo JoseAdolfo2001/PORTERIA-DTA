@@ -116,6 +116,8 @@ class AddMemberFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
+
     }
     private fun hasNetworkAvailable(context: Context): Boolean {
         val service = Context.CONNECTIVITY_SERVICE
