@@ -105,6 +105,8 @@ class AddMemberFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
+
     }
 
     private fun showAlert(message: String) {

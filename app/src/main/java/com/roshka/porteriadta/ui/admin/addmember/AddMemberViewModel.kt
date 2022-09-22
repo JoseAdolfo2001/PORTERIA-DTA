@@ -35,6 +35,8 @@ class AddMemberViewModel : ViewModel() {
                     _isSuccessful.value = Response(true, "Se Agrego Correctamente")
 
             }
+
+
             .addOnFailureListener {
                 _isSuccessful.value = Response(false, it.message.toString())
 
