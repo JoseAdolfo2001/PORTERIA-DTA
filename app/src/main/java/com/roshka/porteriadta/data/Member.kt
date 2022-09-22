@@ -11,7 +11,9 @@ data class Member(
         FirebaseMemberDocument.NAME to "",
         FirebaseMemberDocument.SURNAME to "",
         FirebaseMemberDocument.IS_DEFAULTER to false,
-        FirebaseMemberDocument.TYPE to ""
+        FirebaseMemberDocument.TYPE to "",
+        FirebaseMemberDocument.CREATED_BY to "",
+        FirebaseMemberDocument.PHOTO to ""
     )
 ) : Serializable
 

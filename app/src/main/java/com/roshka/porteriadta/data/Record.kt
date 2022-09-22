@@ -5,9 +5,18 @@ import com.roshka.porteriadta.network.FirebaseRecordDocument
 data class Record(
     val data: MutableMap<String, Any> = hashMapOf(
         FirebaseRecordDocument.ID_MEMBER to "",
-        FirebaseRecordDocument.ID_USER_PORTERO to "",
-        FirebaseRecordDocument.DATE_TIME to "",
+        FirebaseRecordDocument.CI_MEMBER to "",
+        FirebaseRecordDocument.NAME_MEMBER to "",
+        FirebaseRecordDocument.SURNAME_MEMBER to "",
+        FirebaseRecordDocument.IS_DEFAULTER to "",
         FirebaseRecordDocument.IS_EXIT to false,
-        FirebaseRecordDocument.PHOTO to ""
+        FirebaseRecordDocument.IS_WALK to false,
+        FirebaseRecordDocument.PHOTO to "",
+        FirebaseRecordDocument.TYPE to "",
+        FirebaseRecordDocument.CI_PORTERO to "",
+        FirebaseRecordDocument.NAME_PORTERO to "",
+        FirebaseRecordDocument.SURNAME_PORTERO to "",
+        FirebaseRecordDocument.EMAIL_PORTERO to "",
+        FirebaseRecordDocument.DATE_TIME to ""
     )
 )

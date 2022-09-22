@@ -1,17 +1,11 @@
 package com.roshka.porteriadta.ui.portero
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
-import android.content.ContentValues
-import android.content.Context
 import android.net.Uri
-import android.util.Log
-import android.view.View
-import android.view.inputmethod.InputMethodManager
+import android.text.format.Time
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,17 +17,22 @@ import com.google.firebase.storage.FirebaseStorage
 import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.data.Record
 import com.roshka.porteriadta.data.Response
+import com.roshka.porteriadta.data.User
 import com.roshka.porteriadta.network.FirebaseCollections
 import com.roshka.porteriadta.network.FirebaseMemberDocument
+import com.roshka.porteriadta.network.FirebaseRecordDocument
+import com.roshka.porteriadta.network.FirebaseUsersDocument
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class PorteroActivityViewModel : ViewModel() {
     val REQUEST_CAMERA = 1000
-    val currentUser = FirebaseAuth.getInstance().currentUser
-    val storageReference = FirebaseStorage.getInstance()
+    private val auth = FirebaseAuth.getInstance().currentUser
+    private val fb = FirebaseFirestore.getInstance()
+    private lateinit var user: User
+
+    private val storageReference = FirebaseStorage.getInstance()
 
     private val _addMembers = MutableLiveData<ArrayList<Member>>()
     val addMembers: LiveData<ArrayList<Member>>
@@ -58,6 +57,18 @@ class PorteroActivityViewModel : ViewModel() {
 
     init {
         eventChangeListener()
+        fb.collection(FirebaseCollections.USERS).document(auth?.email.toString()).get()
+            .addOnSuccessListener {
+                user = User(auth?.email.toString(), "", mutableMapOf())
+                user.data[FirebaseUsersDocument.NAME] = it.get(FirebaseUsersDocument.NAME).toString()
+                user.data[FirebaseUsersDocument.SURNAME] = it.get(FirebaseUsersDocument.SURNAME).toString()
+                user.data[FirebaseUsersDocument.CI] = it.get(FirebaseUsersDocument.CI).toString()
+                user.data[FirebaseUsersDocument.ROL] = it.get(FirebaseUsersDocument.ROL).toString()
+                user.data[FirebaseUsersDocument.ACTIVE] = it.get(FirebaseUsersDocument.ACTIVE).toString()
+            }
+            .addOnFailureListener {
+
+            }
     }
 
     private fun eventChangeListener() {
@@ -147,7 +158,7 @@ class PorteroActivityViewModel : ViewModel() {
         val now = Date()
         val fileName = formated.format(now)
         var referenceImage =
-            storageReference.getReference("images/${fileName}${currentUser!!.email}")
+            storageReference.getReference("images/${fileName}${user.email}")
         referenceImage.putFile(foto!!).addOnSuccessListener {
             val uriTask = it.storage.downloadUrl
             while (!uriTask.isSuccessful);
@@ -169,18 +180,32 @@ class PorteroActivityViewModel : ViewModel() {
     }
 
     fun sendRecord() {
-        val collectionMember = db.collection(FirebaseCollections.MEMBERS)
+        val collectionMember = db.collection(FirebaseCollections.RECORDS)
         var flag = true
         var message = ""
         _addMembers.value?.forEach {
-            collectionMember.add(it)
+            val record = Record()
+            record.data[FirebaseRecordDocument.CI_MEMBER] = it.ci
+            record.data[FirebaseRecordDocument.ID_MEMBER] = it.data[FirebaseMemberDocument.ID_MEMBER].toString()
+            record.data[FirebaseRecordDocument.NAME_MEMBER] = it.data[FirebaseMemberDocument.NAME].toString()
+            record.data[FirebaseRecordDocument.SURNAME_MEMBER] = it.data[FirebaseMemberDocument.SURNAME].toString()
+            record.data[FirebaseRecordDocument.TYPE] = it.data[FirebaseMemberDocument.TYPE].toString()
+            record.data[FirebaseRecordDocument.CI_PORTERO] = user.data[FirebaseUsersDocument.CI].toString()
+            record.data[FirebaseRecordDocument.NAME_PORTERO] = user.data[FirebaseUsersDocument.NAME].toString()
+            record.data[FirebaseRecordDocument.SURNAME_PORTERO] = user.data[FirebaseUsersDocument.SURNAME].toString()
+            record.data[FirebaseRecordDocument.EMAIL_PORTERO] = user.email
+            val time = Time()
+            time.setToNow()
+            record.data[FirebaseRecordDocument.DATE_TIME] = time.toMillis(true).toString()
+
+            collectionMember.add(record.data)
                 .addOnSuccessListener {
                     flag = true
                     message = "Se registro existosamente"
                 }
-                .addOnFailureListener { it ->
+                .addOnFailureListener { it1 ->
                     flag = false
-                    message = it.message.toString()
+                    message = it1.message.toString()
                     _isSuccessful.value = Response(flag, message)
                 }
         }

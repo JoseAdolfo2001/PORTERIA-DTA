@@ -8,6 +8,7 @@ class FirebaseMemberDocument {
         const val ID_MEMBER = "id_member"
         const val TYPE = "type"
         const val CREATED_BY = "created_by"
+        const val PHOTO = "photo"
     }
 }
 

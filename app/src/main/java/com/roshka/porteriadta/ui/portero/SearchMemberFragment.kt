@@ -6,6 +6,7 @@ import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.roshka.porteriadta.PorteroActivity
 import com.roshka.porteriadta.R
