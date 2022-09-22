@@ -91,15 +91,22 @@ class PorteroActivityViewModel : ViewModel() {
 
     }
 
-    fun onQueryTextChange(newText: String) : Boolean {
+    fun onQueryTextChange(newText: String): Boolean {
         with(listAllMembersFilter) { clear() }
         val searchText = newText.lowercase(Locale.getDefault())
-        if (searchText.isNotEmpty()){
+        if (searchText.isNotEmpty()) {
             listAllMembers.forEach {
                 val ci = it.ci.lowercase(Locale.getDefault())
-                val id_member = it.data[FirebaseMemberDocument.ID_MEMBER].toString().lowercase(Locale.getDefault())
-                val name = "${it.data[FirebaseMemberDocument.NAME]} ${it.data[FirebaseMemberDocument.SURNAME]}".lowercase(Locale.getDefault())
-                if(ci.contains(searchText) || id_member.contains(searchText) || name.contains(searchText)) {
+                val id_member = it.data[FirebaseMemberDocument.ID_MEMBER].toString()
+                    .lowercase(Locale.getDefault())
+                val name =
+                    "${it.data[FirebaseMemberDocument.NAME]} ${it.data[FirebaseMemberDocument.SURNAME]}".lowercase(
+                        Locale.getDefault()
+                    )
+                if (ci.contains(searchText) || id_member.contains(searchText) || name.contains(
+                        searchText
+                    )
+                ) {
                     listAllMembersFilter.add(it)
                 }
             }
@@ -114,10 +121,21 @@ class PorteroActivityViewModel : ViewModel() {
     fun updateAddMember(position: Int) {
         val member = _arrayMembers.value?.get(position)
         if (member != null) {
-            auxAddMembers.add(member)
-            _addMembers.value = auxAddMembers
+            if (searchMember(member)) {
+                auxAddMembers.add(member)
+                _addMembers.value = auxAddMembers
+            }
             _arrayMembers.value = listAllMembers
         }
+    }
+
+    private fun searchMember(member: Member): Boolean {
+        auxAddMembers.forEach {
+            if (member.ci == it.ci) {
+                return false
+            }
+        }
+        return true
     }
 
     fun uploadImages(ivFoto: ImageView, activity: Activity, foto: Uri) {
@@ -128,7 +146,8 @@ class PorteroActivityViewModel : ViewModel() {
         val formated = SimpleDateFormat("yyyy_MM_dd_HH-mm-ss", Locale.getDefault())
         val now = Date()
         val fileName = formated.format(now)
-        var referenceImage = storageReference.getReference("images/${fileName}${currentUser!!.email}")
+        var referenceImage =
+            storageReference.getReference("images/${fileName}${currentUser!!.email}")
         referenceImage.putFile(foto!!).addOnSuccessListener {
             val uriTask = it.storage.downloadUrl
             while (!uriTask.isSuccessful);
@@ -149,16 +168,25 @@ class PorteroActivityViewModel : ViewModel() {
         }
     }
 
-    fun sendRecord () {
-//        db.collection(FirebaseCollections.USERS).document(user.email)
-//            .set(user.data)
-//            .addOnSuccessListener {
-//                _isSuccessful.value = Response(true, "Usuario agregado correctamente")
-//                Log.d(ContentValues.TAG, "DocumentSnapshot successfully written!")
-//            }
-//            .addOnFailureListener {
-//                _isSuccessful.value = Response(false, it.message.toString())
-//            }
+    fun sendRecord() {
+        val collectionMember = db.collection(FirebaseCollections.MEMBERS)
+        var flag = true
+        var message = ""
+        _addMembers.value?.forEach {
+            collectionMember.add(it)
+                .addOnSuccessListener {
+                    flag = true
+                    message = "Se registro existosamente"
+                }
+                .addOnFailureListener { it ->
+                    flag = false
+                    message = it.message.toString()
+                    _isSuccessful.value = Response(flag, message)
+                }
+        }
+        if (flag) {
+            _isSuccessful.value = Response(flag, message)
+        }
     }
 }
 
