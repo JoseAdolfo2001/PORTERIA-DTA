@@ -50,7 +50,7 @@ class AddMemberFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[AddMemberViewModel::class.java]
 
-        binding.btnLogin.setOnClickListener {
+        binding.btnEnviar.setOnClickListener {
             val nombre = binding.etName.text.toString().trim()
             val apellido = binding.etLastname.text.toString().trim()
             val cedula = binding.etCi.text.toString().trim()

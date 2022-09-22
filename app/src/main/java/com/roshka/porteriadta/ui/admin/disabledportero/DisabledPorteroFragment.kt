@@ -1,6 +1,5 @@
 package com.roshka.porteriadta.ui.admin.disabledportero
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.roshka.porteriadta.AdminActivity
 import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentDisabledPorteroBinding
-import com.roshka.porteriadta.ui.portero.allMembers.MembersAdapter
 
 class DisabledPorteroFragment : Fragment() {
     private lateinit var  binding: FragmentDisabledPorteroBinding

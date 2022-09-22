@@ -17,15 +17,15 @@ class DisabledPorteroViewModel : ViewModel() {
     val listAllUsersFilter = ArrayList<User>()
 
     private val _arrayUsers = MutableLiveData<ArrayList<User>>()
-    val arrayUsers : LiveData<ArrayList<User>>
+    val arrayUsers: LiveData<ArrayList<User>>
         get() = _arrayUsers
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String>
         get() = _error
-    private val _disable =MutableLiveData<User>()
-    val disable : LiveData<User>
-        get()=disable
+    private val _disable = MutableLiveData<User>()
+    val disable: LiveData<User>
+        get() = disable
 
     fun eventChangeListener() {
         db.collection(FirebaseCollections.USERS)
@@ -37,7 +37,7 @@ class DisabledPorteroViewModel : ViewModel() {
                     } else {
                         for (dc: DocumentChange in value?.documentChanges!!) {
                             val data = dc.document.data
-                            val member = User(dc.document.id,"")
+                            val member = User(dc.document.id, "")
                             member.data = data
                             when (dc.type) {
                                 DocumentChange.Type.ADDED -> {
@@ -57,16 +57,22 @@ class DisabledPorteroViewModel : ViewModel() {
             })
 
     }
-    fun onQueryTextChange(newText: String) : Boolean {
+
+    fun onQueryTextChange(newText: String): Boolean {
         with(listAllUsersFilter) { clear() }
         val searchText = newText.lowercase(Locale.getDefault())
-        if (searchText.isNotEmpty()){
+        if (searchText.isNotEmpty()) {
             listAllUsers.forEach {
                 val email = it.email.lowercase(Locale.getDefault())
-                val name = "${it.data[FirebaseUsersDocument.NAME]} ${it.data[FirebaseUsersDocument.SURNAME]}".lowercase(
-                    Locale.getDefault())
+                val name =
+                    "${it.data[FirebaseUsersDocument.NAME]} ${it.data[FirebaseUsersDocument.SURNAME]}".lowercase(
+                        Locale.getDefault()
+                    )
                 val ci = it.data[FirebaseUsersDocument.CI].toString().lowercase()
-                if(email.contains(searchText) || name.contains(searchText) || ci.contains(searchText)) {
+                if (email.contains(searchText) || name.contains(searchText) || ci.contains(
+                        searchText
+                    )
+                ) {
                     listAllUsersFilter.add(it)
                 }
             }
