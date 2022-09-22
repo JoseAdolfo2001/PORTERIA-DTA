@@ -20,9 +20,9 @@ import com.roshka.porteriadta.databinding.ItemDisablePorteroBinding
 import com.roshka.porteriadta.network.FirebaseCollections
 import com.roshka.porteriadta.network.FirebaseUsersDocument
 
-class DisabledPorteroAdapter(val porteroList: List<User>) :
+class DisabledPorteroAdapter(val porteroList: List<User>, val activity: Activity ) :
     RecyclerView.Adapter<DisabledPorteroAdapter.DisabledPorteroViewModel>() {
-    inner class DisabledPorteroViewModel(private val itemUserBinding: ItemDisablePorteroBinding) :
+    inner class DisabledPorteroViewModel(private val itemUserBinding: ItemDisablePorteroBinding ) :
         RecyclerView.ViewHolder(itemUserBinding.root) {
 
         @SuppressLint("SetTextI18n")
@@ -38,23 +38,39 @@ class DisabledPorteroAdapter(val porteroList: List<User>) :
                 itemUserBinding.tvAdd.visibility = View.VISIBLE
 
             }
-
             itemUserBinding.tvRemove.setOnClickListener {
+                val builder = AlertDialog.Builder(activity)
+                builder.setTitle("Desea Inhabilitar un Portero?")
+            builder.setPositiveButton("Aceptar",DialogInterface.OnClickListener{dialog,id  ->
 
-                        itemUserBinding.tvRemove.visibility = View.GONE
-                        itemUserBinding.tvAdd.visibility = View.VISIBLE
-                        user.data[FirebaseUsersDocument.ACTIVE] = "No"
-                        db.collection(FirebaseCollections.USERS).document(user.email)
+                    itemUserBinding.tvRemove.visibility = View.GONE
+                    itemUserBinding.tvAdd.visibility = View.VISIBLE
+                    user.data[FirebaseUsersDocument.ACTIVE] = "No"
+                    db.collection(FirebaseCollections.USERS).document(user.email)
                         .set(user.data)
-                    }
+                        dialog.cancel()
+                })
+                builder.setNegativeButton("Cancelar",DialogInterface.OnClickListener{dialog,id ->
+                    dialog.cancel()
+                })
+                val dialog = builder.create()
+                dialog.show()
+        }
 
             itemUserBinding.tvAdd.setOnClickListener {
-                        itemUserBinding.tvAdd.visibility = View.GONE
-                        itemUserBinding.tvRemove.visibility = View.VISIBLE
-                        user.data[FirebaseUsersDocument.ACTIVE] = "Si"
-                        db.collection(FirebaseCollections.USERS).document(user.email)
-                            .set(user.data)
-
+                val builder = AlertDialog.Builder(activity)
+                builder.setTitle("Desea Habilitar un Portero?")
+                builder.setPositiveButton("Aceptar",DialogInterface.OnClickListener { dialog, _ ->
+                    itemUserBinding.tvAdd.visibility = View.GONE
+                    itemUserBinding.tvRemove.visibility = View.VISIBLE
+                    user.data[FirebaseUsersDocument.ACTIVE] = "Si"
+                    db.collection(FirebaseCollections.USERS).document(user.email)
+                        .set(user.data)
+                    dialog.cancel()
+                })
+                builder.setNegativeButton("Cancelar",DialogInterface.OnClickListener{ dialog, _ -> dialog.cancel()})
+                val dialog = builder.create()
+                dialog.show()
                     }
             }
         }
@@ -65,6 +81,7 @@ class DisabledPorteroAdapter(val porteroList: List<User>) :
                 parent,
                 false
             )
+
         )
     }
     override fun onBindViewHolder(holder: DisabledPorteroViewModel, position: Int) {

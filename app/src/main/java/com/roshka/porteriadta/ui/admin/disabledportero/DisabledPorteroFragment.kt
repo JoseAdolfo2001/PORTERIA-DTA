@@ -1,5 +1,6 @@
 package com.roshka.porteriadta.ui.admin.disabledportero
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.roshka.porteriadta.AdminActivity
 import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentDisabledPorteroBinding
+import com.roshka.porteriadta.ui.portero.allMembers.MembersAdapter
 
 class DisabledPorteroFragment : Fragment() {
     private lateinit var  binding: FragmentDisabledPorteroBinding
@@ -30,7 +32,6 @@ class DisabledPorteroFragment : Fragment() {
     ): View {
         setHasOptionsMenu(true)
         this.binding = FragmentDisabledPorteroBinding.inflate(inflater, container, false)
-
         binding.rwPortero.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
@@ -45,7 +46,7 @@ class DisabledPorteroFragment : Fragment() {
         viewModel.eventChangeListener()
 
         viewModel.arrayUsers.observe(viewLifecycleOwner) {
-
+            val adapter = activity?.let { it1 -> DisabledPorteroAdapter(it, it1) }
             binding.rwPortero.adapter = adapter
         }
         viewModel.error.observe(viewLifecycleOwner) {
@@ -80,7 +81,7 @@ class DisabledPorteroFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Error")
         builder.setMessage(message)
-        builder.setPositiveButton("Aceptar", null)
+        builder.setPositiveButton("Aceptar",null)
         val dialog = builder.create()
         dialog.show()
     }
