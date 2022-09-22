@@ -3,8 +3,10 @@ package com.roshka.porteriadta.ui.portero
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -19,10 +21,13 @@ import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.roshka.porteriadta.data.Member
+import com.roshka.porteriadta.data.Record
+import com.roshka.porteriadta.data.Response
 import com.roshka.porteriadta.network.FirebaseCollections
 import com.roshka.porteriadta.network.FirebaseMemberDocument
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class PorteroActivityViewModel : ViewModel() {
@@ -42,6 +47,10 @@ class PorteroActivityViewModel : ViewModel() {
     private val _arrayMembers = MutableLiveData<ArrayList<Member>>()
     val arrayMembers: LiveData<ArrayList<Member>>
         get() = _arrayMembers
+
+    private val _isSuccessful = MutableLiveData<Response>()
+    val isSuccessful: LiveData<Response>
+        get() = _isSuccessful
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String>
@@ -138,6 +147,18 @@ class PorteroActivityViewModel : ViewModel() {
             if (progressDialog.isShowing) progressDialog.dismiss()
             Toast.makeText(activity, "No se cargo correctamente", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun sendRecord () {
+//        db.collection(FirebaseCollections.USERS).document(user.email)
+//            .set(user.data)
+//            .addOnSuccessListener {
+//                _isSuccessful.value = Response(true, "Usuario agregado correctamente")
+//                Log.d(ContentValues.TAG, "DocumentSnapshot successfully written!")
+//            }
+//            .addOnFailureListener {
+//                _isSuccessful.value = Response(false, it.message.toString())
+//            }
     }
 }
 

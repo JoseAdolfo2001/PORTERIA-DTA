@@ -2,8 +2,8 @@ package com.roshka.porteriadta.network
 
 class FirebaseCollections {
     companion object{
-        const val USERS = "Users"
-        const val MEMBERS = "List"
-        const val RECORDS = "Record"
+        const val USERS = "USERS"
+        const val MEMBERS = "MEMBERS"
+        const val RECORDS = "RECORDS"
     }
 }

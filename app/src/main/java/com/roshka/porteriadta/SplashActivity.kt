@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.roshka.porteriadta.databinding.ActivitySplashBinding
+import com.roshka.porteriadta.network.FirebaseCollections
+import com.roshka.porteriadta.network.FirebaseUsersDocument
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -33,9 +35,9 @@ class SplashActivity : AppCompatActivity() {
         handler!!.postDelayed({
             val user = auth.currentUser
             if (user != null) {
-                fb.collection("Users").document(user.email.toString()).get()
+                fb.collection(FirebaseCollections.USERS).document(user.email.toString()).get()
                     .addOnSuccessListener {
-                        val type = it.get("Nivel").toString()
+                        val type = it.get(FirebaseUsersDocument.ROL).toString()
                         if (type == "admin") {
                             val intent = Intent(this, AdminActivity::class.java)
                             startActivity(intent)

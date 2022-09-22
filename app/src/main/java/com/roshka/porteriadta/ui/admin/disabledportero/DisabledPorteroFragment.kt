@@ -39,11 +39,7 @@ class DisabledPorteroFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
-
         viewModel = ViewModelProvider(this)[DisabledPorteroViewModel::class.java]
-
-        viewModel.eventChangeListener()
 
         viewModel.arrayUsers.observe(viewLifecycleOwner) {
             val adapter = activity?.let { it1 -> DisabledPorteroAdapter(it, it1) }

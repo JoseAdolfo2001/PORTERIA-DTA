@@ -6,9 +6,11 @@ import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.nfc.Tag
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +25,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentRegisterIncomeBinding
+import kotlinx.coroutines.processNextEventInCurrentThread
 
 class RegisterIncomeFragment : Fragment() {
     private lateinit var binding: FragmentRegisterIncomeBinding
@@ -54,7 +57,8 @@ class RegisterIncomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         binding.btnEnviar.setOnClickListener {
-            viewModel.uploadImages(binding.ivFoto, requireActivity(), foto!!)
+//            viewModel.uploadImages(binding.ivFoto, requireActivity(), foto!!)
+            viewModel.sendRecord()
         }
 
         binding.viewFoto.setOnClickListener {
@@ -85,28 +89,12 @@ class RegisterIncomeFragment : Fragment() {
         }
 
         viewModel.addMembers.observe(viewLifecycleOwner) {
-//            println(it)
-//            array = it.toMutableList()
-//            adapter = SociosListAdapter(
-//                it,
-//            )
-//            binding.rvMembers.layoutManager = LinearLayoutManager(activity)
-//            binding.rvMembers.adapter = adapter
-//            val decoration =
-//                DividerItemDecoration(activity, LinearLayoutManager(activity).orientation)
-//            binding.rvMembers.addItemDecoration(decoration)
-//            var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
-//            itemTouchHelper.attachToRecyclerView(binding.rvMembers)
             val adapter = MembersAdapter(it) { position -> onListItemClick(position) }
             binding.rvMembers.adapter = adapter
             var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
             itemTouchHelper.attachToRecyclerView(binding.rvMembers)
-
-
         }
-
     }
-
 
     private fun abreCamara() {
         val value = ContentValues() //  Crea un espacio de memoria vacia
@@ -161,7 +149,12 @@ class RegisterIncomeFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == viewModel.REQUEST_CAMERA) {
-            binding.ivFoto.setImageURI(foto)
+            try {
+                binding.ivFoto.setImageURI(foto)
+            } catch (e: Exception) {
+                Toast.makeText(activity, "Imagen nulo", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 

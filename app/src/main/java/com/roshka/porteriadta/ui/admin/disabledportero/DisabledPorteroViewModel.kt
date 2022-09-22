@@ -27,7 +27,11 @@ class DisabledPorteroViewModel : ViewModel() {
     val disable: LiveData<User>
         get() = disable
 
-    fun eventChangeListener() {
+    init {
+        eventChangeListener()
+    }
+
+    private fun eventChangeListener() {
         db.collection(FirebaseCollections.USERS)
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
@@ -39,15 +43,17 @@ class DisabledPorteroViewModel : ViewModel() {
                             val data = dc.document.data
                             val member = User(dc.document.id, "")
                             member.data = data
-                            when (dc.type) {
-                                DocumentChange.Type.ADDED -> {
-                                    listAllUsers.add(dc.newIndex, member)
-                                }
-                                DocumentChange.Type.MODIFIED -> {
-                                    listAllUsers[dc.oldIndex] = member
-                                }
-                                DocumentChange.Type.REMOVED -> {
-                                    listAllUsers.removeAt(dc.oldIndex)
+                            if(member.data[FirebaseUsersDocument.ROL].toString()  != "admin") {
+                                when (dc.type) {
+                                    DocumentChange.Type.ADDED -> {
+                                        listAllUsers.add(dc.newIndex, member)
+                                    }
+                                    DocumentChange.Type.MODIFIED -> {
+                                        listAllUsers[dc.oldIndex] = member
+                                    }
+                                    DocumentChange.Type.REMOVED -> {
+                                        listAllUsers.removeAt(dc.oldIndex)
+                                    }
                                 }
                             }
                         }
