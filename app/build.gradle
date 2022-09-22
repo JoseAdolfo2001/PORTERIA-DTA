@@ -40,6 +40,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:20.0.2'
     implementation 'com.google.firebase:firebase-database-ktx:20.0.6'
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.2'
+    implementation 'androidx.test:core-ktx:1.4.0'
     def retrofit_version = "2.9.0"
     implementation "com.google.android.material:material:1.2.1"
     implementation 'androidx.core:core-ktx:1.7.0'

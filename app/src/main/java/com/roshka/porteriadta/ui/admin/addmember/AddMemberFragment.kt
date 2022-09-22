@@ -1,6 +1,11 @@
 package com.roshka.porteriadta.ui.admin.addmember
 
 import android.content.ContentValues
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkInfo
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,9 +18,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayout
+import com.roshka.porteriadta.R
 import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.databinding.FragmentAddMemberBinding
 import com.roshka.porteriadta.network.FirebaseMemberDocument
+import java.util.logging.Logger
 
 class AddMemberFragment : Fragment() {
     private var _binding: FragmentAddMemberBinding? = null
@@ -26,11 +33,14 @@ class AddMemberFragment : Fragment() {
 
     private lateinit var viewModel: AddMemberViewModel
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentAddMemberBinding.inflate(inflater, container, false)
+
         val tipo = arrayOf("Socio", "Gimnasio", "Invitado", "Guarderia", "Fiesta", "Staff","Restaurante")
         val spinner = binding.spinner
         spinner.adapter = activity?.applicationContext?.let {
@@ -61,15 +71,20 @@ class AddMemberFragment : Fragment() {
                 member.data[FirebaseMemberDocument.ID_MEMBER] = nSocio
                 member.data[FirebaseMemberDocument.TYPE] = tipo
                 viewModel.setMember(member)
-
+                    if(!hasNetworkAvailable(requireContext())){
+                        showAlert("Cuando se recupere la conexion se agreagara automaticamente")
+                        clean()
+                    }
+                }
             }
-        }
+
         viewModel.isSuccessful.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
                 Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
                 clean()
             } else {
                 showAlert(it.message)
+                clean()
             }
         }
     }
@@ -102,10 +117,16 @@ class AddMemberFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+    private fun hasNetworkAvailable(context: Context): Boolean {
+        val service = Context.CONNECTIVITY_SERVICE
+        val manager = context.getSystemService(service) as ConnectivityManager?
+        val network = manager?.activeNetworkInfo
+        return (network != null)
+    }
 
     private fun showAlert(message: String) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Error")
+        builder.setTitle("No Internet")
         builder.setMessage(message)
         builder.setPositiveButton("Aceptar", null)
         val dialog = builder.create()
