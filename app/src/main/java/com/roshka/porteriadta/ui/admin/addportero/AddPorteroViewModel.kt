@@ -25,7 +25,7 @@ class AddPorteroViewModel : ViewModel() {
     val isSuccessful: LiveData<Response>
         get() = _isSuccessful
     fun addPortero(user: User) {
-        mAuth1 = FirebaseAuth.getInstance();
+        mAuth1 = FirebaseAuth.getInstance()
         val firebaseOptions = FirebaseOptions.Builder()
             .setDatabaseUrl("[https://console.firebase.google.com/project/porteria-dta-test/firestore/data/~2FUsers~2Fa@a.com]")
             .setApiKey("AIzaSyCG0KX3q9FVEiB985l4ujmy16djmvPhhUE")
