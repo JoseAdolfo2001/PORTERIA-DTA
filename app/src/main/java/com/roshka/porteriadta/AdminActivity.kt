@@ -15,6 +15,8 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.roshka.porteriadta.databinding.ActivityAdminBinding
+import com.roshka.porteriadta.network.FirebaseCollections
+import com.roshka.porteriadta.network.FirebaseUsersDocument
 
 class AdminActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAdminBinding
@@ -56,9 +58,9 @@ class AdminActivity : AppCompatActivity() {
         val user = auth.currentUser
 
         if (user != null) {
-            fb.collection("Users").document(user.email.toString()).get()
+            fb.collection(FirebaseCollections.USERS).document(user.email.toString()).get()
                 .addOnSuccessListener {
-                    val name = it.get("Nombre").toString()
+                    val name = "${it.get(FirebaseUsersDocument.NAME)} ${it.get(FirebaseUsersDocument.SURNAME)}"
                     val nameUser = headerView.findViewById<TextView>(R.id.name_user)
                     nameUser.text = name
                 }

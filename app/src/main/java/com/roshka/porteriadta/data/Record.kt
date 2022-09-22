@@ -3,17 +3,20 @@ package com.roshka.porteriadta.data
 import com.roshka.porteriadta.network.FirebaseRecordDocument
 
 data class Record(
-    var data: MutableMap<String, Any> = hashMapOf(
-        FirebaseRecordDocument.CI_SOCIO to "",
-        FirebaseRecordDocument.NOMBRE_SOCIO to "",
-        FirebaseRecordDocument.APELLIDO_SOCIO to "",
-        FirebaseRecordDocument.CI_PORTERO to "",
-        FirebaseRecordDocument.CORREO_PORTERO to "",
-        FirebaseRecordDocument.NOMBRE_PORTERO to "",
-        FirebaseRecordDocument.APELLIDO_PORTERO to "",
-        FirebaseRecordDocument.TYPE to "",
-        FirebaseRecordDocument.FECHA to 0L,
+    val data: MutableMap<String, Any> = hashMapOf(
+        FirebaseRecordDocument.ID_MEMBER to "",
+        FirebaseRecordDocument.CI_MEMBER to "",
+        FirebaseRecordDocument.NAME_MEMBER to "",
+        FirebaseRecordDocument.SURNAME_MEMBER to "",
+        FirebaseRecordDocument.IS_DEFAULTER to "",
         FirebaseRecordDocument.IS_EXIT to false,
-
+        FirebaseRecordDocument.IS_WALK to false,
+        FirebaseRecordDocument.PHOTO to "",
+        FirebaseRecordDocument.TYPE to "",
+        FirebaseRecordDocument.CI_PORTERO to "",
+        FirebaseRecordDocument.NAME_PORTERO to "",
+        FirebaseRecordDocument.SURNAME_PORTERO to "",
+        FirebaseRecordDocument.EMAIL_PORTERO to "",
+        FirebaseRecordDocument.DATE_TIME to ""
     )
 )

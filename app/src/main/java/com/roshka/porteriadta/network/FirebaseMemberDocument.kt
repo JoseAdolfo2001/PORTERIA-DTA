@@ -2,12 +2,13 @@ package com.roshka.porteriadta.network
 
 class FirebaseMemberDocument {
     companion object {
-        const val NAME = "nombre"
-        const val SURNAME = "apellido"
-        const val IS_DEFAULTER = "puede_entrar"
-        const val ID_MEMBER = "socios_numeros"
-        const val TYPE = "tipo"
+        const val NAME = "name"
+        const val SURNAME = "surname"
+        const val IS_DEFAULTER = "is_defaulter"
+        const val ID_MEMBER = "id_member"
+        const val TYPE = "type"
         const val CREATED_BY = "created_by"
+        const val PHOTO = "photo"
     }
 }
 

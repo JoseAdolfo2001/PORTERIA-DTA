@@ -57,10 +57,10 @@ class AddPorteroFragment : Fragment() {
         viewModel.isSuccessful.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
                 Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+                clean()
             } else {
                 showAlert(it.message)
             }
-            clean()
             binding.btnRegistrar.visibility = View.VISIBLE
             binding.loading.visibility = View.GONE
         }

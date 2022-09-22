@@ -2,16 +2,20 @@ package com.roshka.porteriadta.network
 
 class FirebaseRecordDocument {
     companion object {
-        const val CI_SOCIO = "cedula_socio"
-        const val NOMBRE_SOCIO = "nombre_socio"
-        const val APELLIDO_SOCIO = "apellido_socio"
-        const val CI_PORTERO = "ci_portero"
-        const val CORREO_PORTERO = "correo_portero"
-        const val NOMBRE_PORTERO = "nombre_portero"
-        const val APELLIDO_PORTERO = "apellido_portero"
-        const val TYPE = "tipo"
-        const val FECHA = "fecha"
+        const val ID_MEMBER = "id_member"
+        const val CI_MEMBER = "ci_member"
+        const val NAME_MEMBER = "name_member"
+        const val SURNAME_MEMBER = "surname_member"
+        const val IS_DEFAULTER = "is_defaulter"
         const val IS_EXIT = "is_exit"
+        const val IS_WALK = "is_walk"
+        const val PHOTO = "photo"
+        const val TYPE = "type"
+        const val CI_PORTERO = "ci_portero"
+        const val NAME_PORTERO = "name_portero"
+        const val SURNAME_PORTERO = "surname_portero"
+        const val EMAIL_PORTERO = "email_portero"
+        const val DATE_TIME = "date_time"
     }
 }
 

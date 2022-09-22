@@ -7,6 +7,7 @@ data class User(
     val password : String,
     var data: MutableMap<String, Any> = hashMapOf(
         FirebaseUsersDocument.NAME to "",
+        FirebaseUsersDocument.SURNAME to "",
         FirebaseUsersDocument.CI to "",
         FirebaseUsersDocument.ROL to "portero",
         FirebaseUsersDocument.ACTIVE to ""

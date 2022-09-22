@@ -25,12 +25,12 @@ class AddPorteroViewModel : ViewModel() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
-                    auth.signOut()
+//                    auth.signOut()
                     db.collection(FirebaseCollections.USERS).document(user.email)
                         .set(user.data)
                         .addOnSuccessListener {
                             _isSuccessful.value = Response(true, "Usuario agregado correctamente")
-                            Log.d(TAG, "DocumentSnapshot successfully written! $it")
+                            Log.d(TAG, "DocumentSnapshot successfully written!")
                         }
                         .addOnFailureListener {
                             _isSuccessful.value = Response(false, it.message.toString())

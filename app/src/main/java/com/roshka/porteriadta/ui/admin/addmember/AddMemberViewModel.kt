@@ -1,7 +1,5 @@
 package com.roshka.porteriadta.ui.admin.addmember
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,8 +9,6 @@ import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.data.Response
 import com.roshka.porteriadta.network.FirebaseCollections
 import com.roshka.porteriadta.network.FirebaseMemberDocument
-import java.net.InetAddress
-import java.net.UnknownHostException
 
 class AddMemberViewModel : ViewModel() {
     val db = FirebaseFirestore.getInstance()
@@ -28,14 +24,11 @@ class AddMemberViewModel : ViewModel() {
             .set(member.data)
             .addOnSuccessListener {
                 _isSuccessful.value = Response(true, "Se Agrego Correctamente")
-
             }
             .addOnFailureListener {
                 _isSuccessful.value = Response(false, it.message.toString())
-
             }
     }
-
 }
 
 

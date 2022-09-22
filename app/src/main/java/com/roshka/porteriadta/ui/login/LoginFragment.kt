@@ -31,7 +31,6 @@ class LoginFragment : Fragment() {
         this.binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         binding.tvRecoverPassword.setOnClickListener {
-            clean()
             findNavController().navigate(R.id.action_loginFragment_to_recoveryDialog)
         }
 
