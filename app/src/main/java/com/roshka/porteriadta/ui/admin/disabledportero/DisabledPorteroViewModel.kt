@@ -1,62 +1,82 @@
 package com.roshka.porteriadta.ui.admin.disabledportero
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.roshka.porteriadta.data.Member
-import com.roshka.porteriadta.data.Response
+import com.google.firebase.firestore.*
+import com.google.firebase.firestore.EventListener
 import com.roshka.porteriadta.data.User
 import com.roshka.porteriadta.network.FirebaseCollections
+import com.roshka.porteriadta.network.FirebaseUsersDocument
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DisabledPorteroViewModel : ViewModel() {
-    // TODO: Implement the ViewMode
     val db = FirebaseFirestore.getInstance()
-    val auth = FirebaseAuth.getInstance()
-    val user = auth.currentUser
-    private val _isSuccessful = MutableLiveData<Response>()
-    val isSuccessful: LiveData<Response>
-        get() = _isSuccessful
-    private val _arrayMembers = MutableLiveData<ArrayList<User>>()
-    val arrayMembers: LiveData<ArrayList<User>>
-        get() = _arrayMembers
+    val listAllUsers = ArrayList<User>()
+    val listAllUsersFilter = ArrayList<User>()
 
-    fun getListMembers() {
-        val aux :ArrayList<User> =  ArrayList()
-        db.collection(FirebaseCollections.USERS).get()
-            .addOnSuccessListener {
-                for (document in it) {
-                    val data = document.data
-                    val member = User(document.id, "")
-                    member.data = data
-                    aux.add(member)
-                    println(member.data)
-                }
-                _arrayMembers.value = aux
-            }
-    }
-        fun changeState(user : User){
-            val docRef = db.collection(FirebaseCollections.USERS).document(user.email)
-            docRef.get()
-                .addOnSuccessListener { document ->
-                    if (document != null) {
-                        db.collection(FirebaseCollections.USERS).document(user.email)
-                            .set(user.data)
-                            .addOnSuccessListener {
-                                _isSuccessful.value = Response(true, "Se Suspendio Correctamente")
-                            }
-                        Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+    private val _arrayUsers = MutableLiveData<ArrayList<User>>()
+    val arrayUsers : LiveData<ArrayList<User>>
+        get() = _arrayUsers
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String>
+        get() = _error
+    private val _disable =MutableLiveData<User>()
+    val disable : LiveData<User>
+        get()=disable
+
+    fun eventChangeListener() {
+        db.collection(FirebaseCollections.USERS)
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                    if (error != null) {
+                        _error.value = error.message.toString()
+                        return
                     } else {
-                        Log.d(TAG, "No such document")
+                        for (dc: DocumentChange in value?.documentChanges!!) {
+                            val data = dc.document.data
+                            val member = User(dc.document.id,"")
+                            member.data = data
+                            when (dc.type) {
+                                DocumentChange.Type.ADDED -> {
+                                    listAllUsers.add(dc.newIndex, member)
+                                }
+                                DocumentChange.Type.MODIFIED -> {
+                                    listAllUsers[dc.oldIndex] = member
+                                }
+                                DocumentChange.Type.REMOVED -> {
+                                    listAllUsers.removeAt(dc.oldIndex)
+                                }
+                            }
+                        }
+                        _arrayUsers.value = listAllUsers
                     }
                 }
-                .addOnFailureListener { exception ->
-                    Log.d(TAG, "get failed with ", exception)
+            })
+
+    }
+    fun onQueryTextChange(newText: String) : Boolean {
+        with(listAllUsersFilter) { clear() }
+        val searchText = newText.lowercase(Locale.getDefault())
+        if (searchText.isNotEmpty()){
+            listAllUsers.forEach {
+                val email = it.email.lowercase(Locale.getDefault())
+                val name = "${it.data[FirebaseUsersDocument.NAME]} ${it.data[FirebaseUsersDocument.SURNAME]}".lowercase(
+                    Locale.getDefault())
+                val ci = it.data[FirebaseUsersDocument.CI].toString().lowercase()
+                if(email.contains(searchText) || name.contains(searchText) || ci.contains(searchText)) {
+                    listAllUsersFilter.add(it)
                 }
+            }
+        } else {
+            listAllUsersFilter.clear()
+            listAllUsersFilter.addAll(listAllUsers)
         }
+        _arrayUsers.value = listAllUsersFilter
+        return false
+    }
 
 }
 

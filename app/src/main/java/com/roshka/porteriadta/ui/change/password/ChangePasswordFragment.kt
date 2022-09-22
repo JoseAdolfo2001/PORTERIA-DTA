@@ -41,9 +41,9 @@ class ChangePasswordFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[ChangePasswordViewModel::class.java]
         binding.updateBtn.setOnClickListener {
-            val password = binding.passEt.text.toString()
-            val newPass = binding.passNew.text.toString()
-            val newPassC = binding.passNewC.text.toString()
+            val password = binding.passEt.text.toString().trim()
+            val newPass = binding.passNew.text.toString().trim()
+            val newPassC = binding.passNewC.text.toString().trim()
             if (checkAllFields(password, newPass, newPassC)) {
                 it.visibility = View.GONE
                 binding.cargar.visibility = View.VISIBLE
