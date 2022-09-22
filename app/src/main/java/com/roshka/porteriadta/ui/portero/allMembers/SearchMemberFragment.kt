@@ -6,12 +6,14 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.roshka.porteriadta.PorteroActivity
 import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentSearchMemberBinding
+import com.roshka.porteriadta.ui.portero.PorteroActivityViewModel
 
 
 class SearchMemberFragment : DialogFragment() {
@@ -21,8 +23,7 @@ class SearchMemberFragment : DialogFragment() {
         fun newInstance() = SearchMemberFragment()
     }
 
-    private lateinit var viewModel: SearchMemberViewModel
-
+    private val viewModel: PorteroActivityViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,8 +40,6 @@ class SearchMemberFragment : DialogFragment() {
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        viewModel = ViewModelProvider(this)[SearchMemberViewModel::class.java]
 
         viewModel.arrayMembers.observe(viewLifecycleOwner) {
             val adapter = MembersAdapter(it) { position -> onListItemClick(position) }
@@ -89,7 +88,6 @@ class SearchMemberFragment : DialogFragment() {
     }
 
     private fun onListItemClick(position: Int) {
-        val member = viewModel.getMember(position)
-        findNavController().navigate(R.id.action_nav_register_income_to_searchMemberFragment)
+        viewModel.updateAddMember(position)
     }
 }

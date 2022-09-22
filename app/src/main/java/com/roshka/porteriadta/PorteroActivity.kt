@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.roshka.porteriadta.databinding.ActivityPorteroBinding
 import com.roshka.porteriadta.ui.portero.PorteroActivityViewModel
+import com.roshka.porteriadta.ui.portero.allMembers.MembersAdapter
 
 class PorteroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPorteroBinding
@@ -30,6 +31,7 @@ class PorteroActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val model: PorteroActivityViewModel by viewModels()
+
 
         auth = FirebaseAuth.getInstance()
         fb = FirebaseFirestore.getInstance()

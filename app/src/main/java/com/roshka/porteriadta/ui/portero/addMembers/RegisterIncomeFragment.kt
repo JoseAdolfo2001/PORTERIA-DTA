@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -29,7 +30,7 @@ import com.roshka.porteriadta.ui.portero.PorteroActivityViewModel
 class RegisterIncomeFragment : Fragment() {
     private lateinit var adapter: SociosListAdapter
     private lateinit var binding: FragmentRegisterIncomeBinding
-    private lateinit var viewModel: PorteroActivityViewModel
+    private val viewModel: PorteroActivityViewModel by activityViewModels()
     private var foto: Uri? = null
     private var array = mutableListOf<Member>()
 
@@ -39,13 +40,16 @@ class RegisterIncomeFragment : Fragment() {
     ): View {
         binding = FragmentRegisterIncomeBinding.inflate(inflater, container, false)
 
+        binding.btnSearch.setOnClickListener{
+            findNavController().navigate(R.id.action_nav_register_income_to_searchMemberFragment)
+        }
+
         return binding.root
     }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)[PorteroActivityViewModel::class.java]
 
         binding.btnEnviar.setOnClickListener {
             viewModel.uploadImages(binding.ivFoto, requireActivity(), foto!!)
