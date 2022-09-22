@@ -1,10 +1,10 @@
-package com.roshka.porteriadta.ui.portero.addMembers
+package com.roshka.porteriadta.ui.portero
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.roshka.porteriadta.ui.portero.addMembers.SociosListAdapter
 
-class SwipeToDelete(var adapter:SociosListAdapter):ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT){
+class SwipeToDelete(private var adapter: MembersAdapter) :
+    ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
     override fun onMove(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,

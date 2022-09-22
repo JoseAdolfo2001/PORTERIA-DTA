@@ -1,4 +1,4 @@
-package com.roshka.porteriadta.ui.portero.allMembers
+package com.roshka.porteriadta.ui.portero
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import com.roshka.porteriadta.databinding.ItemMemberBinding
 import com.roshka.porteriadta.network.FirebaseMemberDocument
 
 class MembersAdapter(
-    private val memberList: List<Member>,
+    private val memberList: ArrayList<Member>,
     private val onItemClicked: (position: Int) -> Unit
 ) :
     RecyclerView.Adapter<MembersAdapter.MembersViewHolder>() {
@@ -79,4 +79,8 @@ class MembersAdapter(
         return memberList.size
     }
 
+    fun deleteItem(pos: Int) {
+        memberList.removeAt(pos)
+        notifyItemRemoved(pos)
+    }
 }

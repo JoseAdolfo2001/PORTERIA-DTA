@@ -10,7 +10,6 @@ import com.roshka.porteriadta.databinding.FragmentDisabledPorteroBinding
 
 class DisabledPorteroFragment : Fragment() {
     private var _binding: FragmentDisabledPorteroBinding? = null
-    lateinit var adapter: DisabledPorteroAdapterList
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!

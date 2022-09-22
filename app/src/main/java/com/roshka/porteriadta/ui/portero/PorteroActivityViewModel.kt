@@ -30,8 +30,8 @@ class PorteroActivityViewModel : ViewModel() {
         get() = _addMembers
     private val auxAddMembers = arrayListOf<Member>()
 
-    val db = FirebaseFirestore.getInstance()
-    val listAllMembers = ArrayList<Member>()
+    private val db = FirebaseFirestore.getInstance()
+    private val listAllMembers = ArrayList<Member>()
     private val listAllMembersFilter = ArrayList<Member>()
 
     private val _arrayMembers = MutableLiveData<ArrayList<Member>>()

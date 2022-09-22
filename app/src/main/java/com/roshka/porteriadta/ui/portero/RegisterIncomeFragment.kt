@@ -1,4 +1,4 @@
-package com.roshka.porteriadta.ui.portero.addMembers
+package com.roshka.porteriadta.ui.portero
 
 import android.Manifest
 import android.app.Activity
@@ -17,22 +17,17 @@ import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.roshka.porteriadta.R
-import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.databinding.FragmentRegisterIncomeBinding
-import com.roshka.porteriadta.ui.portero.PorteroActivityViewModel
 
 class RegisterIncomeFragment : Fragment() {
-    private lateinit var adapter: SociosListAdapter
     private lateinit var binding: FragmentRegisterIncomeBinding
     private val viewModel: PorteroActivityViewModel by activityViewModels()
     private var foto: Uri? = null
-    private var array = mutableListOf<Member>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +35,14 @@ class RegisterIncomeFragment : Fragment() {
     ): View {
         binding = FragmentRegisterIncomeBinding.inflate(inflater, container, false)
 
-        binding.btnSearch.setOnClickListener{
+        binding.rvMembers.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
+        val decoration =
+            DividerItemDecoration(activity, LinearLayoutManager(activity).orientation)
+        binding.rvMembers.addItemDecoration(decoration)
+
+        binding.btnSearch.setOnClickListener {
             findNavController().navigate(R.id.action_nav_register_income_to_searchMemberFragment)
         }
 
@@ -83,18 +85,23 @@ class RegisterIncomeFragment : Fragment() {
         }
 
         viewModel.addMembers.observe(viewLifecycleOwner) {
-            println(it)
-            array = it.toMutableList()
-            adapter = SociosListAdapter(
-                it,
-            )
-            binding.rvMembers.layoutManager = LinearLayoutManager(activity)
+//            println(it)
+//            array = it.toMutableList()
+//            adapter = SociosListAdapter(
+//                it,
+//            )
+//            binding.rvMembers.layoutManager = LinearLayoutManager(activity)
+//            binding.rvMembers.adapter = adapter
+//            val decoration =
+//                DividerItemDecoration(activity, LinearLayoutManager(activity).orientation)
+//            binding.rvMembers.addItemDecoration(decoration)
+//            var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
+//            itemTouchHelper.attachToRecyclerView(binding.rvMembers)
+            val adapter = MembersAdapter(it) { position -> onListItemClick(position) }
             binding.rvMembers.adapter = adapter
-            val decoration =
-                DividerItemDecoration(activity, LinearLayoutManager(activity).orientation)
-            binding.rvMembers.addItemDecoration(decoration)
             var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
             itemTouchHelper.attachToRecyclerView(binding.rvMembers)
+
 
         }
 
@@ -156,5 +163,8 @@ class RegisterIncomeFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == viewModel.REQUEST_CAMERA) {
             binding.ivFoto.setImageURI(foto)
         }
+    }
+
+    private fun onListItemClick(position: Int) {
     }
 }

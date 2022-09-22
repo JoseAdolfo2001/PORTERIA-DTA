@@ -1,19 +1,15 @@
-package com.roshka.porteriadta.ui.portero.allMembers
+package com.roshka.porteriadta.ui.portero
 
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.roshka.porteriadta.PorteroActivity
 import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentSearchMemberBinding
-import com.roshka.porteriadta.ui.portero.PorteroActivityViewModel
 
 
 class SearchMemberFragment : DialogFragment() {
@@ -75,7 +71,7 @@ class SearchMemberFragment : DialogFragment() {
                 return viewModel.onQueryTextChange(newText)
             }
         })
-        searchView.setOnClickListener {  }
+        searchView.setOnClickListener { }
     }
 
     private fun showAlert(message: String) {
