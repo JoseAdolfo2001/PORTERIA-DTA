@@ -1,10 +1,15 @@
 package com.roshka.porteriadta.ui.portero
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.net.Uri
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -102,6 +107,7 @@ class PorteroActivityViewModel : ViewModel() {
         if (member != null) {
             auxAddMembers.add(member)
             _addMembers.value = auxAddMembers
+            _arrayMembers.value = listAllMembers
         }
     }
 
@@ -132,10 +138,6 @@ class PorteroActivityViewModel : ViewModel() {
             if (progressDialog.isShowing) progressDialog.dismiss()
             Toast.makeText(activity, "No se cargo correctamente", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    fun setMember(member: Member) {
-
     }
 }
 
