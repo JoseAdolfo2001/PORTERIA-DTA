@@ -1,5 +1,7 @@
 package com.roshka.porteriadta.ui.admin.addmember
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.tabs.TabLayout
-import com.roshka.porteriadta.PorteroActivity
-import com.roshka.porteriadta.R
 import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.databinding.FragmentAddMemberBinding
 import com.roshka.porteriadta.network.FirebaseMemberDocument
@@ -27,11 +25,14 @@ class AddMemberFragment : Fragment() {
 
     private lateinit var viewModel: AddMemberViewModel
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentAddMemberBinding.inflate(inflater, container, false)
+
         val tipo = arrayOf("Socio", "Gimnasio", "Invitado", "Guarderia", "Fiesta", "Staff","Restaurante")
         val spinner = binding.spinner
         spinner.adapter = activity?.applicationContext?.let {
@@ -49,7 +50,7 @@ class AddMemberFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[AddMemberViewModel::class.java]
 
-        binding.btnEnviar.setOnClickListener {
+        binding.btnLogin.setOnClickListener {
             val nombre = binding.etName.text.toString().trim()
             val apellido = binding.etLastname.text.toString().trim()
             val cedula = binding.etCi.text.toString().trim()
@@ -62,18 +63,20 @@ class AddMemberFragment : Fragment() {
                 member.data[FirebaseMemberDocument.ID_MEMBER] = nSocio
                 member.data[FirebaseMemberDocument.TYPE] = tipo
                 viewModel.setMember(member)
-                Toast.makeText(activity,"Nuevo miembro registrado satisfactoriamente",Toast.LENGTH_SHORT).show()
-                if(activity is PorteroActivity) {
-                    findNavController().navigate(R.id.action_addMemberFragment_to_nav_register_income)
+                    if(!hasNetworkAvailable(requireContext())){
+                        showAlert("Cuando se recupere la conexion se agreagara automaticamente")
+                        clean()
+                    }
                 }
             }
-        }
+
         viewModel.isSuccessful.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
                 Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
                 clean()
             } else {
                 showAlert(it.message)
+                clean()
             }
         }
     }
@@ -108,10 +111,16 @@ class AddMemberFragment : Fragment() {
 
 
     }
+    private fun hasNetworkAvailable(context: Context): Boolean {
+        val service = Context.CONNECTIVITY_SERVICE
+        val manager = context.getSystemService(service) as ConnectivityManager?
+        val network = manager?.activeNetworkInfo
+        return (network != null)
+    }
 
     private fun showAlert(message: String) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Error")
+        builder.setTitle("No Internet")
         builder.setMessage(message)
         builder.setPositiveButton("Aceptar", null)
         val dialog = builder.create()

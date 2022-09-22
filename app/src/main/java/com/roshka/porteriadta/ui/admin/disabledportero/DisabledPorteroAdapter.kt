@@ -25,6 +25,8 @@ class DisabledPorteroAdapter(val porteroList: List<User>, val activity: Activity
     inner class DisabledPorteroViewModel(private val itemUserBinding: ItemDisablePorteroBinding ) :
         RecyclerView.ViewHolder(itemUserBinding.root) {
 
+
+
         @SuppressLint("SetTextI18n")
         fun bindItem(user: User) {
             val db = FirebaseFirestore.getInstance()

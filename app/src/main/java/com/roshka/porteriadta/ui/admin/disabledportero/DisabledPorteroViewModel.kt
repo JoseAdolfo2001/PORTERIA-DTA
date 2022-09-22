@@ -70,6 +70,8 @@ class DisabledPorteroViewModel : ViewModel() {
                     listAllUsersFilter.add(it)
                 }
             }
+
+
         } else {
             listAllUsersFilter.clear()
             listAllUsersFilter.addAll(listAllUsers)
