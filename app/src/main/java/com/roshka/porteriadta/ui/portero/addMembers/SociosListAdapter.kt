@@ -1,14 +1,8 @@
-package com.roshka.porteriadta.ui.portero.recyclerView
+package com.roshka.porteriadta.ui.portero.addMembers
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.appcompat.widget.SearchView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.roshka.porteriadta.R
 import com.roshka.porteriadta.data.Member
 

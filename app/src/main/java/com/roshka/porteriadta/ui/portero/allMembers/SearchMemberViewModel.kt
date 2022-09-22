@@ -9,12 +9,11 @@ import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.network.FirebaseCollections
 import com.roshka.porteriadta.network.FirebaseMemberDocument
 import java.util.*
-import kotlin.collections.ArrayList
 
-class SearchMemberViewModel : ViewModel() {
+class SearchMemberViewModel() : ViewModel() {
     val db = FirebaseFirestore.getInstance()
     val listAllMembers = ArrayList<Member>()
-    val listAllMembersFilter = ArrayList<Member>()
+    private val listAllMembersFilter = ArrayList<Member>()
 
     private val _arrayMembers = MutableLiveData<ArrayList<Member>>()
     val arrayMembers: LiveData<ArrayList<Member>>
@@ -24,7 +23,11 @@ class SearchMemberViewModel : ViewModel() {
     val error: LiveData<String>
         get() = _error
 
-    fun eventChangeListener() {
+    init {
+        eventChangeListener()
+    }
+
+    private fun eventChangeListener() {
         db.collection(FirebaseCollections.MEMBERS)
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
@@ -73,5 +76,9 @@ class SearchMemberViewModel : ViewModel() {
         }
         _arrayMembers.value = listAllMembersFilter
         return false
+    }
+
+    fun getMember(position: Int) : Member {
+        return _arrayMembers.value?.get(position) ?: Member("-1", mutableMapOf())
     }
 }

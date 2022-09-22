@@ -1,5 +1,6 @@
-package com.roshka.porteriadta.ui.portero.recyclerView
+package com.roshka.porteriadta.ui.portero.addMembers
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,25 +18,22 @@ class SociosListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     var tv_socio_numero: TextView = view.findViewById(R.id.tv_socio)
     var iv_Tipo: ImageView = view.findViewById(R.id.iv_type)
 
+    @SuppressLint("SetTextI18n")
     fun bind(item: Member) {
         when (item.data[FirebaseMemberDocument.TYPE].toString()) {
-            Type().SOCIO -> iv_Tipo.setImageResource(R.drawable.socio)
-            Type().FIESTA -> iv_Tipo.setImageResource(R.drawable.fiesta)
-            Type().GIMNASIO -> iv_Tipo.setImageResource(R.drawable.gimnasio)
-            Type().GUARDERIA -> iv_Tipo.setImageResource(R.drawable.guarderia)
-            Type().STAFF -> iv_Tipo.setImageResource(R.drawable.staff)
-            Type().INVITADO -> iv_Tipo.setImageResource(R.drawable.invitado)
-            Type().RESTATURANTE -> iv_Tipo.setImageResource(R.drawable.restaurante)
+            Type.SOCIO -> iv_Tipo.setImageResource(R.drawable.socio)
+            Type.FIESTA -> iv_Tipo.setImageResource(R.drawable.fiesta)
+            Type.GIMNASIO -> iv_Tipo.setImageResource(R.drawable.gimnasio)
+            Type.GUARDERIA -> iv_Tipo.setImageResource(R.drawable.guarderia)
+            Type.STAFF -> iv_Tipo.setImageResource(R.drawable.staff)
+            Type.INVITADO -> iv_Tipo.setImageResource(R.drawable.invitado)
+            Type.RESTATURANTE -> iv_Tipo.setImageResource(R.drawable.restaurante)
             else -> this.iv_Tipo.setBackgroundResource(R.drawable.incognito)
         }
         tv_name.setText("${item.data[FirebaseMemberDocument.NAME]} ${item.data[FirebaseMemberDocument.SURNAME]}")
-        this.tv_cedula.setText("Cedula: ${item.ci}")
-        tv_socio_numero.setText("Numero Socio: ${item.data[FirebaseMemberDocument.ID_MEMBER]}")
-        itemView.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-
-            }
-        })
+        this.tv_cedula.text = "Cedula: ${item.ci}"
+        tv_socio_numero.text = "Numero Socio: ${item.data[FirebaseMemberDocument.ID_MEMBER]}"
+        itemView.setOnClickListener { }
     }
 
 

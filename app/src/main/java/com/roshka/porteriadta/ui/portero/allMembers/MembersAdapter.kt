@@ -11,20 +11,24 @@ import com.roshka.porteriadta.data.Type
 import com.roshka.porteriadta.databinding.ItemMemberBinding
 import com.roshka.porteriadta.network.FirebaseMemberDocument
 
-class MembersAdapter(private val memberList: List<Member>) :
+class MembersAdapter(
+    private val memberList: List<Member>,
+    private val onItemClicked: (position: Int) -> Unit
+) :
     RecyclerView.Adapter<MembersAdapter.MembersViewHolder>() {
 
-    inner class MembersViewHolder(private val itemMemberBinding: ItemMemberBinding) :
-        RecyclerView.ViewHolder(itemMemberBinding.root) {
+    inner class MembersViewHolder(
+        private val itemMemberBinding: ItemMemberBinding,
+        private val onItemClicked: (position: Int) -> Unit
+    ) :
+        RecyclerView.ViewHolder(itemMemberBinding.root), View.OnClickListener {
         @SuppressLint("SetTextI18n")
         fun bindItem(member: Member) {
             itemMemberBinding.tvName.text =
                 "${member.data[FirebaseMemberDocument.NAME]} ${member.data[FirebaseMemberDocument.SURNAME]}"
             itemMemberBinding.tvCi.text = "Nº Cédula: ${member.ci}"
             val idMember = member.data[FirebaseMemberDocument.ID_MEMBER]
-            println(idMember)
             if (idMember == null) {
-                println("Entre kp")
                 itemMemberBinding.tvSocio.visibility = View.GONE
             } else {
                 itemMemberBinding.tvSocio.text = "Nº Socio: $idMember"
@@ -45,6 +49,15 @@ class MembersAdapter(private val memberList: List<Member>) :
                 itemView.setBackgroundResource(R.color.disabled)
             }
         }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View) {
+            val position = adapterPosition
+            onItemClicked(position)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MembersViewHolder {
@@ -53,7 +66,7 @@ class MembersAdapter(private val memberList: List<Member>) :
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ), onItemClicked
         )
     }
 

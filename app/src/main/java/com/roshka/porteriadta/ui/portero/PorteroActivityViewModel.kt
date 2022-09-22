@@ -10,38 +10,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.roshka.porteriadta.data.Member
-import com.roshka.porteriadta.network.FirebaseCollections
-import com.roshka.porteriadta.network.FirebaseMemberDocument
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
-class RegisterIncomeViewModel : ViewModel() {
+class PorteroActivityViewModel : ViewModel() {
     val REQUEST_CAMERA = 1000
     val currentUser = FirebaseAuth.getInstance().currentUser
     val storageReference = FirebaseStorage.getInstance()
-    val fb = FirebaseFirestore.getInstance()
-    private val _arrayMembers = MutableLiveData<ArrayList<Member>>()
-    val arrayMembers: LiveData<ArrayList<Member>>
-        get() = _arrayMembers
+    private val _addMembers = MutableLiveData<ArrayList<Member>>()
+    val addMembers: LiveData<ArrayList<Member>>
+        get() = _addMembers
+    private val auxListMembers = arrayListOf<Member>()
 
-    fun getListMembers() {
-        val aux: ArrayList<Member> = ArrayList()
-        fb.collection(FirebaseCollections.MEMBERS).get().addOnSuccessListener {
-            for (document in it) {
-                val data = document.data
-                val member = Member(document.id)
-                member.data = data
-                aux.add(member)
-                println(member.data)
-            }
-            _arrayMembers.value = aux
-        }
-    }
 
     fun uploadImages(ivFoto: ImageView, activity: Activity, foto: Uri) {
         val progressDialog = ProgressDialog(activity)
@@ -54,8 +37,8 @@ class RegisterIncomeViewModel : ViewModel() {
         var referenceImage = storageReference.getReference("images/${fileName}${currentUser!!.email}")
         referenceImage.putFile(foto!!).addOnSuccessListener {
             val uriTask = it.storage.downloadUrl
-            while (!uriTask.isSuccessful());
-            if (uriTask.isSuccessful()) {
+            while (!uriTask.isSuccessful);
+            if (uriTask.isSuccessful) {
                 uriTask.addOnSuccessListener(OnSuccessListener<Uri> { uri ->
                     val download_uri = uri.toString()
                     println(download_uri)
@@ -70,6 +53,11 @@ class RegisterIncomeViewModel : ViewModel() {
             if (progressDialog.isShowing) progressDialog.dismiss()
             Toast.makeText(activity, "No se cargo correctamente", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun setMember(member: Member) {
+        auxListMembers.add(member)
+        _addMembers.value = auxListMembers
     }
 }
 

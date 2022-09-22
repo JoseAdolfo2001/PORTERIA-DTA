@@ -3,10 +3,11 @@ package com.roshka.porteriadta.ui.portero.allMembers
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.roshka.porteriadta.PorteroActivity
 import com.roshka.porteriadta.R
@@ -38,12 +39,11 @@ class SearchMemberFragment : DialogFragment() {
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         viewModel = ViewModelProvider(this)[SearchMemberViewModel::class.java]
 
-        viewModel.eventChangeListener()
-
         viewModel.arrayMembers.observe(viewLifecycleOwner) {
-            val adapter = MembersAdapter(it)
+            val adapter = MembersAdapter(it) { position -> onListItemClick(position) }
             binding.rwMembers.adapter = adapter
         }
 
@@ -57,7 +57,8 @@ class SearchMemberFragment : DialogFragment() {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
         inflater.inflate(R.menu.menu_item, menu)
-        val searchView = SearchView((context as PorteroActivity).supportActionBar?.themedContext ?: context)
+        val searchView =
+            SearchView((context as PorteroActivity).supportActionBar?.themedContext ?: context)
         menu.findItem(R.id.search_action).apply {
             setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
             actionView = searchView
@@ -75,9 +76,7 @@ class SearchMemberFragment : DialogFragment() {
                 return viewModel.onQueryTextChange(newText)
             }
         })
-        searchView.setOnClickListener {view ->
-            println("OnClick")
-        }
+        searchView.setOnClickListener {  }
     }
 
     private fun showAlert(message: String) {
@@ -89,4 +88,8 @@ class SearchMemberFragment : DialogFragment() {
         dialog.show()
     }
 
+    private fun onListItemClick(position: Int) {
+        val member = viewModel.getMember(position)
+        findNavController().navigate(R.id.action_nav_register_income_to_searchMemberFragment)
+    }
 }

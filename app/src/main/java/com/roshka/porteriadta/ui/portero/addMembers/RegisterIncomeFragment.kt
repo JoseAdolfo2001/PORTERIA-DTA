@@ -1,4 +1,4 @@
-package com.roshka.porteriadta.ui.portero
+package com.roshka.porteriadta.ui.portero.addMembers
 
 import android.Manifest
 import android.app.Activity
@@ -16,8 +16,6 @@ import android.widget.Toast
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -26,44 +24,45 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.roshka.porteriadta.R
 import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.databinding.FragmentRegisterIncomeBinding
-import com.roshka.porteriadta.ui.admin.addmember.AddMemberFragment
-import com.roshka.porteriadta.ui.portero.recyclerView.SociosListAdapter
+import com.roshka.porteriadta.ui.portero.PorteroActivityViewModel
 
 class RegisterIncomeFragment : Fragment() {
-    lateinit var adapter: SociosListAdapter
+    private lateinit var adapter: SociosListAdapter
     private lateinit var binding: FragmentRegisterIncomeBinding
-    private lateinit var viewModel: RegisterIncomeViewModel
-    var foto: Uri? = null
-    var array = mutableListOf<Member>()
+    private lateinit var viewModel: PorteroActivityViewModel
+    private var foto: Uri? = null
+    private var array = mutableListOf<Member>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentRegisterIncomeBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this)[PorteroActivityViewModel::class.java]
 
-        viewModel = ViewModelProvider(this)[RegisterIncomeViewModel::class.java]
-        viewModel.getListMembers()
         binding.btnEnviar.setOnClickListener {
             viewModel.uploadImages(binding.ivFoto, requireActivity(), foto!!)
         }
 
-            binding.viewFoto.setOnClickListener {
-                binding.ivArrowQuit.visibility = View.VISIBLE
-                binding.ivQuitImage.visibility = View.VISIBLE
-                binding.viewFoto.visibility = View.VISIBLE
-                binding.rvMembers.visibility = View.GONE
-                binding.ivFoto.visibility = View.VISIBLE
-            }
+        binding.viewFoto.setOnClickListener {
+            binding.ivArrowQuit.visibility = View.VISIBLE
+            binding.ivQuitImage.visibility = View.VISIBLE
+            binding.viewFoto.visibility = View.VISIBLE
+            binding.rvMembers.visibility = View.GONE
+            binding.ivFoto.visibility = View.VISIBLE
+        }
+
         binding.ivQuitImage.setOnClickListener {
             binding.ivFoto.setImageResource(R.drawable.icono_imagen)
         }
+
         binding.navAddMember.setOnClickListener {
             findNavController().navigate(R.id.action_nav_register_income_to_addMemberFragment)
         }
@@ -74,11 +73,12 @@ class RegisterIncomeFragment : Fragment() {
             binding.rvMembers.visibility = View.VISIBLE
             binding.ivFoto.visibility = View.GONE
         }
+
         binding.btnCamera.setOnClickListener {
             abreCamara()
         }
 
-        viewModel.arrayMembers.observe(viewLifecycleOwner, Observer {
+        viewModel.addMembers.observe(viewLifecycleOwner) {
             println(it)
             array = it.toMutableList()
             adapter = SociosListAdapter(
@@ -92,7 +92,7 @@ class RegisterIncomeFragment : Fragment() {
             var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
             itemTouchHelper.attachToRecyclerView(binding.rvMembers)
 
-        })
+        }
 
     }
 
@@ -126,6 +126,7 @@ class RegisterIncomeFragment : Fragment() {
         } else abreCamara()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -140,16 +141,16 @@ class RegisterIncomeFragment : Fragment() {
                     activity,
                     "No se pudo acceder a la camara",
                     Toast.LENGTH_SHORT
-                )
+                ).show()
             }
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == viewModel.REQUEST_CAMERA) {
             binding.ivFoto.setImageURI(foto)
         }
     }
-
 }

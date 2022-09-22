@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -15,6 +16,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.roshka.porteriadta.databinding.ActivityPorteroBinding
+import com.roshka.porteriadta.ui.portero.PorteroActivityViewModel
 
 class PorteroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPorteroBinding
@@ -26,6 +28,8 @@ class PorteroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPorteroBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val model: PorteroActivityViewModel by viewModels()
 
         auth = FirebaseAuth.getInstance()
         fb = FirebaseFirestore.getInstance()
