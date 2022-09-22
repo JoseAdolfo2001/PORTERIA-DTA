@@ -5,25 +5,110 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.admin.history.HistoryRecordFragment"
-    android:background="@color/white">
+   >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/cl_history_record"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <Button
+            android:id="@+id/btn_filtrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintBottom_toTopOf="@+id/rvRecord"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_fecha_final" />
+
+        <Button
+            android:id="@+id/btn_fecha_inicial"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/style_btn_foto"
+            android:text="Fecha inicial"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@+id/et_fecha_iniciial"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <Button
+            android:id="@+id/btn_fecha_final"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/style_btn_foto"
+            android:text="Fecha final"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_fecha_inicial" />
+
+        <EditText
+            android:id="@+id/et_fecha_iniciial"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:textColor="@color/black"
+            android:hint="dd/mm/yyyy"
+            android:background="@drawable/edittext_background"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:textColorHint="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/btn_fecha_inicial"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/et_fecha_final"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:textColor="@color/black"
+            android:hint="dd/mm/yyyy"
+            android:background="@drawable/edittext_background"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:textColorHint="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/btn_fecha_final"
+            app:layout_constraintTop_toBottomOf="@+id/et_fecha_iniciial" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:text="Filtrar por fecha"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.1" />
+            app:layout_constraintGuide_percent="0.15" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRecord"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@color/black"
+            app:layout_constraintTop_toTopOf="@id/guideline8"
+            tools:layout_editor_absoluteX="0dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

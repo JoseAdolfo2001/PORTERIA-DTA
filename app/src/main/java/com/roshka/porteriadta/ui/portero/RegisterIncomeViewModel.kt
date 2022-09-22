@@ -26,8 +26,10 @@ class RegisterIncomeViewModel : ViewModel() {
     val storageReference = FirebaseStorage.getInstance()
     val fb = FirebaseFirestore.getInstance()
     private val _arrayMembers = MutableLiveData<ArrayList<Member>>()
+
     val arrayMembers: LiveData<ArrayList<Member>>
         get() = _arrayMembers
+
 
     fun getListMembers() {
         val aux: ArrayList<Member> = ArrayList()
@@ -35,6 +37,7 @@ class RegisterIncomeViewModel : ViewModel() {
             for (document in it) {
                 val data = document.data
                 val member = Member(document.id)
+
                 member.data = data
                 aux.add(member)
                 println(member.data)
@@ -42,6 +45,7 @@ class RegisterIncomeViewModel : ViewModel() {
             _arrayMembers.value = aux
         }
     }
+
 
     fun uploadImages(ivFoto: ImageView, activity: Activity, foto: Uri) {
         val progressDialog = ProgressDialog(activity)

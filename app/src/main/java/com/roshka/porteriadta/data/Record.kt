@@ -12,7 +12,7 @@ data class Record(
         FirebaseRecordDocument.NOMBRE_PORTERO to "",
         FirebaseRecordDocument.APELLIDO_PORTERO to "",
         FirebaseRecordDocument.TYPE to "",
-        FirebaseRecordDocument.FECHA to "",
+        FirebaseRecordDocument.FECHA to 0L,
         FirebaseRecordDocument.IS_EXIT to false,
 
     )

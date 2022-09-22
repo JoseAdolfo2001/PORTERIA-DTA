@@ -21,7 +21,11 @@
         android:id="@+id/nav_disabled_portero"
         android:name="com.roshka.porteriadta.ui.admin.disabledportero.DisabledPorteroFragment"
         android:label="@string/menu_disabled_portero"
-        tools:layout="@layout/fragment_disabled_portero" />
+        tools:layout="@layout/fragment_disabled_portero" >
+        <action
+            android:id="@+id/action_nav_disabled_portero_to_historyDetails"
+            app:destination="@id/historyDetails" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_change_password"
@@ -34,4 +38,9 @@
         android:name="com.roshka.porteriadta.ui.admin.addmember.AddMemberFragment"
         android:label="@string/menu_add_member"
         tools:layout="@layout/fragment_add_member" />
+    <fragment
+        android:id="@+id/historyDetails"
+        android:name="com.roshka.porteriadta.ui.admin.history.HistoryDetails"
+        android:label="fragment_history_details"
+        tools:layout="@layout/fragment_history_details" />
 </navigation>

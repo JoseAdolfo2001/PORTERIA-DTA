@@ -12,5 +12,7 @@
     <string name="menu_history">Historial de Ingresos</string>
     <string name="menu_disabled_portero">Inhabilitar Portero</string>
     <string name="menu_add_member">Agregar Miembro</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
