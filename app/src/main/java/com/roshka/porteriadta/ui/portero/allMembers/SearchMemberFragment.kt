@@ -89,5 +89,6 @@ class SearchMemberFragment : DialogFragment() {
 
     private fun onListItemClick(position: Int) {
         viewModel.updateAddMember(position)
+        activity?.onBackPressed()
     }
 }
