@@ -1,13 +1,8 @@
 package com.roshka.porteriadta.ui.admin.addmember
 
-import android.content.ContentValues
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.net.NetworkInfo
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +12,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.tabs.TabLayout
-import com.roshka.porteriadta.R
 import com.roshka.porteriadta.data.Member
 import com.roshka.porteriadta.databinding.FragmentAddMemberBinding
 import com.roshka.porteriadta.network.FirebaseMemberDocument
-import java.util.logging.Logger
 
 class AddMemberFragment : Fragment() {
     private var _binding: FragmentAddMemberBinding? = null

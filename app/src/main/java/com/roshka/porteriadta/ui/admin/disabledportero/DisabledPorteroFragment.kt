@@ -41,6 +41,8 @@ class DisabledPorteroFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
+
         viewModel = ViewModelProvider(this)[DisabledPorteroViewModel::class.java]
 
         viewModel.eventChangeListener()
