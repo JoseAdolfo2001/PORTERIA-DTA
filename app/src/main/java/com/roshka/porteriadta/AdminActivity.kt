@@ -1,9 +1,14 @@
 package com.roshka.porteriadta
 
+import android.app.PendingIntent.getActivity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -14,20 +19,23 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.roshka.porteriadta.databinding.ActivityAdminBinding
 import com.roshka.porteriadta.network.FirebaseCollections
 import com.roshka.porteriadta.network.FirebaseUsersDocument
+import com.roshka.porteriadta.ui.admin.history.HistoryRecordFragment
+import com.roshka.porteriadta.ui.admin.history.HistoryRecordViewModel
+import com.roshka.porteriadta.databinding.ActivityAdminBinding as ActivityAdminBinding1
 
 class AdminActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityAdminBinding
+    private lateinit var binding: ActivityAdminBinding1
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var auth: FirebaseAuth
     private lateinit var fb: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAdminBinding.inflate(layoutInflater)
+        binding = ActivityAdminBinding1.inflate(layoutInflater)
         setContentView(binding.root)
+        val model: HistoryRecordViewModel by viewModels()
 
         auth = FirebaseAuth.getInstance()
         fb = FirebaseFirestore.getInstance()
@@ -66,9 +74,6 @@ class AdminActivity : AppCompatActivity() {
                 }
         }
 
-//        val nameUser = headerView.findViewById<TextView>(R.id.name_user)
-//        nameUser.text = user?.displayName ?: ""
-
         val emailUser = headerView.findViewById<TextView>(R.id.email_user)
         emailUser.text = user?.email ?: ""
 
@@ -86,5 +91,27 @@ class AdminActivity : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         return true
+    }
+    private var doubleBackToExitPressedOnce = false
+
+    override fun onBackPressed() {
+        val fragment =
+            this.supportFragmentManager.findFragmentById(R.id.cl_history_record)
+        (fragment as? IOnBackPressed)?.onBackPressed()?.not()?.let {
+
+        }
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+
+        Handler(Looper.getMainLooper()).postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+
+}
+    interface IOnBackPressed {
+        fun onBackPressed(): Boolean
     }
 }

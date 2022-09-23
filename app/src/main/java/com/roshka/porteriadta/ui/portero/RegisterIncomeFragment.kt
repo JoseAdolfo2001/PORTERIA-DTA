@@ -2,6 +2,7 @@ package com.roshka.porteriadta.ui.portero
 
 import android.Manifest
 import android.app.Activity
+import android.app.DirectAction
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,6 +10,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -57,11 +61,8 @@ class RegisterIncomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
 
-        binding.btnEnviar.setOnClickListener {
-//            viewModel.uploadImages(binding.ivFoto, requireActivity(), foto!!)
-            println("ENVIAR REGISTER")
-            binding.btnEnviar.visibility = View.GONE
-            binding.loading.visibility = View.VISIBLE
+        binding.btnEnviar .setOnClickListener {
+            viewModel.uploadImages(binding.ivFoto, requireActivity(), foto)
             viewModel.sendRecord()
         }
 
@@ -122,6 +123,7 @@ class RegisterIncomeFragment : Fragment() {
         val camaraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         camaraIntent.putExtra(MediaStore.EXTRA_OUTPUT, foto)
         startActivityForResult(camaraIntent, viewModel.REQUEST_CAMERA)
+
     }
 
     private fun permisosCamara() {
@@ -173,7 +175,6 @@ class RegisterIncomeFragment : Fragment() {
         }
     }
 
-
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
@@ -190,7 +191,6 @@ class RegisterIncomeFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 
     private fun onListItemClick(position: Int) {
     }

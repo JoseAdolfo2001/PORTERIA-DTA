@@ -73,6 +73,7 @@ class MembersAdapter(
     override fun onBindViewHolder(holder: MembersViewHolder, position: Int) {
         val member = memberList[position]
         holder.bindItem(member)
+
     }
 
     override fun getItemCount(): Int {

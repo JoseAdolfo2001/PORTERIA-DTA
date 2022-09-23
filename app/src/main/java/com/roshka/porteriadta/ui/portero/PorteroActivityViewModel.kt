@@ -30,6 +30,7 @@ class PorteroActivityViewModel : ViewModel() {
     private val auth = FirebaseAuth.getInstance().currentUser
     private val fb = FirebaseFirestore.getInstance()
     private lateinit var user: User
+    var download_uri = ""
 
     private var is_exit = false
     private var is_walk = false
@@ -138,13 +139,10 @@ class PorteroActivityViewModel : ViewModel() {
         val member = _arrayMembers.value?.get(position)
         if (member != null) {
             if (searchMember(member)) {
-                val memberAdd = Member(member.ci, member.data)
-                auxAddMembers.add(memberAdd)
-                _addMembers.value = auxAddMembers
-            } else {
+                auxAddMembers.add(member)
                 _addMembers.value = auxAddMembers
             }
-            listAllMembersFilter.addAll(listAllMembers)
+            _arrayMembers.value = listAllMembers
         }
     }
 
@@ -157,34 +155,38 @@ class PorteroActivityViewModel : ViewModel() {
         return true
     }
 
-    fun uploadImages(ivFoto: ImageView, activity: Activity, foto: Uri) {
+    fun uploadImages(ivFoto: ImageView, activity: Activity, foto: Uri?) {
         val progressDialog = ProgressDialog(activity)
-        progressDialog.setMessage("Uploading file")
+        progressDialog.setMessage("Subiendo imagen")
         progressDialog.setCancelable(false)
         progressDialog.show()
         val formated = SimpleDateFormat("yyyy_MM_dd_HH-mm-ss", Locale.getDefault())
         val now = Date()
         val fileName = formated.format(now)
-        val referenceImage =
+        var referenceImage =
             storageReference.getReference("images/${fileName}${user.email}")
-        referenceImage.putFile(foto).addOnSuccessListener {
-            val uriTask = it.storage.downloadUrl
-            while (!uriTask.isSuccessful);
-            if (uriTask.isSuccessful) {
-                uriTask
-                    .addOnSuccessListener { uri ->
-                        val download_uri = uri.toString()
+        if(foto != null){
+            referenceImage.putFile(foto).addOnSuccessListener {
+                val uriTask = it.storage.downloadUrl
+                while (!uriTask.isSuccessful);
+                if (uriTask.isSuccessful) {
+                    uriTask.addOnSuccessListener(OnSuccessListener<Uri> { uri ->
+                         download_uri = uri.toString()
                         println(download_uri)
-                    }
-                    .addOnFailureListener {}
+                    })
+                        .addOnFailureListener {
+                        }
+                }
+                ivFoto.setImageURI(null)
+                Toast.makeText(activity, "Se cargo correctamente", Toast.LENGTH_SHORT).show()
+                if (progressDialog.isShowing) progressDialog.dismiss()
+            }.addOnFailureListener {
+                if (progressDialog.isShowing) progressDialog.dismiss()
+                Toast.makeText(activity, "No se cargo correctamente", Toast.LENGTH_SHORT).show()
             }
-            ivFoto.setImageURI(null)
-            Toast.makeText(activity, "Se cargo correctamente", Toast.LENGTH_SHORT).show()
-            if (progressDialog.isShowing) progressDialog.dismiss()
-        }.addOnFailureListener {
-            if (progressDialog.isShowing) progressDialog.dismiss()
-            Toast.makeText(activity, "No se cargo correctamente", Toast.LENGTH_SHORT).show()
-        }
+
+        } else progressDialog.dismiss()
+
     }
 
     fun sendRecord() {
@@ -217,6 +219,8 @@ class PorteroActivityViewModel : ViewModel() {
                 record.data[FirebaseRecordDocument.SURNAME_PORTERO] =
                     user.data[FirebaseUsersDocument.SURNAME].toString()
                 record.data[FirebaseRecordDocument.EMAIL_PORTERO] = user.email
+                record.data[FirebaseRecordDocument.PHOTO] = download_uri
+                println(download_uri)
                 val time = Time()
                 time.setToNow()
                 record.data[FirebaseRecordDocument.DATE_TIME] = time.toMillis(true).toString()

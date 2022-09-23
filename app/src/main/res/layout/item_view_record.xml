@@ -25,9 +25,9 @@
         android:id="@+id/tv_cedula_socio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/tv_nombre_socio"
         android:layout_below="@id/tv_nombre_socio"
-        android:layout_marginLeft="19dp"
+        android:layout_alignTop="@id/tv_nombre_socio"
+        android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/cv_image"
         android:text="N° de cédula:"
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/tv_cedula_socio"
-        android:layout_marginLeft="19dp"
+        android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@id/cv_image"
         android:text="N° de socio:"
@@ -55,7 +55,7 @@
         android:id="@+id/tv_nombre_socio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="19dp"
+        android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/cv_image"
         android:text="Nombre y apellido:"
@@ -64,20 +64,36 @@
 
     </TextView>
 
+    <TextView
+        android:id="@+id/tv_fecha_hora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tv_cedula_socio"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@id/cv_image"
+        android:text="N° de socio:"
+        android:textColor="@color/black"
+        android:textSize="12dp">
+
+    </TextView>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/white"
         app:cardCornerRadius="60dp">
 
         <ImageView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:id="@+id/iv_isExit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/person">
+            android:src="@drawable/entrada">
 
         </ImageView>
 
