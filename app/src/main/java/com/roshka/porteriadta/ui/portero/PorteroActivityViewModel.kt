@@ -157,21 +157,22 @@ class PorteroActivityViewModel : ViewModel() {
     }
 
     fun uploadImages(ivFoto: ImageView, activity: Activity, foto: Uri?) {
-        var flag : Boolean
-        val progressDialog = ProgressDialog(activity)
-        progressDialog.setMessage("Subiendo imagen")
-        progressDialog.setCancelable(false)
-        progressDialog.show()
-        val formated = SimpleDateFormat("yyyy_MM_dd_HH-mm-ss", Locale.getDefault())
-        val now = Date()
-        val fileName = formated.format(now)
-        val referenceImage =
-            storageReference.getReference("images/${fileName}${user.email}")
-
         val size = _addMembers.value?.size
 
-        if(size == null || size == 0) {
+        if (size == null || size == 0) {
+            Toast.makeText(activity, "No se encontró ningún registro", Toast.LENGTH_SHORT).show()
+        } else {
+            val progressDialog = ProgressDialog(activity)
             if (foto != null) {
+                var flag: Boolean
+                progressDialog.setMessage("Subiendo imagen")
+                progressDialog.setCancelable(false)
+                progressDialog.show()
+                val formated = SimpleDateFormat("yyyy_MM_dd_HH-mm-ss", Locale.getDefault())
+                val now = Date()
+                val fileName = formated.format(now)
+                val referenceImage =
+                    storageReference.getReference("images/${fileName}${user.email}")
                 referenceImage.putFile(foto).addOnSuccessListener {
                     val uriTask = it.storage.downloadUrl
                     while (!uriTask.isSuccessful);
@@ -196,12 +197,10 @@ class PorteroActivityViewModel : ViewModel() {
                 progressDialog.dismiss()
                 sendRecord(activity)
             }
-        } else {
-            Toast.makeText(activity, "No se encontró ningún registro", Toast.LENGTH_SHORT).show()
         }
     }
 
-    fun sendRecord(activity: Activity){
+    fun sendRecord(activity: Activity) {
         val size = _addMembers.value?.size
         if (size == null || size == 0) {
             //_isSuccessful.value = Response(false, "No se encontró ningún registro")
