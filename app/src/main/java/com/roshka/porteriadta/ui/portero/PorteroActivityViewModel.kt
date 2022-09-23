@@ -141,8 +141,10 @@ class PorteroActivityViewModel : ViewModel() {
             if (searchMember(member)) {
                 auxAddMembers.add(member)
                 _addMembers.value = auxAddMembers
+            } else {
+                _arrayMembers.value = auxAddMembers
             }
-            _arrayMembers.value = listAllMembers
+            listAllMembersFilter.addAll(listAllMembers)
         }
     }
 
@@ -163,18 +165,18 @@ class PorteroActivityViewModel : ViewModel() {
         val formated = SimpleDateFormat("yyyy_MM_dd_HH-mm-ss", Locale.getDefault())
         val now = Date()
         val fileName = formated.format(now)
-        var referenceImage =
+        val referenceImage =
             storageReference.getReference("images/${fileName}${user.email}")
-        referenceImage.putFile(foto!!).addOnSuccessListener {
+        referenceImage.putFile(foto).addOnSuccessListener {
             val uriTask = it.storage.downloadUrl
             while (!uriTask.isSuccessful);
             if (uriTask.isSuccessful) {
-                uriTask.addOnSuccessListener(OnSuccessListener<Uri> { uri ->
-                    val download_uri = uri.toString()
-                    println(download_uri)
-                })
-                    .addOnFailureListener {
+                uriTask
+                    .addOnSuccessListener { uri ->
+                        val download_uri = uri.toString()
+                        println(download_uri)
                     }
+                    .addOnFailureListener {}
             }
             ivFoto.setImageURI(null)
             Toast.makeText(activity, "Se cargo correctamente", Toast.LENGTH_SHORT).show()
@@ -191,7 +193,7 @@ class PorteroActivityViewModel : ViewModel() {
             _isSuccessful.value = Response(false, "No se encontró ningún registro")
         } else {
             val collectionMember = db.collection(FirebaseCollections.RECORDS)
-            var flag = true
+            var flag = false
             var message = ""
             _addMembers.value?.forEach {
                 val record = Record()

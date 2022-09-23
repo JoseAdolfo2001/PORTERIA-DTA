@@ -6,31 +6,22 @@ import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.nfc.Tag
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.*
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.onNavDestinationSelected
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.roshka.porteriadta.PorteroActivity
 import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentRegisterIncomeBinding
-import kotlinx.coroutines.processNextEventInCurrentThread
 
 class RegisterIncomeFragment : Fragment() {
     private lateinit var binding: FragmentRegisterIncomeBinding
@@ -68,9 +59,9 @@ class RegisterIncomeFragment : Fragment() {
 
         binding.btnEnviar.setOnClickListener {
 //            viewModel.uploadImages(binding.ivFoto, requireActivity(), foto!!)
-            viewModel.sendRecord()
             binding.btnEnviar.visibility = View.GONE
             binding.loading.visibility = View.VISIBLE
+            viewModel.sendRecord()
         }
 
         binding.viewFoto.setOnClickListener {
@@ -105,7 +96,7 @@ class RegisterIncomeFragment : Fragment() {
         viewModel.addMembers.observe(viewLifecycleOwner) {
             val adapter = MembersAdapter(it) { position -> onListItemClick(position) }
             binding.rvMembers.adapter = adapter
-            var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
+            val itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
             itemTouchHelper.attachToRecyclerView(binding.rvMembers)
         }
 
@@ -131,7 +122,6 @@ class RegisterIncomeFragment : Fragment() {
         val camaraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         camaraIntent.putExtra(MediaStore.EXTRA_OUTPUT, foto)
         startActivityForResult(camaraIntent, viewModel.REQUEST_CAMERA)
-
     }
 
     private fun permisosCamara() {
@@ -191,6 +181,7 @@ class RegisterIncomeFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if(id == R.id.nav_search_members) {
