@@ -167,30 +167,37 @@ class PorteroActivityViewModel : ViewModel() {
         val fileName = formated.format(now)
         val referenceImage =
             storageReference.getReference("images/${fileName}${user.email}")
-        if (foto != null) {
-            referenceImage.putFile(foto).addOnSuccessListener {
-                val uriTask = it.storage.downloadUrl
-                while (!uriTask.isSuccessful);
-                if (uriTask.isSuccessful) {
-                    uriTask
-                        .addOnSuccessListener { uri ->
-                            download_uri = uri.toString()
-                            println(download_uri)
-                        }
-                        .addOnFailureListener {
-                        }
+
+        val size = _addMembers.value?.size
+
+        if(size == null || size == 0) {
+            if (foto != null) {
+                referenceImage.putFile(foto).addOnSuccessListener {
+                    val uriTask = it.storage.downloadUrl
+                    while (!uriTask.isSuccessful);
+                    if (uriTask.isSuccessful) {
+                        uriTask
+                            .addOnSuccessListener { uri ->
+                                download_uri = uri.toString()
+                                println(download_uri)
+                            }
+                            .addOnFailureListener {
+                            }
+                    }
+                    ivFoto.setImageURI(null)
+                    Toast.makeText(activity, "Se cargo correctamente", Toast.LENGTH_SHORT).show()
+                    if (progressDialog.isShowing) progressDialog.dismiss()
+                    sendRecord(activity)
+                }.addOnFailureListener {
+                    if (progressDialog.isShowing) progressDialog.dismiss()
+                    Toast.makeText(activity, "No se cargo correctamente", Toast.LENGTH_SHORT).show()
                 }
-                ivFoto.setImageURI(null)
-                Toast.makeText(activity, "Se cargo correctamente", Toast.LENGTH_SHORT).show()
-                if (progressDialog.isShowing) progressDialog.dismiss()
+            } else {
+                progressDialog.dismiss()
                 sendRecord(activity)
-            }.addOnFailureListener {
-                if (progressDialog.isShowing) progressDialog.dismiss()
-                Toast.makeText(activity, "No se cargo correctamente", Toast.LENGTH_SHORT).show()
             }
         } else {
-            progressDialog.dismiss()
-            sendRecord(activity)
+            Toast.makeText(activity, "No se encontró ningún registro", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -232,10 +239,10 @@ class PorteroActivityViewModel : ViewModel() {
 
                 collectionMember.add(record.data)
                     .addOnSuccessListener {
-                        Toast.makeText(activity, "Se cargo correctamente", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(activity, "Se cargo correctamente", Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener { it1 ->
-                        Toast.makeText(activity, "Error al cargar", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(activity, "Error al cargar", Toast.LENGTH_SHORT).show()
                     }
             }
             auxAddMembers.clear()
