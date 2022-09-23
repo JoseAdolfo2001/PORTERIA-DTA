@@ -50,10 +50,6 @@ class RegisterIncomeFragment : Fragment() {
             DividerItemDecoration(activity, LinearLayoutManager(activity).orientation)
         binding.rvMembers.addItemDecoration(decoration)
 
-        binding.btnSearch.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_register_income_to_searchMemberFragment)
-        }
-
         binding.checkBoxIsCar.setOnClickListener {
             viewModel.setIsExit(!binding.checkBoxIsCar.isChecked)
         }
@@ -68,18 +64,21 @@ class RegisterIncomeFragment : Fragment() {
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        setHasOptionsMenu(true)
 
         binding.btnEnviar.setOnClickListener {
 //            viewModel.uploadImages(binding.ivFoto, requireActivity(), foto!!)
             viewModel.sendRecord()
+            binding.btnEnviar.visibility = View.GONE
+            binding.loading.visibility = View.VISIBLE
         }
 
         binding.viewFoto.setOnClickListener {
             binding.ivArrowQuit.visibility = View.VISIBLE
             binding.ivQuitImage.visibility = View.VISIBLE
             binding.viewFoto.visibility = View.VISIBLE
+            binding.checkBox.visibility = View.GONE
             binding.rvMembers.visibility = View.GONE
-            binding.btnSearch.visibility = View.GONE
             binding.ivFoto.visibility = View.VISIBLE
         }
 
@@ -94,8 +93,8 @@ class RegisterIncomeFragment : Fragment() {
         binding.ivArrowQuit.setOnClickListener {
             binding.ivArrowQuit.visibility = View.GONE
             binding.ivQuitImage.visibility = View.GONE
+            binding.checkBox.visibility = View.VISIBLE
             binding.rvMembers.visibility = View.VISIBLE
-            binding.btnSearch.visibility = View.VISIBLE
             binding.ivFoto.visibility = View.GONE
         }
 
@@ -111,6 +110,9 @@ class RegisterIncomeFragment : Fragment() {
         }
 
         viewModel.isSuccessful.observe(viewLifecycleOwner) {
+            println("IS SUCCESSFUL $it")
+            binding.btnEnviar.visibility = View.VISIBLE
+            binding.loading.visibility = View.GONE
             if (it.isSuccessful) {
                 Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
             } else {

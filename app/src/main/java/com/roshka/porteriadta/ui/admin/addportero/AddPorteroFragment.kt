@@ -48,8 +48,10 @@ class AddPorteroFragment : Fragment() {
                 val password = binding.portPassword.text.toString().trim()
                 val ci = binding.portCi.text.toString().trim()
                 val user = User(email, password)
-                user.data[FirebaseUsersDocument.NAME] = "$name $surname"
+                user.data[FirebaseUsersDocument.NAME] = name
+                user.data[FirebaseUsersDocument.SURNAME] = surname
                 user.data[FirebaseUsersDocument.CI] = ci
+                user.data[FirebaseUsersDocument.ACTIVE] = FirebaseUsersDocument.ENABLED
                 viewModel.addPortero(user)
             }
         }

@@ -70,7 +70,7 @@ class DisabledPorteroFragment : Fragment() {
                 return viewModel.onQueryTextChange(newText)
             }
         })
-        searchView.setOnClickListener {view ->  }
+        searchView.setOnClickListener { }
     }
 
     private fun showAlert(message: String) {

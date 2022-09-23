@@ -1,12 +1,13 @@
 package com.roshka.porteriadta.ui.portero
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.roshka.porteriadta.PorteroActivity
 import com.roshka.porteriadta.R
@@ -86,6 +87,17 @@ class SearchMemberFragment : DialogFragment() {
 
     private fun onListItemClick(position: Int) {
         viewModel.updateAddMember(position)
+        hide()
         activity?.onBackPressed()
+    }
+
+    fun hide() {
+        val vieww = activity?.currentFocus
+        if (vieww != null) {
+            //Aquí esta la magia
+            val input: InputMethodManager =
+                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            input.hideSoftInputFromWindow(vieww.windowToken, 0)
+        }
     }
 }

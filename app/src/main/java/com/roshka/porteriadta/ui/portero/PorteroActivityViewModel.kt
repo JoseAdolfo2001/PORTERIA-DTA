@@ -63,11 +63,14 @@ class PorteroActivityViewModel : ViewModel() {
         fb.collection(FirebaseCollections.USERS).document(auth?.email.toString()).get()
             .addOnSuccessListener {
                 user = User(auth?.email.toString(), "", mutableMapOf())
-                user.data[FirebaseUsersDocument.NAME] = it.get(FirebaseUsersDocument.NAME).toString()
-                user.data[FirebaseUsersDocument.SURNAME] = it.get(FirebaseUsersDocument.SURNAME).toString()
+                user.data[FirebaseUsersDocument.NAME] =
+                    it.get(FirebaseUsersDocument.NAME).toString()
+                user.data[FirebaseUsersDocument.SURNAME] =
+                    it.get(FirebaseUsersDocument.SURNAME).toString()
                 user.data[FirebaseUsersDocument.CI] = it.get(FirebaseUsersDocument.CI).toString()
                 user.data[FirebaseUsersDocument.ROL] = it.get(FirebaseUsersDocument.ROL).toString()
-                user.data[FirebaseUsersDocument.ACTIVE] = it.get(FirebaseUsersDocument.ACTIVE).toString()
+                user.data[FirebaseUsersDocument.ACTIVE] =
+                    it.get(FirebaseUsersDocument.ACTIVE).toString()
             }
             .addOnFailureListener {
 
@@ -183,44 +186,58 @@ class PorteroActivityViewModel : ViewModel() {
     }
 
     fun sendRecord() {
-        val collectionMember = db.collection(FirebaseCollections.RECORDS)
-        var flag = true
-        var message = ""
-        _addMembers.value?.forEach {
-            val record = Record()
-            record.data[FirebaseRecordDocument.CI_MEMBER] = it.ci
-            record.data[FirebaseRecordDocument.ID_MEMBER] = it.data[FirebaseMemberDocument.ID_MEMBER].toString()
-            record.data[FirebaseRecordDocument.NAME_MEMBER] = it.data[FirebaseMemberDocument.NAME].toString()
-            record.data[FirebaseRecordDocument.SURNAME_MEMBER] = it.data[FirebaseMemberDocument.SURNAME].toString()
-            record.data[FirebaseRecordDocument.IS_DEFAULTER] = it.data[FirebaseMemberDocument.IS_DEFAULTER].toString()
-            record.data[FirebaseRecordDocument.IS_EXIT] = this.is_exit
-            record.data[FirebaseRecordDocument.IS_WALK] = this.is_walk
-            record.data[FirebaseRecordDocument.TYPE] = it.data[FirebaseMemberDocument.TYPE].toString()
-            record.data[FirebaseRecordDocument.CI_PORTERO] = user.data[FirebaseUsersDocument.CI].toString()
-            record.data[FirebaseRecordDocument.NAME_PORTERO] = user.data[FirebaseUsersDocument.NAME].toString()
-            record.data[FirebaseRecordDocument.SURNAME_PORTERO] = user.data[FirebaseUsersDocument.SURNAME].toString()
-            record.data[FirebaseRecordDocument.EMAIL_PORTERO] = user.email
-            val time = Time()
-            time.setToNow()
-            record.data[FirebaseRecordDocument.DATE_TIME] = time.toMillis(true).toString()
+        val size = _addMembers.value?.size
+        if (size == null || size == 0) {
+            _isSuccessful.value = Response(false, "No se encontró ningún registro")
+        } else {
+            val collectionMember = db.collection(FirebaseCollections.RECORDS)
+            var flag = true
+            var message = ""
+            _addMembers.value?.forEach {
+                val record = Record()
+                record.data[FirebaseRecordDocument.CI_MEMBER] = it.ci
+                record.data[FirebaseRecordDocument.ID_MEMBER] =
+                    it.data[FirebaseMemberDocument.ID_MEMBER].toString()
+                record.data[FirebaseRecordDocument.NAME_MEMBER] =
+                    it.data[FirebaseMemberDocument.NAME].toString()
+                record.data[FirebaseRecordDocument.SURNAME_MEMBER] =
+                    it.data[FirebaseMemberDocument.SURNAME].toString()
+                record.data[FirebaseRecordDocument.IS_DEFAULTER] =
+                    it.data[FirebaseMemberDocument.IS_DEFAULTER].toString()
+                record.data[FirebaseRecordDocument.IS_EXIT] = this.is_exit
+                record.data[FirebaseRecordDocument.IS_WALK] = this.is_walk
+                record.data[FirebaseRecordDocument.TYPE] =
+                    it.data[FirebaseMemberDocument.TYPE].toString()
+                record.data[FirebaseRecordDocument.CI_PORTERO] =
+                    user.data[FirebaseUsersDocument.CI].toString()
+                record.data[FirebaseRecordDocument.NAME_PORTERO] =
+                    user.data[FirebaseUsersDocument.NAME].toString()
+                record.data[FirebaseRecordDocument.SURNAME_PORTERO] =
+                    user.data[FirebaseUsersDocument.SURNAME].toString()
+                record.data[FirebaseRecordDocument.EMAIL_PORTERO] = user.email
+                val time = Time()
+                time.setToNow()
+                record.data[FirebaseRecordDocument.DATE_TIME] = time.toMillis(true).toString()
 
-            collectionMember.add(record.data)
-                .addOnSuccessListener {
-                    flag = true
-                    auxAddMembers.clear()
-                    _addMembers.value = auxAddMembers
-                }
-                .addOnFailureListener { it1 ->
-                    flag = false
-                    message = it1.message.toString()
-                    _isSuccessful.value = Response(flag, message)
-                    return@addOnFailureListener
-                }
-        }
-        if (flag) {
-            _isSuccessful.value = Response(flag, "Se registró correctamente")
+                collectionMember.add(record.data)
+                    .addOnSuccessListener {
+                        flag = true
+                        auxAddMembers.clear()
+                        _addMembers.value = auxAddMembers
+                    }
+                    .addOnFailureListener { it1 ->
+                        flag = false
+                        message = it1.message.toString()
+                        _isSuccessful.value = Response(flag, message)
+                        return@addOnFailureListener
+                    }
+            }
+            if (flag) {
+                _isSuccessful.value = Response(flag, "Se registró correctamente")
+            }
         }
     }
+
 
     fun setIsWalk(is_walk: Boolean) {
         this.is_walk = is_walk

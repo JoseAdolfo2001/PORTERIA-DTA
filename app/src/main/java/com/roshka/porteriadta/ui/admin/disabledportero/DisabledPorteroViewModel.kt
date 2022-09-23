@@ -43,7 +43,7 @@ class DisabledPorteroViewModel : ViewModel() {
                             val data = dc.document.data
                             val member = User(dc.document.id, "")
                             member.data = data
-                            if(member.data[FirebaseUsersDocument.ROL].toString()  != "admin") {
+                            if (member.data[FirebaseUsersDocument.ROL].toString() != "admin") {
                                 when (dc.type) {
                                     DocumentChange.Type.ADDED -> {
                                         listAllUsers.add(dc.newIndex, member)
@@ -82,8 +82,6 @@ class DisabledPorteroViewModel : ViewModel() {
                     listAllUsersFilter.add(it)
                 }
             }
-
-
         } else {
             listAllUsersFilter.clear()
             listAllUsersFilter.addAll(listAllUsers)
