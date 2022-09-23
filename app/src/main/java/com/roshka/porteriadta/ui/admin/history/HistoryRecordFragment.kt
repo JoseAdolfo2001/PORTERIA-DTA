@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.roshka.porteriadta.AdminActivity
 import com.roshka.porteriadta.data.FilterParameters
 import com.roshka.porteriadta.data.Record
 import com.roshka.porteriadta.databinding.FragmentHistoryRecordBinding
@@ -21,16 +22,15 @@ import com.roshka.porteriadta.ui.admin.history.RecyclerView.RecordAdapter
 import java.util.*
 
 
-class HistoryRecordFragment : Fragment() {
+class HistoryRecordFragment : Fragment(),AdminActivity.IOnBackPressed {
     private var _binding: FragmentHistoryRecordBinding? = null
     var array = listOf<Record>()
     lateinit var adapter: RecordAdapter
     var timeInMilliSeconds1 = 0L
     var timeInMilliSeconds2 = 0L
-
-
     private val binding get() = _binding!!
     private lateinit var viewModel: HistoryRecordViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +57,6 @@ class HistoryRecordFragment : Fragment() {
             }
             fecha1.show(requireActivity().supportFragmentManager, "DataPicker")
 
-
         }
         binding.btnFechaFinal.setOnClickListener {
             val fecha2 = DatePickerFragment { year, month, day ->
@@ -72,7 +71,8 @@ class HistoryRecordFragment : Fragment() {
         }
         viewModel.arrayRecords.observe(viewLifecycleOwner, Observer {
             array = it
-            adapter = RecordAdapter(it, binding.etFechaIniciial.text.toString())
+            adapter = RecordAdapter(it,binding.btnFiltrar,binding.btnFechaInicial,binding.btnFechaFinal,
+                activity as AdminActivity,binding.etFechaFinal,binding.etFechaIniciial,binding.rvRecord)
             binding.rvRecord.layoutManager = LinearLayoutManager(activity)
             binding.rvRecord.adapter = adapter
             val decoration =
@@ -82,7 +82,12 @@ class HistoryRecordFragment : Fragment() {
         })
         binding.btnFiltrar.setOnClickListener {
             viewModel.onQueryTextChange(FilterParameters(timeInMilliSeconds1, timeInMilliSeconds2))
+                  }
+        binding.btnLimpiar.setOnClickListener {
+            viewModel.clean()
         }
+
+
 
 
     }
@@ -111,6 +116,16 @@ class HistoryRecordFragment : Fragment() {
             listener(year, month + 1, day)
         }
 
+
+    }
+    private fun onListItemClick(position: Int) {
+
+    }
+
+    override fun onBackPressed(): Boolean {
+      binding.btnFiltrar.visibility = View.VISIBLE
+      binding.btnFechaInicial.visibility = View.VISIBLE
+        return true
     }
 
 

@@ -1,9 +1,10 @@
 package com.roshka.porteriadta.data
 
 import com.roshka.porteriadta.network.FirebaseRecordDocument
+import java.io.Serializable
 
 data class Record(
-    val data: MutableMap<String, Any> = hashMapOf(
+    var data: MutableMap<String, Any> = hashMapOf(
         FirebaseRecordDocument.ID_MEMBER to "",
         FirebaseRecordDocument.CI_MEMBER to "",
         FirebaseRecordDocument.NAME_MEMBER to "",
@@ -19,4 +20,4 @@ data class Record(
         FirebaseRecordDocument.EMAIL_PORTERO to "",
         FirebaseRecordDocument.DATE_TIME to ""
     )
-)
+):Serializable

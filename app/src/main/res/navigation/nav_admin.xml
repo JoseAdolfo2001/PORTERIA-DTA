@@ -9,7 +9,11 @@
         android:id="@+id/nav_history"
         android:name="com.roshka.porteriadta.ui.admin.history.HistoryRecordFragment"
         android:label="@string/menu_history"
-        tools:layout="@layout/fragment_history_record" />
+        tools:layout="@layout/fragment_history_record" >
+        <argument
+            android:name="Record"
+            app:argType="com.roshka.porteriadta.data.Record" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_add_portero"
@@ -21,11 +25,7 @@
         android:id="@+id/nav_disabled_portero"
         android:name="com.roshka.porteriadta.ui.admin.disabledportero.DisabledPorteroFragment"
         android:label="@string/menu_disabled_portero"
-        tools:layout="@layout/fragment_disabled_portero" >
-        <action
-            android:id="@+id/action_nav_disabled_portero_to_historyDetails"
-            app:destination="@id/historyDetails" />
-    </fragment>
+        tools:layout="@layout/fragment_disabled_portero" />
 
     <fragment
         android:id="@+id/nav_change_password"
@@ -42,5 +42,17 @@
         android:id="@+id/historyDetails"
         android:name="com.roshka.porteriadta.ui.admin.history.HistoryDetails"
         android:label="fragment_history_details"
-        tools:layout="@layout/fragment_history_details" />
+        tools:layout="@layout/fragment_history_details" >
+        <argument
+            android:name="record"
+            app:argType="com.roshka.porteriadta.data.Record"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="hola"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_historyDetails_to_nav_history"
+            app:destination="@id/nav_history" />
+    </fragment>
 </navigation>

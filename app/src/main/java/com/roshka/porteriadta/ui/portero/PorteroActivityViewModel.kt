@@ -31,6 +31,7 @@ class PorteroActivityViewModel : ViewModel() {
     private val auth = FirebaseAuth.getInstance().currentUser
     private val fb = FirebaseFirestore.getInstance()
     private lateinit var user: User
+    var download_uri = ""
 
     private val storageReference = FirebaseStorage.getInstance()
 
@@ -149,9 +150,9 @@ class PorteroActivityViewModel : ViewModel() {
         return true
     }
 
-    fun uploadImages(ivFoto: ImageView, activity: Activity, foto: Uri) {
+    fun uploadImages(ivFoto: ImageView, activity: Activity, foto: Uri?) {
         val progressDialog = ProgressDialog(activity)
-        progressDialog.setMessage("Uploading file")
+        progressDialog.setMessage("Subiendo imagen")
         progressDialog.setCancelable(false)
         progressDialog.show()
         val formated = SimpleDateFormat("yyyy_MM_dd_HH-mm-ss", Locale.getDefault())
@@ -159,24 +160,28 @@ class PorteroActivityViewModel : ViewModel() {
         val fileName = formated.format(now)
         var referenceImage =
             storageReference.getReference("images/${fileName}${user.email}")
-        referenceImage.putFile(foto!!).addOnSuccessListener {
-            val uriTask = it.storage.downloadUrl
-            while (!uriTask.isSuccessful);
-            if (uriTask.isSuccessful) {
-                uriTask.addOnSuccessListener(OnSuccessListener<Uri> { uri ->
-                    val download_uri = uri.toString()
-                    println(download_uri)
-                })
-                    .addOnFailureListener {
-                    }
+        if(foto != null){
+            referenceImage.putFile(foto).addOnSuccessListener {
+                val uriTask = it.storage.downloadUrl
+                while (!uriTask.isSuccessful);
+                if (uriTask.isSuccessful) {
+                    uriTask.addOnSuccessListener(OnSuccessListener<Uri> { uri ->
+                         download_uri = uri.toString()
+                        println(download_uri)
+                    })
+                        .addOnFailureListener {
+                        }
+                }
+                ivFoto.setImageURI(null)
+                Toast.makeText(activity, "Se cargo correctamente", Toast.LENGTH_SHORT).show()
+                if (progressDialog.isShowing) progressDialog.dismiss()
+            }.addOnFailureListener {
+                if (progressDialog.isShowing) progressDialog.dismiss()
+                Toast.makeText(activity, "No se cargo correctamente", Toast.LENGTH_SHORT).show()
             }
-            ivFoto.setImageURI(null)
-            Toast.makeText(activity, "Se cargo correctamente", Toast.LENGTH_SHORT).show()
-            if (progressDialog.isShowing) progressDialog.dismiss()
-        }.addOnFailureListener {
-            if (progressDialog.isShowing) progressDialog.dismiss()
-            Toast.makeText(activity, "No se cargo correctamente", Toast.LENGTH_SHORT).show()
-        }
+
+        } else progressDialog.dismiss()
+
     }
 
     fun sendRecord() {
@@ -185,6 +190,8 @@ class PorteroActivityViewModel : ViewModel() {
         var message = ""
         _addMembers.value?.forEach {
             val record = Record()
+            record.data[FirebaseRecordDocument.PHOTO] = download_uri
+            println(download_uri)
             record.data[FirebaseRecordDocument.CI_MEMBER] = it.ci
             record.data[FirebaseRecordDocument.ID_MEMBER] = it.data[FirebaseMemberDocument.ID_MEMBER].toString()
             record.data[FirebaseRecordDocument.NAME_MEMBER] = it.data[FirebaseMemberDocument.NAME].toString()

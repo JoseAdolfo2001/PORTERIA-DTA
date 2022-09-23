@@ -38,7 +38,7 @@ class HistoryRecordViewModel : ViewModel() {
                     } else {
                         for (dc: DocumentChange in value?.documentChanges!!) {
                             val data = dc.document.data
-                            val record = Record(dc.document.data)
+                            var record = Record(dc.document.data)
                             record.data = data
                             when (dc.type) {
                                 DocumentChange.Type.ADDED -> {
@@ -64,18 +64,22 @@ class HistoryRecordViewModel : ViewModel() {
         val dateStart = filterParameters.dateStart
         val dateEnd = filterParameters.dateEnd
         listAllRecords.forEach {
-            val date = it.data[FirebaseRecordDocument.FECHA]
+            val date = it.data[FirebaseRecordDocument.DATE_TIME].toString().toLong()
             val id_member = it.data[FirebaseMemberDocument.ID_MEMBER].toString()
                 .lowercase(Locale.getDefault())
             val name =
                 "${it.data[FirebaseMemberDocument.NAME]} ${it.data[FirebaseMemberDocument.SURNAME]}".lowercase(
                     Locale.getDefault())
             if (date in dateStart..dateEnd) {
+                println("hola")
                 listAllRecordsFilter.add(it)
             }
         }
         _arrayRecords.value = listAllRecordsFilter
         return false
+    }
+    fun clean(){
+        _arrayRecords.value = listAllRecords
     }
 
 }

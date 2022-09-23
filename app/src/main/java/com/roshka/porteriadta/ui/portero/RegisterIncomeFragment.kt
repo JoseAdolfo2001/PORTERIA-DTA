@@ -2,15 +2,14 @@ package com.roshka.porteriadta.ui.portero
 
 import android.Manifest
 import android.app.Activity
+import android.app.DirectAction
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.nfc.Tag
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +24,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentRegisterIncomeBinding
-import kotlinx.coroutines.processNextEventInCurrentThread
 
 class RegisterIncomeFragment : Fragment() {
     private lateinit var binding: FragmentRegisterIncomeBinding
@@ -56,8 +54,8 @@ class RegisterIncomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        binding.btnEnviar.setOnClickListener {
-//            viewModel.uploadImages(binding.ivFoto, requireActivity(), foto!!)
+        binding.btnEnviar .setOnClickListener {
+            viewModel.uploadImages(binding.ivFoto, requireActivity(), foto)
             viewModel.sendRecord()
         }
 
@@ -89,7 +87,8 @@ class RegisterIncomeFragment : Fragment() {
         }
 
         viewModel.addMembers.observe(viewLifecycleOwner) {
-            val adapter = MembersAdapter(it) { position -> onListItemClick(position) }
+            val adapter = MembersAdapter(it) { position -> onListItemClick(position)
+            }
             binding.rvMembers.adapter = adapter
             var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
             itemTouchHelper.attachToRecyclerView(binding.rvMembers)
@@ -160,4 +159,5 @@ class RegisterIncomeFragment : Fragment() {
 
     private fun onListItemClick(position: Int) {
     }
+
 }
