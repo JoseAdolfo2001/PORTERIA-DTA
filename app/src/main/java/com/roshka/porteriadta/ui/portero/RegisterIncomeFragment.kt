@@ -62,8 +62,9 @@ class RegisterIncomeFragment : Fragment() {
         setHasOptionsMenu(true)
 
         binding.btnEnviar .setOnClickListener {
-            viewModel.uploadImages(binding.ivFoto, requireActivity(), foto)
-            viewModel.sendRecord()
+            if(!viewModel.uploadImages(binding.ivFoto, requireActivity(), foto)) {
+                showAlert("No se encontró regsitros")
+            }
         }
 
         binding.viewFoto.setOnClickListener {

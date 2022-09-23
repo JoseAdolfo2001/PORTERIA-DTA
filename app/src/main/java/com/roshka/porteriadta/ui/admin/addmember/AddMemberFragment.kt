@@ -64,7 +64,7 @@ class AddMemberFragment : Fragment() {
                 member.data[FirebaseMemberDocument.TYPE] = tipo
                 viewModel.setMember(member)
                     if(!hasNetworkAvailable(requireContext())){
-                        showAlert("Cuando se recupere la conexion se agreagara automaticamente")
+                        showAlert("Cuando se recupere la conexion se agregará automaticamente")
                         clean()
                     }
                 }

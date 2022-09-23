@@ -22,7 +22,7 @@ import com.roshka.porteriadta.ui.admin.history.RecyclerView.RecordAdapter
 import java.util.*
 
 
-class HistoryRecordFragment : Fragment(),AdminActivity.IOnBackPressed {
+class HistoryRecordFragment : Fragment(), AdminActivity.IOnBackPressed {
     private var _binding: FragmentHistoryRecordBinding? = null
     var array = listOf<Record>()
     lateinit var adapter: RecordAdapter
@@ -37,10 +37,13 @@ class HistoryRecordFragment : Fragment(),AdminActivity.IOnBackPressed {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentHistoryRecordBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+
+        val decoration =
+            DividerItemDecoration(activity, LinearLayoutManager(activity).orientation)
+        binding.rvRecord.addItemDecoration(decoration)
 
 
-        return root
+        return binding.root
     }
 
     @Deprecated("Deprecated in Java")
@@ -71,25 +74,25 @@ class HistoryRecordFragment : Fragment(),AdminActivity.IOnBackPressed {
         }
         viewModel.arrayRecords.observe(viewLifecycleOwner, Observer {
             array = it
-            adapter = RecordAdapter(it,binding.btnFiltrar,binding.btnFechaInicial,binding.btnFechaFinal,
-                activity as AdminActivity,binding.etFechaFinal,binding.etFechaIniciial,binding.rvRecord)
+            adapter = RecordAdapter(
+                it,
+                binding.btnFiltrar,
+                binding.btnFechaInicial,
+                binding.btnFechaFinal,
+                activity as AdminActivity,
+                binding.etFechaFinal,
+                binding.etFechaIniciial,
+                binding.rvRecord
+            )
             binding.rvRecord.layoutManager = LinearLayoutManager(activity)
             binding.rvRecord.adapter = adapter
-            val decoration =
-                DividerItemDecoration(activity, LinearLayoutManager(activity).orientation)
-            binding.rvRecord.addItemDecoration(decoration)
-
         })
         binding.btnFiltrar.setOnClickListener {
             viewModel.onQueryTextChange(FilterParameters(timeInMilliSeconds1, timeInMilliSeconds2))
-                  }
+        }
         binding.btnLimpiar.setOnClickListener {
             viewModel.clean()
         }
-
-
-
-
     }
 
     override fun onDestroyView() {
@@ -115,18 +118,13 @@ class HistoryRecordFragment : Fragment(),AdminActivity.IOnBackPressed {
         override fun onDateSet(p0: DatePicker?, year: Int, month: Int, day: Int) {
             listener(year, month + 1, day)
         }
-
-
     }
-    private fun onListItemClick(position: Int) {
 
-    }
+    private fun onListItemClick(position: Int) {}
 
     override fun onBackPressed(): Boolean {
-      binding.btnFiltrar.visibility = View.VISIBLE
-      binding.btnFechaInicial.visibility = View.VISIBLE
+        binding.btnFiltrar.visibility = View.VISIBLE
+        binding.btnFechaInicial.visibility = View.VISIBLE
         return true
     }
-
-
 }

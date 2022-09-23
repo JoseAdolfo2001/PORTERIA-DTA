@@ -40,7 +40,7 @@ class DisabledPorteroAdapter(val porteroList: List<User>, val activity: Activity
 
             itemUserBinding.tvRemove.setOnClickListener {
                 val builder = AlertDialog.Builder(activity)
-                builder.setTitle("¿Estás seguro que desea deshabilitar al portero?")
+                builder.setTitle("¿Estás seguro que desea inhabilitar al portero?")
                 builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, id ->
 
                     itemUserBinding.tvRemove.visibility = View.GONE
@@ -61,7 +61,7 @@ class DisabledPorteroAdapter(val porteroList: List<User>, val activity: Activity
 
             itemUserBinding.tvAdd.setOnClickListener {
                 val builder = AlertDialog.Builder(activity)
-                builder.setTitle("¿Estás seguro que desea inhabilitar  al portero?")
+                builder.setTitle("¿Estás seguro que desea habilitar  al portero?")
                 builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, _ ->
                     itemUserBinding.tvAdd.visibility = View.GONE
                     itemUserBinding.tvRemove.visibility = View.VISIBLE
