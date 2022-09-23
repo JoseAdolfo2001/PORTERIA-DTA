@@ -154,7 +154,7 @@
             android:background="@drawable/background_btn_login"
             android:textSize="@dimen/text_size_btn_main"
             android:textStyle="bold"
-            android:text="R E G I S T R A R"
+            android:text="REGISTRAR"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

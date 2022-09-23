@@ -124,10 +124,10 @@
 
     <Button
         android:id="@+id/btn_registrar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_horizontal_btn_main"
         android:layout_marginBottom="@dimen/margin_botton_btn_main"
+        android:layout_marginHorizontal="@dimen/margin_horizontal_btn_main"
         android:background="@drawable/background_btn_login"
         android:textSize="@dimen/text_size_btn_main"
         android:textStyle="bold"
