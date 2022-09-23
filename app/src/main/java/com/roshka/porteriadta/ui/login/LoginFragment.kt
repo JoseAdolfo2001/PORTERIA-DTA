@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.roshka.porteriadta.AdminActivity
 import com.roshka.porteriadta.PorteroActivity
 import com.roshka.porteriadta.R
+import com.roshka.porteriadta.data.User
 import com.roshka.porteriadta.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -48,7 +49,7 @@ class LoginFragment : Fragment() {
                 binding.loading.visibility = View.VISIBLE
                 val email = binding.etEmail.text.toString().trim()
                 val password = binding.etPassword.text.toString().trim()
-                viewModel.loginUsers(email, password)
+                viewModel.loginUsers(User(email, password, mutableMapOf()))
             }
         }
     }

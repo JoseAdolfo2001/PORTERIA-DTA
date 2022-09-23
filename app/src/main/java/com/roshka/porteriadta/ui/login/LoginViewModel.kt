@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.roshka.porteriadta.data.User
 import com.roshka.porteriadta.network.FirebaseCollections
 import com.roshka.porteriadta.network.FirebaseUsersDocument
 
@@ -24,30 +25,34 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     val errorLogin: LiveData<String>
         get() = _errorLogin
 
-    fun loginUsers(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    fb.collection(FirebaseCollections.USERS).document(email).get()
-                        .addOnSuccessListener { result ->
-                            val type = result.get(FirebaseUsersDocument.ROL).toString()
-                            val enabled = result.get(FirebaseUsersDocument.ACTIVE).toString()
-                            if(enabled == "true") {
-                                if (type == "admin") {
+    fun loginUsers(user: User) {
+        fb.collection(FirebaseCollections.USERS).document(user.email).get()
+            .addOnSuccessListener { result ->
+                user.data[FirebaseUsersDocument.ACTIVE] =
+                    result.get(FirebaseUsersDocument.ACTIVE).toString()
+                user.data[FirebaseUsersDocument.ROL] =
+                    result.get(FirebaseUsersDocument.ROL).toString()
+                if (user.data[FirebaseUsersDocument.ACTIVE] == FirebaseUsersDocument.ENABLED) {
+                    auth.signInWithEmailAndPassword(user.email, user.password)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                if (user.data[FirebaseUsersDocument.ROL] == "admin") {
                                     _isSuccessfulLogin.value = ADMIN
 
                                 } else {
                                     _isSuccessfulLogin.value = PORTERO
                                 }
                             } else {
-                                _errorLogin.value = "El usuario está deshabilitado"
+                                _errorLogin.value = task.exception!!.message.toString()
                             }
                         }
                 } else {
-                    _errorLogin.value = task.exception!!.message.toString()
+                    _errorLogin.value = "El usuario está deshabilitado"
                 }
             }
-
+            .addOnFailureListener {
+                _errorLogin.value = it.message.toString()
+            }
     }
 }
 

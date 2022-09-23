@@ -23,7 +23,7 @@ class AddMemberViewModel : ViewModel() {
         db.collection(FirebaseCollections.MEMBERS).document(member.ci)
             .set(member.data)
             .addOnSuccessListener {
-                _isSuccessful.value = Response(true, "Se Agrego Correctamente")
+                _isSuccessful.value = Response(true, "Se agregó correctamente")
             }
             .addOnFailureListener {
                 _isSuccessful.value = Response(false, it.message.toString())

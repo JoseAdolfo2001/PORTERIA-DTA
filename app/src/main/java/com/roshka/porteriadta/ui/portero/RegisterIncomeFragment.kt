@@ -11,19 +11,23 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.onNavDestinationSelected
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.roshka.porteriadta.PorteroActivity
 import com.roshka.porteriadta.R
 import com.roshka.porteriadta.databinding.FragmentRegisterIncomeBinding
 import kotlinx.coroutines.processNextEventInCurrentThread
@@ -50,12 +54,12 @@ class RegisterIncomeFragment : Fragment() {
             findNavController().navigate(R.id.action_nav_register_income_to_searchMemberFragment)
         }
 
-        binding.checkBoxIsCar.setOnClickListener{
+        binding.checkBoxIsCar.setOnClickListener {
             viewModel.setIsExit(!binding.checkBoxIsCar.isChecked)
         }
 
-        binding.checkBoxIsEntry.setOnClickListener{
-           viewModel.setIsWalk(!binding.checkBoxIsEntry.isChecked)
+        binding.checkBoxIsEntry.setOnClickListener {
+            viewModel.setIsWalk(!binding.checkBoxIsEntry.isChecked)
         }
 
         return binding.root
@@ -176,6 +180,24 @@ class RegisterIncomeFragment : Fragment() {
 
         }
     }
+
+
+    @Deprecated("Deprecated in Java")
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.menu_nav, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if(id == R.id.nav_search_members) {
+            findNavController().navigate(R.id.action_nav_register_income_to_searchMemberFragment)
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
     private fun onListItemClick(position: Int) {
     }

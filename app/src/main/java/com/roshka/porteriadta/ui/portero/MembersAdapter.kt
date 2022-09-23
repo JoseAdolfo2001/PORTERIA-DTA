@@ -48,7 +48,6 @@ class MembersAdapter(
             if (member.data[FirebaseMemberDocument.IS_DEFAULTER] == true) {
                 itemView.setBackgroundResource(R.color.disabled)
             }
-
         }
 
         init {

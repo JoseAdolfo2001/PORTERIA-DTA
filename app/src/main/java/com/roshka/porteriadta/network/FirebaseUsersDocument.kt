@@ -7,5 +7,7 @@ class FirebaseUsersDocument {
         const val CI = "ci"
         const val ROL = "rol"
         const val ACTIVE = "active"
+        const val ENABLED = "enabled"
+        const val DISABLED = "disabled"
     }
 }

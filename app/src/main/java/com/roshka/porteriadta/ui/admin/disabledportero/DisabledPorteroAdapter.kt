@@ -33,19 +33,19 @@ class DisabledPorteroAdapter(val porteroList: List<User>, val activity: Activity
             itemUserBinding.tvCi.text = "Nº Cédula: ${user.data[FirebaseUsersDocument.CI]}"
             itemUserBinding.tvEmail.text = user.email
 
-            if (user.data[FirebaseUsersDocument.ACTIVE] == "No") {
+            if (user.data[FirebaseUsersDocument.ACTIVE] == FirebaseUsersDocument.DISABLED) {
                 itemUserBinding.tvRemove.visibility = View.GONE
                 itemUserBinding.tvAdd.visibility = View.VISIBLE
             }
 
             itemUserBinding.tvRemove.setOnClickListener {
                 val builder = AlertDialog.Builder(activity)
-                builder.setTitle("Desea Inhabilitar un Portero?")
+                builder.setTitle("¿Estás seguro que desea deshabilitar al portero?")
                 builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, id ->
 
                     itemUserBinding.tvRemove.visibility = View.GONE
                     itemUserBinding.tvAdd.visibility = View.VISIBLE
-                    user.data[FirebaseUsersDocument.ACTIVE] = "No"
+                    user.data[FirebaseUsersDocument.ACTIVE] = FirebaseUsersDocument.DISABLED
                     db.collection(FirebaseCollections.USERS).document(user.email)
                         .set(user.data)
                     dialog.cancel()
@@ -61,11 +61,11 @@ class DisabledPorteroAdapter(val porteroList: List<User>, val activity: Activity
 
             itemUserBinding.tvAdd.setOnClickListener {
                 val builder = AlertDialog.Builder(activity)
-                builder.setTitle("Desea Habilitar un Portero?")
+                builder.setTitle("¿Estás seguro que desea inhabilitar  al portero?")
                 builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, _ ->
                     itemUserBinding.tvAdd.visibility = View.GONE
                     itemUserBinding.tvRemove.visibility = View.VISIBLE
-                    user.data[FirebaseUsersDocument.ACTIVE] = "Si"
+                    user.data[FirebaseUsersDocument.ACTIVE] = FirebaseUsersDocument.ENABLED
                     db.collection(FirebaseCollections.USERS).document(user.email)
                         .set(user.data)
                     dialog.cancel()
