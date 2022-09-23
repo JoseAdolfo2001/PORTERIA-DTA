@@ -31,11 +31,16 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                     fb.collection(FirebaseCollections.USERS).document(email).get()
                         .addOnSuccessListener { result ->
                             val type = result.get(FirebaseUsersDocument.ROL).toString()
-                            if (type == "admin") {
-                                _isSuccessfulLogin.value = ADMIN
+                            val enabled = result.get(FirebaseUsersDocument.ACTIVE).toString()
+                            if(enabled == "true") {
+                                if (type == "admin") {
+                                    _isSuccessfulLogin.value = ADMIN
 
+                                } else {
+                                    _isSuccessfulLogin.value = PORTERO
+                                }
                             } else {
-                                _isSuccessfulLogin.value = PORTERO
+                                _errorLogin.value = "El usuario está deshabilitado"
                             }
                         }
                 } else {
