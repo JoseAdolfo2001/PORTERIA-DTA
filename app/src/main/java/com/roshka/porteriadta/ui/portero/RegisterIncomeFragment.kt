@@ -59,6 +59,7 @@ class RegisterIncomeFragment : Fragment() {
 
         binding.btnEnviar.setOnClickListener {
 //            viewModel.uploadImages(binding.ivFoto, requireActivity(), foto!!)
+            println("ENVIAR REGISTER")
             binding.btnEnviar.visibility = View.GONE
             binding.loading.visibility = View.VISIBLE
             viewModel.sendRecord()
@@ -101,7 +102,6 @@ class RegisterIncomeFragment : Fragment() {
         }
 
         viewModel.isSuccessful.observe(viewLifecycleOwner) {
-            println("IS SUCCESSFUL $it")
             binding.btnEnviar.visibility = View.VISIBLE
             binding.loading.visibility = View.GONE
             if (it.isSuccessful) {

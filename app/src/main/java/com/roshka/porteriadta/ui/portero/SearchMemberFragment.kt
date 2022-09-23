@@ -40,11 +40,13 @@ class SearchMemberFragment : DialogFragment() {
         super.onActivityCreated(savedInstanceState)
 
         viewModel.arrayMembers.observe(viewLifecycleOwner) {
+            println("EBSERVER ARRAY")
             val adapter = MembersAdapter(it) { position -> onListItemClick(position) }
             binding.rwMembers.adapter = adapter
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
+            println("OBSERVER ERROR")
             showAlert(it)
         }
     }

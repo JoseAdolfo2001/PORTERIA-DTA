@@ -139,10 +139,11 @@ class PorteroActivityViewModel : ViewModel() {
         val member = _arrayMembers.value?.get(position)
         if (member != null) {
             if (searchMember(member)) {
-                auxAddMembers.add(member)
+                val memberAdd = Member(member.ci, member.data)
+                auxAddMembers.add(memberAdd)
                 _addMembers.value = auxAddMembers
             } else {
-                _arrayMembers.value = auxAddMembers
+                _addMembers.value = auxAddMembers
             }
             listAllMembersFilter.addAll(listAllMembers)
         }
@@ -224,19 +225,22 @@ class PorteroActivityViewModel : ViewModel() {
                 collectionMember.add(record.data)
                     .addOnSuccessListener {
                         flag = true
-                        auxAddMembers.clear()
-                        _addMembers.value = auxAddMembers
+                        println("FLAG: $flag")
                     }
                     .addOnFailureListener { it1 ->
                         flag = false
                         message = it1.message.toString()
-                        _isSuccessful.value = Response(flag, message)
+                        _isSuccessful.value = Response(false, message)
                         return@addOnFailureListener
                     }
             }
+            println("ES UN HILO? $flag")
             if (flag) {
-                _isSuccessful.value = Response(flag, "Se registró correctamente")
+                _isSuccessful.value = Response(true, "Se registró correctamente")
+                auxAddMembers.clear()
+                _addMembers.value = auxAddMembers
             }
+
         }
     }
 
