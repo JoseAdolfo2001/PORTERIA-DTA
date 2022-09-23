@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
@@ -165,15 +166,17 @@ class PorteroActivityViewModel : ViewModel() {
         val fileName = formated.format(now)
         var referenceImage =
             storageReference.getReference("images/${fileName}${user.email}")
-        if(foto != null){
+        if (foto != null) {
             referenceImage.putFile(foto).addOnSuccessListener {
                 val uriTask = it.storage.downloadUrl
                 while (!uriTask.isSuccessful);
                 if (uriTask.isSuccessful) {
-                    uriTask.addOnSuccessListener(OnSuccessListener<Uri> { uri ->
-                         download_uri = uri.toString()
-                        println(download_uri)
-                    })
+                    uriTask
+                        .addOnSuccessListener(OnSuccessListener<Uri> { uri ->
+                            download_uri = uri.toString()
+                            sendRecord()
+                            println(download_uri)
+                        })
                         .addOnFailureListener {
                         }
                 }
@@ -185,7 +188,10 @@ class PorteroActivityViewModel : ViewModel() {
                 Toast.makeText(activity, "No se cargo correctamente", Toast.LENGTH_SHORT).show()
             }
 
-        } else progressDialog.dismiss()
+        } else {
+            sendRecord()
+            progressDialog.dismiss()
+        }
 
     }
 

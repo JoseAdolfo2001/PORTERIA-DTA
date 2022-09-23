@@ -2,7 +2,6 @@ package com.roshka.porteriadta.ui.portero
 
 import android.Manifest
 import android.app.Activity
-import android.app.DirectAction
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,9 +9,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -63,7 +59,6 @@ class RegisterIncomeFragment : Fragment() {
 
         binding.btnEnviar .setOnClickListener {
             viewModel.uploadImages(binding.ivFoto, requireActivity(), foto)
-            viewModel.sendRecord()
         }
 
         binding.viewFoto.setOnClickListener {
