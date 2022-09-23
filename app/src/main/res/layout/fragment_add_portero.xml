@@ -124,16 +124,17 @@
 
     <Button
         android:id="@+id/btn_registrar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#E13A06"
+        android:layout_marginHorizontal="@dimen/margin_horizontal_btn_main"
+        android:layout_marginBottom="@dimen/margin_botton_btn_main"
+        android:background="@drawable/background_btn_login"
+        android:textSize="@dimen/text_size_btn_main"
+        android:textStyle="bold"
         android:text="Registrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:layout_constraintVertical_bias="0.867" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <ProgressBar
         android:id="@+id/loading"

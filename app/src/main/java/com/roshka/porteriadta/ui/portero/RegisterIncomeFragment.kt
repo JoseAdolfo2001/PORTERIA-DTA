@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
@@ -49,6 +50,14 @@ class RegisterIncomeFragment : Fragment() {
             findNavController().navigate(R.id.action_nav_register_income_to_searchMemberFragment)
         }
 
+        binding.checkBoxIsCar.setOnClickListener{
+            viewModel.setIsExit(!binding.checkBoxIsCar.isChecked)
+        }
+
+        binding.checkBoxIsEntry.setOnClickListener{
+           viewModel.setIsWalk(!binding.checkBoxIsEntry.isChecked)
+        }
+
         return binding.root
     }
 
@@ -66,6 +75,7 @@ class RegisterIncomeFragment : Fragment() {
             binding.ivQuitImage.visibility = View.VISIBLE
             binding.viewFoto.visibility = View.VISIBLE
             binding.rvMembers.visibility = View.GONE
+            binding.btnSearch.visibility = View.GONE
             binding.ivFoto.visibility = View.VISIBLE
         }
 
@@ -81,6 +91,7 @@ class RegisterIncomeFragment : Fragment() {
             binding.ivArrowQuit.visibility = View.GONE
             binding.ivQuitImage.visibility = View.GONE
             binding.rvMembers.visibility = View.VISIBLE
+            binding.btnSearch.visibility = View.VISIBLE
             binding.ivFoto.visibility = View.GONE
         }
 
@@ -93,6 +104,14 @@ class RegisterIncomeFragment : Fragment() {
             binding.rvMembers.adapter = adapter
             var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
             itemTouchHelper.attachToRecyclerView(binding.rvMembers)
+        }
+
+        viewModel.isSuccessful.observe(viewLifecycleOwner) {
+            if (it.isSuccessful) {
+                Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+            } else {
+                showAlert(it.message)
+            }
         }
     }
 
@@ -160,4 +179,14 @@ class RegisterIncomeFragment : Fragment() {
 
     private fun onListItemClick(position: Int) {
     }
+
+    private fun showAlert(message: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Error")
+        builder.setMessage(message)
+        builder.setPositiveButton("Aceptar", null)
+        val dialog = builder.create()
+        dialog.show()
+    }
+
 }

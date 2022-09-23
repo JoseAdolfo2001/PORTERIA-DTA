@@ -12,15 +12,58 @@
         android:id="@+id/btn_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/textlines"
+        android:drawableStart="@drawable/ic_baseline_person_search_24"
+        android:drawableEnd="@drawable/ic_baseline_arrow_forward_24"
+        android:paddingHorizontal="10dp"
         android:text="Buscar"
         android:textColor="@color/black"
-        android:background="@drawable/textlines"
-        android:drawableLeft="@drawable/ic_baseline_person_search_24"
-        android:drawableRight="@drawable/ic_baseline_arrow_forward_24"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/rvMembers"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/rvMembers"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_search">
+
+        <CheckBox
+            android:id="@+id/checkBox_is_entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/black"
+            android:checked="true"
+            android:minHeight="48dp"
+            android:padding="5dp"
+            android:layout_marginLeft="50dp"
+            android:text="Entrada"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <CheckBox
+            android:id="@+id/checkBox_is_car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:buttonTint="@color/black"
+            android:checked="true"
+            android:minHeight="48dp"
+            android:padding="5dp"
+            android:layout_marginRight="50dp"
+            android:text="Auto"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMembers"
@@ -32,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_search"
+        app:layout_constraintTop_toBottomOf="@id/checkBox"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
@@ -102,16 +145,15 @@
         android:id="@+id/btn_enviar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="80dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/background_btn_login"
         android:src="@drawable/ic_baseline_send_24"
         android:text="ENVIAR"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/menu"
-        app:layout_constraintHorizontal_bias="0.755"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
@@ -188,4 +230,5 @@
             android:src="@drawable/ic_baseline_person_add_24"
             app:fab_size="normal" />
     </com.github.clans.fab.FloatingActionMenu>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

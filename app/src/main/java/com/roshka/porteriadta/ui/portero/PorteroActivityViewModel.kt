@@ -32,6 +32,9 @@ class PorteroActivityViewModel : ViewModel() {
     private val fb = FirebaseFirestore.getInstance()
     private lateinit var user: User
 
+    private var is_exit = false
+    private var is_walk = false
+
     private val storageReference = FirebaseStorage.getInstance()
 
     private val _addMembers = MutableLiveData<ArrayList<Member>>()
@@ -189,6 +192,9 @@ class PorteroActivityViewModel : ViewModel() {
             record.data[FirebaseRecordDocument.ID_MEMBER] = it.data[FirebaseMemberDocument.ID_MEMBER].toString()
             record.data[FirebaseRecordDocument.NAME_MEMBER] = it.data[FirebaseMemberDocument.NAME].toString()
             record.data[FirebaseRecordDocument.SURNAME_MEMBER] = it.data[FirebaseMemberDocument.SURNAME].toString()
+            record.data[FirebaseRecordDocument.IS_DEFAULTER] = it.data[FirebaseMemberDocument.IS_DEFAULTER].toString()
+            record.data[FirebaseRecordDocument.IS_EXIT] = this.is_exit
+            record.data[FirebaseRecordDocument.IS_WALK] = this.is_walk
             record.data[FirebaseRecordDocument.TYPE] = it.data[FirebaseMemberDocument.TYPE].toString()
             record.data[FirebaseRecordDocument.CI_PORTERO] = user.data[FirebaseUsersDocument.CI].toString()
             record.data[FirebaseRecordDocument.NAME_PORTERO] = user.data[FirebaseUsersDocument.NAME].toString()
@@ -201,17 +207,27 @@ class PorteroActivityViewModel : ViewModel() {
             collectionMember.add(record.data)
                 .addOnSuccessListener {
                     flag = true
-                    message = "Se registro existosamente"
+                    auxAddMembers.clear()
+                    _addMembers.value = auxAddMembers
                 }
                 .addOnFailureListener { it1 ->
                     flag = false
                     message = it1.message.toString()
                     _isSuccessful.value = Response(flag, message)
+                    return@addOnFailureListener
                 }
         }
         if (flag) {
-            _isSuccessful.value = Response(flag, message)
+            _isSuccessful.value = Response(flag, "Se registró correctamente")
         }
+    }
+
+    fun setIsWalk(is_walk: Boolean) {
+        this.is_walk = is_walk
+    }
+
+    fun setIsExit(is_exit: Boolean) {
+        this.is_exit = is_exit
     }
 }
 
