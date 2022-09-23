@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
@@ -235,15 +234,11 @@ class PorteroActivityViewModel : ViewModel() {
                     }
             }
             println("ES UN HILO? $flag")
-            if (flag) {
-                _isSuccessful.value = Response(true, "Se registró correctamente")
-                auxAddMembers.clear()
-                _addMembers.value = auxAddMembers
-            }
-
+            _isSuccessful.value = Response(true, "Se registró correctamente")
+            auxAddMembers.clear()
+            _addMembers.value = auxAddMembers
         }
     }
-
 
     fun setIsWalk(is_walk: Boolean) {
         this.is_walk = is_walk

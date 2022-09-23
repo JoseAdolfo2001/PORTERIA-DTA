@@ -96,7 +96,6 @@ class SearchMemberFragment : DialogFragment() {
     fun hide() {
         val vieww = activity?.currentFocus
         if (vieww != null) {
-            //Aquí esta la magia
             val input: InputMethodManager =
                 activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             input.hideSoftInputFromWindow(vieww.windowToken, 0)

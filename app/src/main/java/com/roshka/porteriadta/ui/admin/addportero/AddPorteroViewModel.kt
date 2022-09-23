@@ -35,12 +35,12 @@ class AddPorteroViewModel(application: Application) : AndroidViewModel(applicati
         } catch (e: IllegalStateException) {
             FirebaseAuth.getInstance(FirebaseApp.getInstance("AnyAppName"))
         }
-        mAuth2?.createUserWithEmailAndPassword(user.email, user.password)
-            ?.addOnCompleteListener { task ->
+        mAuth2.createUserWithEmailAndPassword(user.email, user.password)
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
-                    mAuth2?.signOut()
+                    mAuth2.signOut()
                     db.collection(FirebaseCollections.USERS).document(user.email)
                         .set(user.data)
                         .addOnSuccessListener {

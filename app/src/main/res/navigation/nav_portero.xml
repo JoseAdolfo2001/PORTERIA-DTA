@@ -48,8 +48,5 @@
         <action
             android:id="@+id/action_searchMemberFragment_to_nav_register_income"
             app:destination="@id/nav_register_income" />
-        <argument
-            android:name="addMembers"
-            app:argType="reference" />
     </fragment>
 </navigation>
