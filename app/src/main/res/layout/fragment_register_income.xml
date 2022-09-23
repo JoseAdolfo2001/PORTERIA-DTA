@@ -70,7 +70,7 @@
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
         android:visibility="gone"
-        android:src="@drawable/icono_imagen"
+        android:src="@drawable/ic_baseline_insert_photo_24"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="@+id/menu"
         app:layout_constraintHorizontal_bias="0.497"

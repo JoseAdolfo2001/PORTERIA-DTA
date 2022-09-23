@@ -50,11 +50,12 @@ class DisabledPorteroAdapter(val porteroList: List<User>, val activity: Activity
                         .set(user.data)
                     dialog.cancel()
                 })
-                builder.setNegativeButton(
-                    "Cancelar",
-                    DialogInterface.OnClickListener { dialog, id ->
+                builder
+                    .setNegativeButton(
+                        "Cancelar"
+                    ) { dialog, id ->
                         dialog.cancel()
-                    })
+                    }
                 val dialog = builder.create()
                 dialog.show()
             }

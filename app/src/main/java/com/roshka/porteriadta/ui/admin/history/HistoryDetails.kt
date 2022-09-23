@@ -67,8 +67,11 @@ class HistoryDetails : Fragment(),AdminActivity.IOnBackPressed{
             binding.tvNombreCompletoPortero.text = dataholder.data[FirebaseRecordDocument.NAME_PORTERO].toString() +" "+ dataholder.data[FirebaseRecordDocument.SURNAME_PORTERO].toString()
             binding.tvCedulaPortero.text = "Cedula: " + dataholder.data[FirebaseRecordDocument.CI_PORTERO].toString()
             binding.tvCorreoPortero.text = "Email: "+dataholder.data[FirebaseRecordDocument.EMAIL_PORTERO].toString()
-            Picasso.get().load(dataholder.data[FirebaseRecordDocument.PHOTO].toString()).error(R.drawable.icono_imagen).into(binding.ivPhotoEntrada)
-
+            try {
+                Picasso.get().load(dataholder.data[FirebaseRecordDocument.PHOTO].toString()).error(R.drawable.ic_baseline_insert_photo_24).into(binding.ivPhotoEntrada)
+            } catch (e: Exception) {
+                binding.ivPhotoEntrada.setImageResource(R.drawable.ic_baseline_insert_photo_24)
+            }
         }
 
 

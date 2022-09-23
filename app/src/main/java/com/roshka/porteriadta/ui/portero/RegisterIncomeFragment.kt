@@ -62,9 +62,7 @@ class RegisterIncomeFragment : Fragment() {
         setHasOptionsMenu(true)
 
         binding.btnEnviar .setOnClickListener {
-            if(!viewModel.uploadImages(binding.ivFoto, requireActivity(), foto)) {
-                showAlert("No se encontró regsitros")
-            }
+            viewModel.uploadImages(binding.ivFoto, requireActivity(), foto)
         }
 
         binding.viewFoto.setOnClickListener {
@@ -77,7 +75,7 @@ class RegisterIncomeFragment : Fragment() {
         }
 
         binding.ivQuitImage.setOnClickListener {
-            binding.ivFoto.setImageResource(R.drawable.icono_imagen)
+            binding.ivFoto.setImageResource(R.drawable.ic_baseline_insert_photo_24)
         }
 
         binding.navAddMember.setOnClickListener {
@@ -112,6 +110,12 @@ class RegisterIncomeFragment : Fragment() {
                 showAlert(it.message)
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        var uri = foto
+        binding.ivFoto.setImageURI(uri)
     }
 
     private fun abreCamara() {

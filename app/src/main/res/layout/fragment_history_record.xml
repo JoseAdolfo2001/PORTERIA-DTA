@@ -104,7 +104,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintTop_toBottomOf="@+id/et_fecha_iniciial"
-            tools:layout_editor_absoluteX="44dp">
+            tools:layout_editor_absoluteX="44dp"
+            tools:ignore="MissingConstraints">
 
             <Button
                 android:id="@+id/btn_fecha_final"
@@ -112,7 +113,7 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="12dp"
                 android:background="@drawable/style_btn_foto"
-                android:text="Fecha inicial"
+                android:text="Fecha final"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -164,16 +165,18 @@
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvRecord"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:background="@color/black"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-                tools:layout_editor_absoluteX="0dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -156,7 +156,7 @@ class PorteroActivityViewModel : ViewModel() {
         return true
     }
 
-    fun uploadImages(ivFoto: ImageView, activity: Activity, foto: Uri?) : Boolean {
+    fun uploadImages(ivFoto: ImageView, activity: Activity, foto: Uri?) {
         var flag : Boolean
         val progressDialog = ProgressDialog(activity)
         progressDialog.setMessage("Subiendo imagen")
@@ -165,7 +165,7 @@ class PorteroActivityViewModel : ViewModel() {
         val formated = SimpleDateFormat("yyyy_MM_dd_HH-mm-ss", Locale.getDefault())
         val now = Date()
         val fileName = formated.format(now)
-        var referenceImage =
+        val referenceImage =
             storageReference.getReference("images/${fileName}${user.email}")
         if (foto != null) {
             referenceImage.putFile(foto).addOnSuccessListener {
@@ -183,25 +183,24 @@ class PorteroActivityViewModel : ViewModel() {
                 ivFoto.setImageURI(null)
                 Toast.makeText(activity, "Se cargo correctamente", Toast.LENGTH_SHORT).show()
                 if (progressDialog.isShowing) progressDialog.dismiss()
-                flag = sendRecord()
+                sendRecord(activity)
             }.addOnFailureListener {
                 if (progressDialog.isShowing) progressDialog.dismiss()
                 Toast.makeText(activity, "No se cargo correctamente", Toast.LENGTH_SHORT).show()
             }
         } else {
             progressDialog.dismiss()
-            return sendRecord()
+            sendRecord(activity)
         }
-        return false
     }
 
-    fun sendRecord() : Boolean {
+    fun sendRecord(activity: Activity){
         val size = _addMembers.value?.size
         if (size == null || size == 0) {
-            _isSuccessful.value = Response(false, "No se encontró ningún registro")
+            //_isSuccessful.value = Response(false, "No se encontró ningún registro")
         } else {
             val collectionMember = db.collection(FirebaseCollections.RECORDS)
-            var flag = false
+            var flag: Boolean
             var message = ""
             _addMembers.value?.forEach {
                 val record = Record()
@@ -233,21 +232,15 @@ class PorteroActivityViewModel : ViewModel() {
 
                 collectionMember.add(record.data)
                     .addOnSuccessListener {
-                        flag = true
-                        println("FLAG: $flag")
+                        Toast.makeText(activity, "Se cargo correctamente", Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener { it1 ->
-                        flag = false
-                        message = it1.message.toString()
-                        _isSuccessful.value = Response(false, message)
-                        return@addOnFailureListener
+                        Toast.makeText(activity, "Error al cargar", Toast.LENGTH_SHORT).show()
                     }
             }
             auxAddMembers.clear()
             _addMembers.value = auxAddMembers
-            return true
         }
-        return false
     }
 
     fun setIsWalk(is_walk: Boolean) {
