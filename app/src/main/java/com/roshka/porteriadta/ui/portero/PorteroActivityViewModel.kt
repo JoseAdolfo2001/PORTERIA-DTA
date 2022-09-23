@@ -181,14 +181,18 @@ class PorteroActivityViewModel : ViewModel() {
                             .addOnSuccessListener { uri ->
                                 download_uri = uri.toString()
                                 println(download_uri)
+                                ivFoto.setImageURI(null)
+                                Toast.makeText(
+                                    activity,
+                                    "Se cargo correctamente",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                if (progressDialog.isShowing) progressDialog.dismiss()
+                                sendRecord(activity)
                             }
                             .addOnFailureListener {
                             }
                     }
-                    ivFoto.setImageURI(null)
-                    Toast.makeText(activity, "Se cargo correctamente", Toast.LENGTH_SHORT).show()
-                    if (progressDialog.isShowing) progressDialog.dismiss()
-                    sendRecord(activity)
                 }.addOnFailureListener {
                     if (progressDialog.isShowing) progressDialog.dismiss()
                     Toast.makeText(activity, "No se cargo correctamente", Toast.LENGTH_SHORT).show()

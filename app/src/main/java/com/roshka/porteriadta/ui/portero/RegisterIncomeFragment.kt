@@ -63,6 +63,7 @@ class RegisterIncomeFragment : Fragment() {
 
         binding.btnEnviar .setOnClickListener {
             viewModel.uploadImages(binding.ivFoto, requireActivity(), foto)
+            foto = null
         }
 
         binding.viewFoto.setOnClickListener {
@@ -76,6 +77,7 @@ class RegisterIncomeFragment : Fragment() {
 
         binding.ivQuitImage.setOnClickListener {
             binding.ivFoto.setImageResource(R.drawable.ic_baseline_insert_photo_24)
+            foto = null
         }
 
         binding.navAddMember.setOnClickListener {
