@@ -77,6 +77,7 @@ class HistoryRecordFragment : Fragment(), AdminActivity.IOnBackPressed {
             adapter = RecordAdapter(
                 it,
                 binding.btnFiltrar,
+                binding.btnLimpiar,
                 binding.btnFechaInicial,
                 binding.btnFechaFinal,
                 activity as AdminActivity,
@@ -125,6 +126,8 @@ class HistoryRecordFragment : Fragment(), AdminActivity.IOnBackPressed {
     override fun onBackPressed(): Boolean {
         binding.btnFiltrar.visibility = View.VISIBLE
         binding.btnFechaInicial.visibility = View.VISIBLE
+        binding.btnFiltrar.visibility = View.VISIBLE
+        binding.btnLimpiar.visibility = View.VISIBLE
         return true
     }
 }

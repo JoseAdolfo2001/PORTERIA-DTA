@@ -114,11 +114,11 @@ class RegisterIncomeFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        var uri = foto
-        binding.ivFoto.setImageURI(uri)
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        var uri = foto
+//        binding.ivFoto.setImageURI(uri)
+//    }
 
     private fun abreCamara() {
         val value = ContentValues() //  Crea un espacio de memoria vacia
@@ -209,6 +209,11 @@ class RegisterIncomeFragment : Fragment() {
         builder.setPositiveButton("Aceptar", null)
         val dialog = builder.create()
         dialog.show()
+    }
+    override fun onStart() {
+        super.onStart()
+        var uri = foto
+        binding.ivFoto.setImageURI(uri)
     }
 
 }

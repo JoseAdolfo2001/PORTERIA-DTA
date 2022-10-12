@@ -25,7 +25,7 @@ class RecordViewHolder(view: View):RecyclerView.ViewHolder(view) {
     var iv_type = view.findViewById<ImageView>(R.id.iv_type)
     var iv_is_exit = view.findViewById<ImageView>(R.id.iv_isExit)
     fun render(item:Record,btnFiltrar:Button,btnFechaFinal:Button,btnFechaInicial: Button
-               ,activity: AdminActivity,rv:RecyclerView) {
+               ,activity: AdminActivity,rv:RecyclerView,btnLimpiar:Button) {
         val formated = SimpleDateFormat("yyyy/MM/dd/HH-mm-ss", Locale.getDefault())
         var fecha = Date()
         fecha.time = item.data[FirebaseRecordDocument.DATE_TIME].toString().toLong()
@@ -51,6 +51,7 @@ class RecordViewHolder(view: View):RecyclerView.ViewHolder(view) {
         itemView.setOnClickListener(object :View.OnClickListener{
             override fun onClick(v: View?) {
                 btnFiltrar.visibility = View.GONE
+                btnLimpiar.visibility = View.GONE
                 btnFechaFinal.visibility = View.GONE
                 btnFechaInicial.visibility =View.GONE
                 rv.visibility =View.GONE

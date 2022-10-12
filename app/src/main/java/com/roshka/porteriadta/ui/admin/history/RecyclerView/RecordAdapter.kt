@@ -20,7 +20,7 @@ import com.roshka.porteriadta.ui.admin.history.HistoryDetails
 import com.roshka.porteriadta.ui.admin.history.HistoryRecordFragment
 import com.roshka.porteriadta.ui.admin.history.HistoryRecordViewModel
 
-class RecordAdapter(val listRecord:List<Record>,val btnFiltrar:Button,val btnInicial:Button,val btnFinal:Button,val activity: AdminActivity,
+class RecordAdapter(val listRecord:List<Record>,val btnFiltrar:Button,val btnLimpiar:Button,val btnInicial:Button,val btnFinal:Button,val activity: AdminActivity,
                     val rv:RecyclerView):RecyclerView.Adapter<RecordViewHolder>() {
 
 
@@ -34,7 +34,7 @@ class RecordAdapter(val listRecord:List<Record>,val btnFiltrar:Button,val btnIni
 
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
         val item = listRecord[position]
-        holder.render(item,btnFiltrar,btnInicial,btnFinal,activity,rv)
+        holder.render(item,btnFiltrar,btnInicial,btnFinal,activity,rv,btnLimpiar)
 
 
     }
