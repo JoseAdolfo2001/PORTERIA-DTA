@@ -46,13 +46,19 @@ class DisabledPorteroViewModel : ViewModel() {
                             if (member.data[FirebaseUsersDocument.ROL].toString() != "admin") {
                                 when (dc.type) {
                                     DocumentChange.Type.ADDED -> {
-                                        listAllUsers.add(dc.newIndex, member)
+                                        listAllUsers.add(member)
                                     }
                                     DocumentChange.Type.MODIFIED -> {
-                                        listAllUsers[dc.oldIndex] = member
+                                        val indice = listAllUsers.indexOf(member)
+                                        if (indice != -1) {
+                                            listAllUsers[indice] = member
+                                        }
                                     }
                                     DocumentChange.Type.REMOVED -> {
-                                        listAllUsers.removeAt(dc.oldIndex)
+                                        val indice = listAllUsers.indexOf(member)
+                                        if (indice != -1) {
+                                            listAllUsers.removeAt(indice)
+                                        }
                                     }
                                 }
                             }
