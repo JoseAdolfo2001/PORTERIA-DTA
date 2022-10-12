@@ -53,7 +53,7 @@ class HistoryRecordFragment : Fragment(), AdminActivity.IOnBackPressed {
         viewModel = ViewModelProvider(this)[HistoryRecordViewModel::class.java]
         binding.btnFechaInicial.setOnClickListener {
             val fecha1 = DatePickerFragment { year, month, day ->
-                binding.etFechaIniciial.setText(mostrarResultado(year, month, day))
+                binding.btnFechaInicial.setText(mostrarResultado(year, month, day))
                 val time = Time()
                 time.set(day, month - 1, year)
                 timeInMilliSeconds1 = time.toMillis(true)
@@ -63,7 +63,7 @@ class HistoryRecordFragment : Fragment(), AdminActivity.IOnBackPressed {
         }
         binding.btnFechaFinal.setOnClickListener {
             val fecha2 = DatePickerFragment { year, month, day ->
-                binding.etFechaFinal.setText(mostrarResultado(year, month, day))
+                binding.btnFechaFinal.setText(mostrarResultado(year, month, day))
                 val time = Time()
                 time.set(day, month - 1, year)
                 println(time)
@@ -80,8 +80,6 @@ class HistoryRecordFragment : Fragment(), AdminActivity.IOnBackPressed {
                 binding.btnFechaInicial,
                 binding.btnFechaFinal,
                 activity as AdminActivity,
-                binding.etFechaFinal,
-                binding.etFechaIniciial,
                 binding.rvRecord
             )
             binding.rvRecord.layoutManager = LinearLayoutManager(activity)
@@ -91,6 +89,8 @@ class HistoryRecordFragment : Fragment(), AdminActivity.IOnBackPressed {
             viewModel.onQueryTextChange(FilterParameters(timeInMilliSeconds1, timeInMilliSeconds2))
         }
         binding.btnLimpiar.setOnClickListener {
+            binding.btnFechaInicial.setText("Fecha inicial")
+            binding.btnFechaFinal.setText("Fecha final")
             viewModel.clean()
         }
     }

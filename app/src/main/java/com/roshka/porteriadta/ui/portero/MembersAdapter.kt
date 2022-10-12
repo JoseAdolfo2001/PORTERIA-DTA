@@ -28,7 +28,7 @@ class MembersAdapter(
                 "${member.data[FirebaseMemberDocument.NAME]} ${member.data[FirebaseMemberDocument.SURNAME]}"
             itemMemberBinding.tvCi.text = "Nº Cédula: ${member.ci}"
             val idMember = member.data[FirebaseMemberDocument.ID_MEMBER]
-            if (idMember == null) {
+            if (idMember == null || idMember == "") {
                 itemMemberBinding.tvSocio.visibility = View.GONE
             } else {
                 itemMemberBinding.tvSocio.text = "Nº Socio: $idMember"
@@ -42,7 +42,6 @@ class MembersAdapter(
                 Type.STAFF -> itemMemberBinding.typeMember.setImageResource(R.drawable.staff)
                 Type.INVITADO -> itemMemberBinding.typeMember.setImageResource(R.drawable.invitado)
                 Type.RESTATURANTE -> itemMemberBinding.typeMember.setImageResource(R.drawable.restaurante)
-                else -> itemMemberBinding.typeMember.setBackgroundResource(R.drawable.incognito)
             }
 
             if (member.data[FirebaseMemberDocument.IS_DEFAULTER] == true) {

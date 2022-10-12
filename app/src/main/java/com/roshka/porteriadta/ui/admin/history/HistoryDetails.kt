@@ -46,7 +46,11 @@ class HistoryDetails : Fragment(),AdminActivity.IOnBackPressed{
         if(dataholder != null){
             binding.tvNameSocio.text = dataholder.data[FirebaseRecordDocument.NAME_MEMBER].toString() +" "+ dataholder.data[FirebaseRecordDocument.SURNAME_MEMBER].toString()
             binding.tvCiSocio.text = "Cedula: " + dataholder.data[FirebaseRecordDocument.CI_MEMBER]
-            binding.tvNumeroSocio.text = "Nº Socio: " + dataholder.data[FirebaseRecordDocument.ID_MEMBER].toString()
+            if (dataholder.data[FirebaseRecordDocument.ID_MEMBER] != null) {
+                binding.tvNumeroSocio.text = "Nº Socio: " + dataholder.data[FirebaseRecordDocument.ID_MEMBER].toString()
+            } else {
+                binding.tvNumeroSocio.text = "Nº Socio: "
+            }
             binding.tvTipoSocio.text = "Tipo:"+ dataholder.data[FirebaseRecordDocument.TYPE].toString()
             if(dataholder.data[FirebaseRecordDocument.IS_EXIT] == true){
                 binding.tvEsSalida.text = "SALIO"

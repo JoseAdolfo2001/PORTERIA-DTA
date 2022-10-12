@@ -25,7 +25,7 @@ class RecordViewHolder(view: View):RecyclerView.ViewHolder(view) {
     var iv_type = view.findViewById<ImageView>(R.id.iv_type)
     var iv_is_exit = view.findViewById<ImageView>(R.id.iv_isExit)
     fun render(item:Record,btnFiltrar:Button,btnFechaFinal:Button,btnFechaInicial: Button
-               ,activity: AdminActivity,et1:EditText,et2:EditText,rv:RecyclerView) {
+               ,activity: AdminActivity,rv:RecyclerView) {
         val formated = SimpleDateFormat("yyyy/MM/dd/HH-mm-ss", Locale.getDefault())
         var fecha = Date()
         fecha.time = item.data[FirebaseRecordDocument.DATE_TIME].toString().toLong()
@@ -45,7 +45,6 @@ class RecordViewHolder(view: View):RecyclerView.ViewHolder(view) {
             Type.STAFF -> iv_type.setImageResource(R.drawable.staff)
             Type.INVITADO -> iv_type.setImageResource(R.drawable.invitado)
             Type.RESTATURANTE -> iv_type.setImageResource(R.drawable.restaurante)
-            else -> iv_type.setBackgroundResource(R.drawable.incognito)
         }
 
 
@@ -55,8 +54,6 @@ class RecordViewHolder(view: View):RecyclerView.ViewHolder(view) {
                 btnFechaFinal.visibility = View.GONE
                 btnFechaInicial.visibility =View.GONE
                 rv.visibility =View.GONE
-                et1.visibility = View.GONE
-                et2.visibility =View.GONE
                 val argumentNombre = Bundle()
                 argumentNombre.putSerializable("objeto",item)
                 val fragment = HistoryDetails()
