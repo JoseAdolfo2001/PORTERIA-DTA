@@ -13,174 +13,100 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constrain4"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="70dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline8">
 
-            <Button
-                android:id="@+id/btn_limpiar"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:background="@color/colorPrimary"
-                android:text="limpiar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="12dp"
+        <Button
+            android:id="@+id/btn_fecha_inicial"
+            android:layout_width="150dp"
+            android:layout_height="38dp"
+            android:background="@drawable/style_btn_foto"
+            android:paddingHorizontal="10dp"
+            android:text="Fecha inicial"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_fecha_final"
+            app:layout_constraintEnd_toStartOf="@+id/btn_fecha_final"
+            app:layout_constraintHorizontal_bias="0.576"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline8">
-
-            <Button
-                android:id="@+id/btn_filtrar"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:background="@color/colorPrimary"
-                android:text="filtrar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/et_fecha_iniciial"
-            tools:layout_editor_absoluteX="44dp">
-
-            <Button
-                android:id="@+id/btn_fecha_inicial"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginStart="12dp"
-                android:background="@drawable/style_btn_foto"
-                android:text="Fecha inicial"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <EditText
-            android:id="@+id/et_fecha_iniciial"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/edittext_background"
-            android:ems="10"
-            android:hint="dd/mm/yyyy"
-            android:inputType="textPersonName"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-            app:layout_constraintTop_toBottomOf="@+id/et_fecha_iniciial"
-            tools:layout_editor_absoluteX="44dp"
-            tools:ignore="MissingConstraints">
-
-            <Button
-                android:id="@+id/btn_fecha_final"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginStart="12dp"
-                android:background="@drawable/style_btn_foto"
-                android:text="Fecha final"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <EditText
-            android:id="@+id/et_fecha_final"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/edittext_background"
-            android:ems="10"
-            android:hint="dd/mm/yyyy"
-            android:inputType="textPersonName"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/et_fecha_iniciial" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="Filtrar por fecha"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.149"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_end="599dp" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_filtrar"
+            app:layout_constraintVertical_bias="0.04">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvRecord"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <Button
+            android:id="@+id/btn_fecha_final"
+            android:layout_width="150dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/style_btn_foto"
+            android:paddingHorizontal="10dp"
+            android:text="Fecha final"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.324"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+        <Button
+            android:id="@+id/btn_filtrar"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+
+            android:layout_marginTop="32dp"
+            android:background="@color/colorPrimary"
+            android:text="filtrar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.201"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_fecha_inicial"
+            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btn_limpiar"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/disabled"
+            android:text="limpiar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.746"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_fecha_final"
+            tools:ignore="TextContrastCheck" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
