@@ -39,7 +39,7 @@ class RecordViewHolder(view: View):RecyclerView.ViewHolder(view) {
         }else iv_is_exit.setImageResource(R.drawable.entrada)
         when (item.data[FirebaseMemberDocument.TYPE].toString()) {
             Type.SOCIO -> iv_type.setImageResource(R.drawable.socio)
-            Type.FIESTA -> iv_type.setImageResource(R.drawable.fiesta)
+            Type.EVENTOS -> iv_type.setImageResource(R.drawable.fiesta)
             Type.GIMNASIO -> iv_type.setImageResource(R.drawable.gimnasio)
             Type.GUARDERIA -> iv_type.setImageResource(R.drawable.guarderia)
             Type.STAFF -> iv_type.setImageResource(R.drawable.staff)

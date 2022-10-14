@@ -36,7 +36,7 @@ class MembersAdapter(
 
             when (member.data[FirebaseMemberDocument.TYPE].toString()) {
                 Type.SOCIO -> itemMemberBinding.typeMember.setImageResource(R.drawable.socio)
-                Type.FIESTA -> itemMemberBinding.typeMember.setImageResource(R.drawable.fiesta)
+                Type.EVENTOS -> itemMemberBinding.typeMember.setImageResource(R.drawable.fiesta)
                 Type.GIMNASIO -> itemMemberBinding.typeMember.setImageResource(R.drawable.gimnasio)
                 Type.GUARDERIA -> itemMemberBinding.typeMember.setImageResource(R.drawable.guarderia)
                 Type.STAFF -> itemMemberBinding.typeMember.setImageResource(R.drawable.staff)

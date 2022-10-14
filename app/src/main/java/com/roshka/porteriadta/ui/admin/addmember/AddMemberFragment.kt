@@ -33,7 +33,7 @@ class AddMemberFragment : Fragment() {
 
         _binding = FragmentAddMemberBinding.inflate(inflater, container, false)
 
-        val tipo = arrayOf("Socio", "Gimnasio", "Invitado", "Guarderia", "Fiesta", "Staff","Restaurante")
+        val tipo = arrayOf("Socio", "Gimnasio", "Invitado", "Guarderia", "Eventos", "Staff","Restaurante")
         val spinner = binding.spinner
         spinner.adapter = activity?.applicationContext?.let {
             ArrayAdapter(
