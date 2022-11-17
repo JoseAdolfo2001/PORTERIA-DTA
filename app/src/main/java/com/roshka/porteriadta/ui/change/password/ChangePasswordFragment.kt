@@ -41,65 +41,78 @@ class ChangePasswordFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[ChangePasswordViewModel::class.java]
         binding.updateBtn.setOnClickListener {
-            val password = binding.passEt.text.toString()
-            val newPass = binding.passNew.text.toString()
-            val newPassC = binding.passNewC.text.toString()
-            if (checkAllFields(password,newPass,newPassC)) {
+            val password = binding.passEt.text.toString().trim()
+            val newPass = binding.passNew.text.toString().trim()
+            val newPassC = binding.passNewC.text.toString().trim()
+            if (checkAllFields(password, newPass, newPassC)) {
                 it.visibility = View.GONE
                 binding.cargar.visibility = View.VISIBLE
-                viewModel.changePass(password, newPass, newPassC)
+                viewModel.changePass(password, newPass)
             }
         }
-        viewModel.code.observe(viewLifecycleOwner) {
-            if (it == 2) {
+        viewModel.isSuccessfulChange.observe(viewLifecycleOwner) {
+            if (it.isSuccessful) {
                 binding.updateBtn.visibility = View.VISIBLE
                 binding.cargar.visibility = View.GONE
-                updateDone()
+                messageToast(it.message)
                 val intent = Intent(activity, LoginActivity::class.java)
                 requireActivity().startActivity(intent)
-            }
-            if (it == 3) {
+            } else {
+                clean()
                 binding.updateBtn.visibility = View.VISIBLE
                 binding.cargar.visibility = View.GONE
-                currentPassWrong()
+                messageToast(it.message)
             }
         }
     }
-    private fun checkAllFields(password : String,newPass:String,newPassC:String): Boolean {
-        if (password.isEmpty() && newPass.isEmpty() && newPassC.isEmpty()) {
-            binding.passEt.error ="Campo Requerido"
-            binding.passNew.error="Campo Requerido"
-            binding.passNewC.error="Campo Requerido"
+
+    private fun checkAllFields(password: String, newPass: String, newPassC: String): Boolean {
+        if (password.isEmpty()) {
+            binding.passEt.error = "Campo Requerido"
             return false
         }
-        if (newPass != newPassC ) {
-            binding.passNew.error ="Contraseñas diferentes "
+
+        if (newPass.isEmpty()) {
+            binding.passNew.error = "Campo Requerido"
+            return false
+        }
+
+        if (newPassC.isEmpty()) {
+            binding.passNewC.error = "Campo Requerido"
+            return false
+        }
+
+        if (newPass != newPassC) {
+            binding.passNew.error = "Contraseñas diferentes"
+            binding.passNewC.error = "Contraseñas diferentes"
             binding.passNew.setText("")
             binding.passNewC.setText("")
             return false
         }
-        if(password==newPass) {
+
+        if (password == newPass) {
             binding.passNew.error = "Contraseña nueva igual a la actual"
             binding.passNew.setText("")
             return false
         }
-        if(newPass.length<6){
+
+        if (newPass.length < 6) {
             binding.passNew.error = "Contraseña tiene que ser mayor a 6 caracteres"
-            binding.passNewC.error = "Contraseña tiene que ser mayor a 6 caracteres"
             binding.passNew.setText("")
             binding.passNewC.setText("")
-
             return false
         }
 
         return true
     }
 
-    private fun currentPassWrong() {
-        binding.passEt.error = "Contraseña actual incorrecta"
-    }
-    private fun updateDone() {
-        Toast.makeText(activity,"Se Actualizo", Toast.LENGTH_SHORT).show()
+    private fun messageToast(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
+    private fun clean() {
+        binding.passEt.setText("")
+        binding.passNew.setText("")
+        binding.passNewC.setText("")
+    }
 }

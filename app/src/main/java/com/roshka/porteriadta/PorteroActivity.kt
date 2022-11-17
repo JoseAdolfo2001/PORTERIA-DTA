@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -15,6 +16,9 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.roshka.porteriadta.databinding.ActivityPorteroBinding
+import com.roshka.porteriadta.network.FirebaseCollections
+import com.roshka.porteriadta.network.FirebaseUsersDocument
+import com.roshka.porteriadta.ui.portero.PorteroActivityViewModel
 
 class PorteroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPorteroBinding
@@ -26,6 +30,9 @@ class PorteroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPorteroBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val model: PorteroActivityViewModel by viewModels()
+
 
         auth = FirebaseAuth.getInstance()
         fb = FirebaseFirestore.getInstance()
@@ -53,11 +60,14 @@ class PorteroActivity : AppCompatActivity() {
         val user = auth.currentUser
 
         if (user != null) {
-            fb.collection("Users").document(user.email.toString()).get()
+            fb.collection(FirebaseCollections.USERS).document(user.email.toString()).get()
                 .addOnSuccessListener {
-                    val name = it.get("Nombre").toString()
+                    val name = "${it.get(FirebaseUsersDocument.NAME)} ${it.get(FirebaseUsersDocument.SURNAME)}"
                     val nameUser = headerView.findViewById<TextView>(R.id.name_user)
                     nameUser.text = name
+                }
+                .addOnFailureListener {
+
                 }
         }
 

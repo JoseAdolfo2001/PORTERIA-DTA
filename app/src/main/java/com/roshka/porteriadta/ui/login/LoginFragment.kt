@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.roshka.porteriadta.AdminActivity
 import com.roshka.porteriadta.PorteroActivity
 import com.roshka.porteriadta.R
+import com.roshka.porteriadta.data.User
 import com.roshka.porteriadta.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -31,7 +32,6 @@ class LoginFragment : Fragment() {
         this.binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         binding.tvRecoverPassword.setOnClickListener {
-            clean()
             findNavController().navigate(R.id.action_loginFragment_to_recoveryDialog)
         }
 
@@ -47,9 +47,9 @@ class LoginFragment : Fragment() {
             if (checkAllFields()) {
                 it.visibility = View.GONE
                 binding.loading.visibility = View.VISIBLE
-                val email = binding.etEmail.text.toString()
-                val password = binding.etPassword.text.toString()
-                viewModel.loginUsers(email, password)
+                val email = binding.etEmail.text.toString().trim()
+                val password = binding.etPassword.text.toString().trim()
+                viewModel.loginUsers(User(email, password, mutableMapOf()))
             }
         }
     }
@@ -89,7 +89,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun checkAllFields(): Boolean {
-        val email = binding.etEmail.text.toString()
+        val email = binding.etEmail.text.toString().trim()
         if (email.isEmpty()) {
             binding.etEmail.error = "Este campo es requerido"
             return false
@@ -101,7 +101,7 @@ class LoginFragment : Fragment() {
             return false
         }
 
-        val password = binding.etPassword.text.toString()
+        val password = binding.etPassword.text.toString().trim()
         if (password.isEmpty()) {
             binding.etPassword.error = "Este campo es requerido"
             return false

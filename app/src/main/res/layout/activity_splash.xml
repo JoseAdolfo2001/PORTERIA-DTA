@@ -29,6 +29,7 @@
         android:layout_centerHorizontal="true"
         android:fontFamily="serif"
         android:text="Bienvenido"
+        android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/loading"
